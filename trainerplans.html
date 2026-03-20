@@ -47,16 +47,14 @@
         </header>
 
         <main id="cycling-content" class="bg-white p-6 rounded-xl shadow-lg">
-            <h2 class="text-2xl font-bold mb-2">Speed & Power Roadmap</h2>
+            <h2 class="text-2xl font-bold mb-2">14-Week Speed Roadmap</h2>
             
-            <!-- Target Card -->
             <div class="p-3 bg-blue-50 rounded-lg mb-4 border border-blue-200">
                 <h3 class="text-xs font-bold text-blue-800 uppercase tracking-wider mb-2">Event Objective</h3>
                 <p class="text-sm text-blue-900 font-medium">Beat 26.5 kph Average Speed</p>
-                <p class="text-[11px] text-blue-700 mt-1">Focus: Sustained power on climbs + high-speed group drafting.</p>
+                <p class="text-[11px] text-blue-700 mt-1">Focus: Fatigue resistance & holding 205W on Exmoor drags.</p>
             </div>
 
-            <!-- Stability Checklist -->
             <div class="p-3 bg-red-50 rounded-lg mb-4 border border-red-200">
                 <h3 class="text-xs font-bold text-red-800 uppercase tracking-wider mb-2">Stability Checklist (Z Fold 4)</h3>
                 <ul class="text-[11px] text-red-700 space-y-1">
@@ -65,15 +63,13 @@
                 </ul>
             </div>
 
-            <!-- Current Target Card -->
             <div class="p-4 bg-emerald-50 rounded-lg mb-4 border-l-4 border-emerald-500">
-                <h3 class="font-bold text-emerald-900">This Week's Speed Stimulus</h3>
-                <p class="text-xs text-emerald-800 leading-relaxed mb-3">
-                    <strong>Saturday:</strong> MyWhoosh Sweet Spot 15. 
-                    <br><strong>Intensity:</strong> Aim for <strong>205W</strong>. This high-end SST builds the muscular endurance needed to hold speed into a headwind.
+                <h3 class="font-bold text-emerald-900">Next Target Session</h3>
+                <p id="current-target-text" class="text-xs text-emerald-800 leading-relaxed mb-3">
+                    Select a week below to view specific targets.
                 </p>
                 <button id="copy-stats" class="w-full bg-white border border-emerald-200 text-emerald-700 text-xs font-bold py-2 rounded-lg hover:bg-emerald-100">
-                    📋 Copy Power Targets (196W-205W)
+                    📋 Copy Session Details
                 </button>
             </div>
             
@@ -85,73 +81,126 @@
             <h2 class="text-2xl font-bold mb-4">Power & Stability</h2>
             <ul class="space-y-3 text-sm">
                 <li class="p-3 bg-gray-50 rounded-lg border-l-2 border-blue-400">
-                    <strong>Explosive Step-ups:</strong> 3 x 8 per leg. (Builds climbing torque).
+                    <strong>Explosive Step-ups:</strong> 3 x 8 per leg. (Climbing torque).
                 </li>
                 <li class="p-3 bg-gray-50 rounded-lg border-l-2 border-blue-400">
-                    <strong>Side Plank with Leg Raise:</strong> 3 x 30s. (Hip stability for higher speeds).
+                    <strong>Side Plank:</strong> 3 x 45s. (Core endurance for 100 miles).
                 </li>
             </ul>
         </main>
 
         <main id="nutrition-content" class="bg-white p-6 rounded-xl shadow-lg hidden">
-            <h2 class="text-2xl font-bold mb-4">Fueling for Performance</h2>
+            <h2 class="text-2xl font-bold mb-4">Fueling for 27.5+ kph</h2>
             <div class="bg-orange-50 p-4 rounded-lg border-l-4 border-orange-500 text-sm">
-                <p><strong>The "Speed" Rule:</strong> Higher intensity burns more glycogen. On SST days, increase intake to 80g carbs/hr to prevent late-ride fade.</p>
+                <p><strong>Carb Loading:</strong> Start increasing carb intake 36 hours before Saturday SST sessions to practice for Nello weekend.</p>
             </div>
         </main>
 
         <footer class="mt-6 text-center text-gray-500 text-sm">
-            <p>Nello Speed Build v4.2</p>
+            <p>Nello Speed Build v5.0 (Full 14-Week Calendar)</p>
         </footer>
     </div>
 
     <script type="module">
         const cyclingPlan = {
             weeks: [
-                { week: 1, title: "Base + Stability", days: [
-                    { day: "Sat 21/03", description: "Sweet Spot 15 (2x15m). Target: 205W average for the blocks." },
-                    { day: "Sun 22/03", description: "Total Rest." },
-                    { day: "Mon 23/03", description: "90m Z2. Focus on flat back/aero position." }
+                { week: 1, title: "Base & Stability", target: "205W SST", days: [
+                    { day: "Sat 21/03", desc: "MyWhoosh: **Sweet Spot 15** (2x15m). Target: 205W." },
+                    { day: "Mon 23/03", desc: "90m Zone 2. Aerobic base building." }
                 ]},
-                { week: 2, title: "Extension Phase", days: [
-                    { day: "Sat 28/03", description: "Manual Extension: SST 15 + extra 10m Z3. Aim for 40m total work." },
-                    { day: "Tues/Thurs", description: "Group Rides: Take longer pulls at the front to build power." }
+                { week: 2, title: "Extension Phase I", target: "40m Volume", days: [
+                    { day: "Sat 28/03", desc: "MyWhoosh: **SST 15** + 10m extra Z3." },
+                    { day: "Mon 30/03", desc: "90m Z2 with 3 x 30s sprints." }
                 ]},
-                { week: 5, title: "Climbing Strength", days: [
-                    { day: "Sat 18/04", description: "MyWhoosh: **Over-Under #1**. Mimics the surges on Exmoor climbs." },
-                    { day: "Mon", description: "Longer Z2 (2 hours). Aerobic efficiency." }
+                { week: 3, title: "Extension Phase II", target: "45m Volume", days: [
+                    { day: "Sat 04/04", desc: "MyWhoosh: **Sweet Spot 20** (2x20m). Target: 205W." },
+                    { day: "Mon 06/04", desc: "100m Zone 2. Focus on nutrition." }
                 ]},
-                { week: 10, title: "Speed Peak", days: [
-                    { day: "Sat 23/05", description: "MyWhoosh: **Sweet Spot 30**. High volume intensity. 60m+ total work." },
-                    { day: "Sun", description: "Fatigue Resistance: 2hr Z2 on 'heavy legs'." }
+                { week: 4, title: "Recovery Week", target: "Consolidation", days: [
+                    { day: "Sat 11/04", desc: "45m Z1/Z2 Recovery Spin." },
+                    { day: "Mon 13/04", desc: "60m Z2. Easy legs." }
+                ]},
+                { week: 5, title: "Climbing Strength I", target: "Over-Unders", days: [
+                    { day: "Sat 18/04", desc: "MyWhoosh: **Over-Under #1** (3x9m). Under @ 210W, Over @ 235W." },
+                    { day: "Mon 20/04", desc: "2hrs Zone 2. Build endurance." }
+                ]},
+                { week: 6, title: "Climbing Strength II", target: "Sustained SST", days: [
+                    { day: "Sat 25/04", desc: "MyWhoosh: **Sweet Spot 30** (2x30m). Total 60m work." },
+                    { day: "Mon 27/04", desc: "2hrs Z2. Practice aero position." }
+                ]},
+                { week: 7, title: "Intensity Block", target: "Threshold Surges", days: [
+                    { day: "Sat 02/05", desc: "MyWhoosh: **Threshold 10** (3x10m @ 225W)." },
+                    { day: "Mon 04/05", desc: "2.5hrs Z2. Test Nello equipment/kit." }
+                ]},
+                { week: 8, title: "Recovery Week", target: "Rest", days: [
+                    { day: "Sat 09/05", desc: "60m Z2. Social ride pace." },
+                    { day: "Mon 11/05", desc: "Rest Day." }
+                ]},
+                { week: 9, title: "Nello Specificity I", target: "Long SST", days: [
+                    { day: "Sat 16/05", desc: "MyWhoosh: **Sweet Spot 45**. (1x45m block). Target: 200W." },
+                    { day: "Mon 18/05", desc: "3hrs Z2 (Outdoor if possible)." }
+                ]},
+                { week: 10, title: "Nello Specificity II", target: "Fatigue Resistance", days: [
+                    { day: "Sat 23/05", desc: "MyWhoosh: **SST 30** (2x30m @ 205W)." },
+                    { day: "Sun 24/05", desc: "Back-to-back: 2hr Z2 on tired legs." }
+                ]},
+                { week: 11, title: "The Peak Week", target: "Max Volume", days: [
+                    { day: "Sat 30/05", desc: "Long Outdoor Ride: 80-90 Miles. Z2/Z3 mixed." },
+                    { day: "Mon 01/06", desc: "90m Z2 Recovery." }
+                ]},
+                { week: 12, title: "Taper Phase I", target: "Reduce Volume", days: [
+                    { day: "Sat 06/06", desc: "MyWhoosh: **SST 15** (2x15m). High intensity, low duration." },
+                    { day: "Mon 08/06", desc: "60m Z2." }
+                ]},
+                { week: 13, title: "Taper Phase II", target: "Sharpness", days: [
+                    { day: "Sat 13/06", desc: "MyWhoosh: **Threshold 5** (3x5m @ 230W)." },
+                    { day: "Mon 15/06", desc: "45m Easy Spin." }
+                ]},
+                { week: 14, title: "Race Week", target: "🚩 THE NELLO", days: [
+                    { day: "Wed 24/06", desc: "30m Opener Ride. 2x1m @ FTP." },
+                    { day: "Sun 28/06", desc: "🚩 **THE NELLO 100**. Target: PB > 26.5 kph!" }
                 ]}
             ]
         };
 
         let currentWeek = 1;
+
         const renderWeekNav = () => {
             const nav = document.getElementById('week-nav');
             if (!nav) return;
             nav.innerHTML = cyclingPlan.weeks.map(w => `
-                <button onclick="window.setWeek(${w.week})" class="whitespace-nowrap text-sm py-2 px-6 rounded-full font-medium transition ${w.week === currentWeek ? 'bg-blue-600 text-white' : 'bg-gray-200 text-gray-700'}">
-                    Week ${w.week}
+                <button onclick="window.setWeek(${w.week})" class="whitespace-nowrap text-xs py-2 px-4 rounded-full font-medium transition ${w.week === currentWeek ? 'bg-blue-600 text-white shadow-md' : 'bg-gray-200 text-gray-700 hover:bg-gray-300'}">
+                    Wk ${w.week}
                 </button>
             `).join('');
         };
 
-        window.setWeek = (w) => { currentWeek = w; renderWeekNav(); renderWeekDetails(); };
+        window.setWeek = (w) => {
+            currentWeek = w;
+            renderWeekNav();
+            renderWeekDetails();
+            updateTargetCard();
+        };
+
+        const updateTargetCard = () => {
+            const week = cyclingPlan.weeks.find(w => w.week === currentWeek);
+            const targetText = document.getElementById('current-target-text');
+            if (week && targetText) {
+                targetText.innerHTML = `<strong>Week ${week.week} Goal:</strong> ${week.target}. <br>Focusing on ${week.title}.`;
+            }
+        };
 
         const renderWeekDetails = () => {
             const week = cyclingPlan.weeks.find(w => w.week === currentWeek) || cyclingPlan.weeks[0];
             const details = document.getElementById('week-details');
             if (!details) return;
             details.innerHTML = `
-                <h3 class="font-bold text-xl text-blue-900 mb-4">${week.title}</h3>
+                <h3 class="font-bold text-lg text-blue-900 mb-3">${week.title}</h3>
                 <ul class="space-y-3">
                     ${week.days.map(d => `
-                        <li class="bg-gray-50 p-4 rounded-xl border-l-4 border-blue-500">
-                            <h4 class="font-bold">${d.day}</h4>
-                            <p class="text-sm text-gray-600">${d.description}</p>
+                        <li class="bg-gray-50 p-4 rounded-xl border-l-4 border-blue-500 shadow-sm">
+                            <h4 class="font-bold text-sm text-gray-900">${d.day}</h4>
+                            <p class="text-xs text-gray-600 mt-1">${d.desc}</p>
                         </li>
                     `).join('')}
                 </ul>
@@ -180,7 +229,8 @@
         const toast = document.getElementById('toast');
         if (copyBtn) {
             copyBtn.onclick = () => {
-                const text = "Nello Speed Target: 205W. Workout: Sweet Spot 15.";
+                const week = cyclingPlan.weeks.find(w => w.week === currentWeek);
+                const text = `Nello Plan Week ${week.week}: ${week.target}. ${week.days[0].day}: ${week.days[0].desc}`;
                 const dummy = document.createElement("textarea");
                 document.body.appendChild(dummy);
                 dummy.value = text;
@@ -193,7 +243,7 @@
             };
         }
 
-        window.onload = () => { setupTabs(); renderWeekNav(); renderWeekDetails(); };
+        window.onload = () => { setupTabs(); renderWeekNav(); renderWeekDetails(); updateTargetCard(); };
     </script>
 </body>
 </html>

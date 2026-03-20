@@ -47,119 +47,73 @@
         </header>
 
         <main id="cycling-content" class="bg-white p-6 rounded-xl shadow-lg">
-            <h2 class="text-2xl font-bold mb-2">14-Week Speed Roadmap</h2>
+            <h2 class="text-2xl font-bold mb-2 text-blue-900">14-Week Performance Plan</h2>
             
             <div class="p-3 bg-blue-50 rounded-lg mb-4 border border-blue-200">
-                <h3 class="text-xs font-bold text-blue-800 uppercase tracking-wider mb-2">Event Objective</h3>
-                <p class="text-sm text-blue-900 font-medium">Beat 26.5 kph Average Speed</p>
-                <p class="text-[11px] text-blue-700 mt-1">Focus: Fatigue resistance & holding 205W on Exmoor drags.</p>
+                <h3 class="text-xs font-bold text-blue-800 uppercase tracking-wider mb-2">Structure & Rhythm</h3>
+                <p class="text-xs text-blue-900"><strong>Mon:</strong> Z2 | <strong>Tue:</strong> Group | <strong>Wed:</strong> Off | <strong>Thu:</strong> Group | <strong>Fri:</strong> Z2+Strength | <strong>Sat:</strong> MyWhoosh | <strong>Sun:</strong> Rest</p>
             </div>
 
-            <div class="p-3 bg-red-50 rounded-lg mb-4 border border-red-200">
-                <h3 class="text-xs font-bold text-red-800 uppercase tracking-wider mb-2">Stability Checklist (Z Fold 4)</h3>
-                <ul class="text-[11px] text-red-700 space-y-1">
-                    <li>• <strong>Restart Phone</strong> before rides >60m.</li>
-                    <li>• Launch via <strong>Game Hub</strong> (Balanced Mode).</li>
-                </ul>
-            </div>
+            <div id="week-nav" class="mb-6 flex overflow-x-auto py-2 gap-2 no-scrollbar"></div>
 
-            <div class="p-4 bg-emerald-50 rounded-lg mb-4 border-l-4 border-emerald-500">
-                <h3 class="font-bold text-emerald-900">Next Target Session</h3>
-                <p id="current-target-text" class="text-xs text-emerald-800 leading-relaxed mb-3">
-                    Select a week below to view specific targets.
-                </p>
-                <button id="copy-stats" class="w-full bg-white border border-emerald-200 text-emerald-700 text-xs font-bold py-2 rounded-lg hover:bg-emerald-100">
-                    📋 Copy Session Details
+            <div class="p-4 bg-emerald-50 rounded-lg mb-4 border-l-4 border-emerald-500 shadow-sm">
+                <h3 id="week-title-display" class="font-bold text-emerald-900">Week 1: Sweet Spot Build</h3>
+                <p id="week-target-display" class="text-xs text-emerald-800 mb-2 italic">Target: 200-210W Intervals</p>
+                <button id="copy-stats" class="w-full bg-white border border-emerald-200 text-emerald-700 text-[11px] font-bold py-2 rounded-lg hover:bg-emerald-100">
+                    📋 Copy Saturday Session
                 </button>
             </div>
             
-            <div id="week-nav" class="mb-6 flex overflow-x-auto py-2 gap-2 no-scrollbar"></div>
             <div id="week-details"></div>
         </main>
 
         <main id="calisthenics-content" class="bg-white p-6 rounded-xl shadow-lg hidden">
-            <h2 class="text-2xl font-bold mb-4">Power & Stability</h2>
+            <h2 class="text-2xl font-bold mb-4">Friday Strength (Cyclist Focus)</h2>
             <ul class="space-y-3 text-sm">
                 <li class="p-3 bg-gray-50 rounded-lg border-l-2 border-blue-400">
-                    <strong>Explosive Step-ups:</strong> 3 x 8 per leg. (Climbing torque).
+                    <strong>Bulgarian Split Squats:</strong> 3 x 10 per leg. Focus on controlled descent.
                 </li>
                 <li class="p-3 bg-gray-50 rounded-lg border-l-2 border-blue-400">
-                    <strong>Side Plank:</strong> 3 x 45s. (Core endurance for 100 miles).
+                    <strong>Goblet Squats:</strong> 3 x 12. Heavy enough to challenge core stability.
+                </li>
+                <li class="p-3 bg-gray-50 rounded-lg border-l-2 border-blue-400">
+                    <strong>Single-Leg Glute Bridges:</strong> 3 x 15 per leg. Crucial for hip health.
+                </li>
+                <li class="p-3 bg-gray-50 rounded-lg border-l-2 border-blue-400">
+                    <strong>Side Plank / Dead Bug:</strong> 3 sets for 45s. Core stability for long days.
                 </li>
             </ul>
         </main>
 
         <main id="nutrition-content" class="bg-white p-6 rounded-xl shadow-lg hidden">
-            <h2 class="text-2xl font-bold mb-4">Fueling for 27.5+ kph</h2>
+            <h2 class="text-2xl font-bold mb-4">Fueling for Speed</h2>
             <div class="bg-orange-50 p-4 rounded-lg border-l-4 border-orange-500 text-sm">
-                <p><strong>Carb Loading:</strong> Start increasing carb intake 36 hours before Saturday SST sessions to practice for Nello weekend.</p>
+                <p><strong>Saturday Fueling:</strong> Aim for 60-90g carbs per hour during the Key MyWhoosh sessions to adapt your gut for race day speed.</p>
             </div>
         </main>
 
         <footer class="mt-6 text-center text-gray-500 text-sm">
-            <p>Nello Speed Build v5.0 (Full 14-Week Calendar)</p>
+            <p>Nello Speed Build v6.0 • Fixed Pattern & Power Blocks</p>
         </footer>
     </div>
 
     <script type="module">
         const cyclingPlan = {
             weeks: [
-                { week: 1, title: "Base & Stability", target: "205W SST", days: [
-                    { day: "Sat 21/03", desc: "MyWhoosh: **Sweet Spot 15** (2x15m). Target: 205W." },
-                    { day: "Mon 23/03", desc: "90m Zone 2. Aerobic base building." }
-                ]},
-                { week: 2, title: "Extension Phase I", target: "40m Volume", days: [
-                    { day: "Sat 28/03", desc: "MyWhoosh: **SST 15** + 10m extra Z3." },
-                    { day: "Mon 30/03", desc: "90m Z2 with 3 x 30s sprints." }
-                ]},
-                { week: 3, title: "Extension Phase II", target: "45m Volume", days: [
-                    { day: "Sat 04/04", desc: "MyWhoosh: **Sweet Spot 20** (2x20m). Target: 205W." },
-                    { day: "Mon 06/04", desc: "100m Zone 2. Focus on nutrition." }
-                ]},
-                { week: 4, title: "Recovery Week", target: "Consolidation", days: [
-                    { day: "Sat 11/04", desc: "45m Z1/Z2 Recovery Spin." },
-                    { day: "Mon 13/04", desc: "60m Z2. Easy legs." }
-                ]},
-                { week: 5, title: "Climbing Strength I", target: "Over-Unders", days: [
-                    { day: "Sat 18/04", desc: "MyWhoosh: **Over-Under #1** (3x9m). Under @ 210W, Over @ 235W." },
-                    { day: "Mon 20/04", desc: "2hrs Zone 2. Build endurance." }
-                ]},
-                { week: 6, title: "Climbing Strength II", target: "Sustained SST", days: [
-                    { day: "Sat 25/04", desc: "MyWhoosh: **Sweet Spot 30** (2x30m). Total 60m work." },
-                    { day: "Mon 27/04", desc: "2hrs Z2. Practice aero position." }
-                ]},
-                { week: 7, title: "Intensity Block", target: "Threshold Surges", days: [
-                    { day: "Sat 02/05", desc: "MyWhoosh: **Threshold 10** (3x10m @ 225W)." },
-                    { day: "Mon 04/05", desc: "2.5hrs Z2. Test Nello equipment/kit." }
-                ]},
-                { week: 8, title: "Recovery Week", target: "Rest", days: [
-                    { day: "Sat 09/05", desc: "60m Z2. Social ride pace." },
-                    { day: "Mon 11/05", desc: "Rest Day." }
-                ]},
-                { week: 9, title: "Nello Specificity I", target: "Long SST", days: [
-                    { day: "Sat 16/05", desc: "MyWhoosh: **Sweet Spot 45**. (1x45m block). Target: 200W." },
-                    { day: "Mon 18/05", desc: "3hrs Z2 (Outdoor if possible)." }
-                ]},
-                { week: 10, title: "Nello Specificity II", target: "Fatigue Resistance", days: [
-                    { day: "Sat 23/05", desc: "MyWhoosh: **SST 30** (2x30m @ 205W)." },
-                    { day: "Sun 24/05", desc: "Back-to-back: 2hr Z2 on tired legs." }
-                ]},
-                { week: 11, title: "The Peak Week", target: "Max Volume", days: [
-                    { day: "Sat 30/05", desc: "Long Outdoor Ride: 80-90 Miles. Z2/Z3 mixed." },
-                    { day: "Mon 01/06", desc: "90m Z2 Recovery." }
-                ]},
-                { week: 12, title: "Taper Phase I", target: "Reduce Volume", days: [
-                    { day: "Sat 06/06", desc: "MyWhoosh: **SST 15** (2x15m). High intensity, low duration." },
-                    { day: "Mon 08/06", desc: "60m Z2." }
-                ]},
-                { week: 13, title: "Taper Phase II", target: "Sharpness", days: [
-                    { day: "Sat 13/06", desc: "MyWhoosh: **Threshold 5** (3x5m @ 230W)." },
-                    { day: "Mon 15/06", desc: "45m Easy Spin." }
-                ]},
-                { week: 14, title: "Race Week", target: "🚩 THE NELLO", days: [
-                    { day: "Wed 24/06", desc: "30m Opener Ride. 2x1m @ FTP." },
-                    { day: "Sun 28/06", desc: "🚩 **THE NELLO 100**. Target: PB > 26.5 kph!" }
-                ]}
+                { week: 1, title: "SST Build 1", target: "2x15m @ 200-210W", sat: "MyWhoosh: 2 x 15 mins Sweet Spot @ 200-210W. 5m rest between." },
+                { week: 2, title: "SST Build 2", target: "3x15m @ 200-210W", sat: "MyWhoosh: 3 x 15 mins Sweet Spot @ 200-210W. 5m rest between." },
+                { week: 3, title: "SST Build 3", target: "2x20m @ 200-210W", sat: "MyWhoosh: 2 x 20 mins Sweet Spot @ 200-210W. Plus 10m low-cadence (60rpm) @ 190W." },
+                { week: 4, title: "SST Peak", target: "3x20m @ 200-210W", sat: "MyWhoosh: 3 x 20 mins Sweet Spot @ 200-210W. The 'Engine Room' session." },
+                { week: 5, title: "Over-Unders 1", target: "4x8m Surges", sat: "MyWhoosh: 4 x 8 mins Over-Unders. (Alternating 1m @ 235W / 1m @ 205W)." },
+                { week: 6, title: "Over-Unders 2", target: "5x8m Surges", sat: "MyWhoosh: 5 x 8 mins Over-Unders. (Alternating 1m @ 240W / 1m @ 210W)." },
+                { week: 7, title: "Over-Unders 3", target: "3x12m Surges", sat: "MyWhoosh: 3 x 12 mins Over-Unders. (2m @ 230W / 2m @ 205W). Climbing strength focus." },
+                { week: 8, title: "Recovery / Consolidation", target: "Z2 Maintenance", sat: "90m Zone 2 easy outdoor ride or MyWhoosh endurance spin." },
+                { week: 9, title: "VO2 / Tempo Alt", target: "5x3m @ 250W+", sat: "MyWhoosh: 5 x 3 mins VO2 Max @ 245-270W. 3m recovery between." },
+                { week: 10, title: "Tempo Strength", target: "2x20m @ 180W", sat: "MyWhoosh: 2 x 20 mins Tempo @ 170-190W. Focus on low cadence (65rpm) to mimic steep drags." },
+                { week: 11, title: "Peak Intensity", target: "VO2 & Climbing", sat: "MyWhoosh: 6 x 3 mins @ 260W. Finish with 10m @ 195W steady." },
+                { week: 12, title: "Sustained Tempo", target: "1x45m @ 185W", sat: "MyWhoosh: 45 mins steady Tempo @ 180-190W. Endurance test." },
+                { week: 13, title: "Taper 1", target: "Race Pace Sharpening", sat: "MyWhoosh: 2 x 12 mins @ 205W + 3 x 30s sprints @ 270W." },
+                { week: 14, title: "Race Week", target: "🚩 THE NELLO", sat: "30m Openers: 2 x 2 mins @ 210W. Sunday: THE NELLO 100!" }
             ]
         };
 
@@ -184,23 +138,33 @@
 
         const updateTargetCard = () => {
             const week = cyclingPlan.weeks.find(w => w.week === currentWeek);
-            const targetText = document.getElementById('current-target-text');
-            if (week && targetText) {
-                targetText.innerHTML = `<strong>Week ${week.week} Goal:</strong> ${week.target}. <br>Focusing on ${week.title}.`;
-            }
+            document.getElementById('week-title-display').innerText = `Week ${week.week}: ${week.title}`;
+            document.getElementById('week-target-display').innerText = `Target: ${week.target}`;
         };
 
         const renderWeekDetails = () => {
-            const week = cyclingPlan.weeks.find(w => w.week === currentWeek) || cyclingPlan.weeks[0];
+            const week = cyclingPlan.weeks.find(w => w.week === currentWeek);
             const details = document.getElementById('week-details');
-            if (!details) return;
+            
+            const weeklySchedule = [
+                { day: "Monday", type: "Z2 Base", desc: "60-90m Zone 2. Focus on pedal stroke efficiency." },
+                { day: "Tuesday", type: "Group Ride (Hard)", desc: "Competitive effort. Practice drafting and holding speed." },
+                { day: "Wednesday", type: "Off / Recovery", desc: "Total rest or 30m active recovery spin < 100W." },
+                { day: "Thursday", type: "Group Ride (Hard)", desc: "Sprints or hill surges. 3rd hard day of the week." },
+                { day: "Friday", type: "Z2 + Strength", desc: "60m Z2 + Calisthenics session (see Strength tab)." },
+                { day: "Saturday", type: "Key Session", desc: week.sat },
+                { day: "Sunday", type: "Rest", desc: "Recovery for next week's block." }
+            ];
+
             details.innerHTML = `
-                <h3 class="font-bold text-lg text-blue-900 mb-3">${week.title}</h3>
-                <ul class="space-y-3">
-                    ${week.days.map(d => `
-                        <li class="bg-gray-50 p-4 rounded-xl border-l-4 border-blue-500 shadow-sm">
-                            <h4 class="font-bold text-sm text-gray-900">${d.day}</h4>
-                            <p class="text-xs text-gray-600 mt-1">${d.desc}</p>
+                <ul class="space-y-2">
+                    ${weeklySchedule.map(d => `
+                        <li class="bg-gray-50 p-3 rounded-lg border-l-4 ${d.day === 'Saturday' ? 'border-emerald-500 bg-emerald-50' : 'border-blue-400'} shadow-sm">
+                            <div class="flex justify-between items-start">
+                                <span class="font-bold text-xs text-gray-900">${d.day}</span>
+                                <span class="text-[10px] font-bold uppercase tracking-tighter ${d.type.includes('Hard') || d.day === 'Saturday' ? 'text-red-600' : 'text-blue-600'}">${d.type}</span>
+                            </div>
+                            <p class="text-[11px] text-gray-700 mt-1">${d.desc}</p>
                         </li>
                     `).join('')}
                 </ul>
@@ -210,38 +174,33 @@
         const setupTabs = () => {
             ['cycling', 'calisthenics', 'nutrition'].forEach(tab => {
                 const btn = document.getElementById(`${tab}-btn`);
-                if (btn) {
-                    btn.onclick = () => {
-                        ['cycling', 'calisthenics', 'nutrition'].forEach(t => {
-                            document.getElementById(`${t}-content`).classList.add('hidden');
-                            document.getElementById(`${t}-btn`).classList.replace('bg-blue-600', 'bg-gray-300');
-                            document.getElementById(`${t}-btn`).classList.replace('text-white', 'text-gray-700');
-                        });
-                        document.getElementById(`${tab}-content`).classList.remove('hidden');
-                        document.getElementById(`${tab}-btn`).classList.replace('bg-gray-300', 'bg-blue-600');
-                        document.getElementById(`${tab}-btn`).classList.replace('text-gray-700', 'text-white');
-                    };
-                }
+                btn.onclick = () => {
+                    ['cycling', 'calisthenics', 'nutrition'].forEach(t => {
+                        document.getElementById(`${t}-content`).classList.add('hidden');
+                        document.getElementById(`${t}-btn`).classList.replace('bg-blue-600', 'bg-gray-300');
+                        document.getElementById(`${t}-btn`).classList.replace('text-white', 'text-gray-700');
+                    });
+                    document.getElementById(`${tab}-content`).classList.remove('hidden');
+                    document.getElementById(`${tab}-btn`).classList.replace('bg-gray-300', 'bg-blue-600');
+                    document.getElementById(`${tab}-btn`).classList.replace('text-gray-700', 'text-white');
+                };
             });
         };
 
         const copyBtn = document.getElementById('copy-stats');
         const toast = document.getElementById('toast');
-        if (copyBtn) {
-            copyBtn.onclick = () => {
-                const week = cyclingPlan.weeks.find(w => w.week === currentWeek);
-                const text = `Nello Plan Week ${week.week}: ${week.target}. ${week.days[0].day}: ${week.days[0].desc}`;
-                const dummy = document.createElement("textarea");
-                document.body.appendChild(dummy);
-                dummy.value = text;
-                dummy.select();
-                document.execCommand("copy");
-                document.body.removeChild(dummy);
-                
-                toast.style.display = 'block';
-                setTimeout(() => { toast.style.display = 'none'; }, 2000);
-            };
-        }
+        copyBtn.onclick = () => {
+            const week = cyclingPlan.weeks.find(w => w.week === currentWeek);
+            const text = `Wk ${week.week} Sat MyWhoosh: ${week.sat}`;
+            const dummy = document.createElement("textarea");
+            document.body.appendChild(dummy);
+            dummy.value = text;
+            dummy.select();
+            document.execCommand("copy");
+            document.body.removeChild(dummy);
+            toast.style.display = 'block';
+            setTimeout(() => { toast.style.display = 'none'; }, 2000);
+        };
 
         window.onload = () => { setupTabs(); renderWeekNav(); renderWeekDetails(); updateTargetCard(); };
     </script>

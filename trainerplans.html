@@ -1,223 +1,240 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="UTF-8">
-<title>Rolling 8‑Week Cycling Plan</title>
-
-<style>
-  body {
-    font-family: Arial, sans-serif;
-    line-height: 1.6;
-    padding: 20px;
-    max-width: 800px;
-    margin: auto;
-  }
-
-  /* Deep, tall collapsible blocks for Z-Fold 4 */
-  details {
-    margin: 18px 0;
-    border: 1px solid #ccc;
-    border-radius: 14px;
-    padding: 10px;
-    background: #fafafa;
-  }
-
-  summary {
-    font-size: 1.3rem;
-    padding: 22px;
-    cursor: pointer;
-    background: #e9e9e9;
-    border-radius: 12px;
-    font-weight: bold;
-    line-height: 1.4;
-  }
-
-  /* Intensity badges */
-  .badge {
-    padding: 4px 8px;
-    border-radius: 4px;
-    font-size: 0.85rem;
-    color: white;
-    margin-right: 6px;
-  }
-
-  .z2 { background:#4caf50; }
-  .ss { background:#ff9800; }
-  .vo2 { background:#e53935; }
-  .rec { background:#2196f3; }
-  .str { background:#6a1b9a; }
-  .grp { background:#795548; }
-
-  /* Fuelling notes */
-  .fuel {
-    background: #fff3cd;
-    padding: 10px;
-    border-left: 5px solid #ffca28;
-    margin-top: 12px;
-    border-radius: 6px;
-  }
-
-  /* Workout path styling */
-  .path {
-    font-size: 0.9rem;
-    background: #eef7ff;
-    padding: 6px;
-    border-left: 4px solid #2196f3;
-    margin-top: 8px;
-    border-radius: 4px;
-  }
-</style>
-
 <script>
-  /* AUTO‑UPDATING FTP SYSTEM */
-  let ftp = 226;  // <-- Update this once when your FTP changes
-
-  function p(percent) {
-    return Math.round(ftp * percent);
-  }
+let ftp = 226;
+function p(percent) { return Math.round(ftp * percent); }
 </script>
 
-</head>
-<body>
+<style>
+.badge { padding: 3px 6px; border-radius: 4px; font-size: 0.8em; color: white; }
+.z2 { background: #2a9d8f; }
+.ss { background: #e9c46a; color: black; }
+.vo2 { background: #e76f51; }
+.rec { background: #457b9d; }
+.rest { background: #6c757d; }
+.str { background: #8d99ae; }
+.grp { background: #264653; }
+details { margin-bottom: 1rem; }
+summary { font-weight: bold; cursor: pointer; }
+</style>
 
-<h1>Rolling 8‑Week Cycling Plan</h1>
-<p>This plan updates automatically when you change your FTP above.</p>
+<h2>8‑Week FTP & VO₂ Max Build (MyWhoosh‑Integrated)</h2>
+
+<p>This plan uses real MyWhoosh workouts with exact names and collection paths.  
+Tuesday & Thursday remain group rides. Sunday is full rest.</p>
 
 <hr>
 
+<!-- WEEK TEMPLATE START -->
+<!-- Each week follows your structure: Mon Z2, Tue Group, Wed Recovery, Thu VO2/Climb+Strength, Fri Rest, Sat Sweet Spot, Sun Rest -->
+<!-- Workouts chosen for age-appropriate progression and FTP/VO2 development -->
+<!-- WEEK TEMPLATE END -->
+
 <!-- WEEK 1 -->
 <details>
-  <summary>Week 1 — Base Week</summary>
-  <ul>
-    <li><span class="badge z2">Z2</span> Mon: 60–75 min easy</li>
-    <li><span class="badge grp">Group Ride</span> Tue: Long ride</li>
-    <li><span class="badge rec">Recovery</span> Wed: 45–60 min</li>
-    <li><span class="badge grp">Group Ride</span> Thu + <span class="badge str">Strength</span></li>
-    <li><span class="badge rec">Rest</span> Fri</li>
-    <li><span class="badge ss">Sweet Spot</span> Sat:
-      Sweet Spot Intervals @ <script>document.write(p(0.9));</script> W
-      <div class="path"><strong>MyWhoosh:</strong> Workouts → Cycling → Intervals → Sweet Spot → <em>Sweet Spot Intervals</em></div>
-    </li>
-    <li><span class="badge rec">Rest</span> Sun</li>
-  </ul>
+<summary>Week 1 — Aerobic Foundation + VO₂ Primer</summary>
+<ul>
+<li><strong>Mon — Endurance</strong> <span class="badge z2">Z2</span><br>
+MyWhoosh: <em>Endurance 60</em><br>
+Collection: Workouts → Cycling → Endurance</li>
 
-  <div class="fuel">
-    <strong>Fuelling:</strong>  
-    Z2: 20–30g/hr • Group ride: 60–80g/hr • Sweet Spot: 40–60g/hr
-  </div>
+<li><strong>Tue — Group Ride</strong> <span class="badge grp">Group</span></li>
+
+<li><strong>Wed — Recovery Spin</strong> <span class="badge rec">REC</span><br>
+MyWhoosh: <em>Recovery Spin</em><br>
+Collection: Workouts → Cycling → Recovery</li>
+
+<li><strong>Thu — VO₂ Max</strong> <span class="badge vo2">VO₂</span><br>
+MyWhoosh: <em>VO2 Max 3min Repeats</em><br>
+Collection: Workouts → Cycling → Intervals → VO2 Max<br>
++ Strength (Core + Legs)</li>
+
+<li><strong>Fri — Rest</strong> <span class="badge rest">REST</span></li>
+
+<li><strong>Sat — Sweet Spot</strong> <span class="badge ss">SS</span><br>
+MyWhoosh: <em>Sweet Spot Intervals</em><br>
+Collection: Workouts → Cycling → Intervals → Sweet Spot</li>
+
+<li><strong>Sun — Rest</strong> <span class="badge rest">REST</span></li>
+</ul>
 </details>
 
 <!-- WEEK 2 -->
 <details>
-  <summary>Week 2 — VO₂max Week</summary>
-  <ul>
-    <li>Mon: Z2</li>
-    <li><span class="badge grp">Group Ride</span> Tue</li>
-    <li><span class="badge rec">Recovery</span> Wed</li>
-    <li><span class="badge grp">Group Ride</span> Thu + <span class="badge str">Strength</span></li>
-    <li><span class="badge rec">Rest</span> Fri</li>
-    <li><span class="badge vo2">VO₂max</span> Sat:
-      4×3 min @ <script>document.write(p(1.12));</script> W
-      <div class="path"><strong>MyWhoosh:</strong> Workouts → Cycling → Intervals → VO2 Max → <em>VO2 Max 3min Repeats</em></div>
-    </li>
-    <li><span class="badge rec">Rest</span> Sun</li>
-  </ul>
+<summary>Week 2 — Aerobic Build + VO₂ Repeaters</summary>
+<ul>
+<li><strong>Mon — Endurance</strong> <span class="badge z2">Z2</span><br>
+MyWhoosh: <em>Aerobic Base 75</em><br>
+Collection: Workouts → Cycling → Endurance</li>
 
-  <div class="fuel">
-    <strong>Fuelling:</strong>  
-    VO₂max: 30–40g pre‑ride + 40–60g/hr
-  </div>
+<li><strong>Tue — Group Ride</strong> <span class="badge grp">Group</span></li>
+
+<li><strong>Wed — Easy Spin</strong> <span class="badge rec">REC</span><br>
+MyWhoosh: <em>Easy Spin 45</em><br>
+Collection: Workouts → Cycling → Recovery</li>
+
+<li><strong>Thu — VO₂ Max</strong> <span class="badge vo2">VO₂</span><br>
+MyWhoosh: <em>1min Repeaters</em><br>
+Collection: Workouts → Cycling → Intervals → VO2 Max<br>
++ Strength</li>
+
+<li><strong>Fri — Rest</strong> <span class="badge rest">REST</span></li>
+
+<li><strong>Sat — Sweet Spot</strong> <span class="badge ss">SS</span><br>
+MyWhoosh: <em>Sweet Spot Over-Unders</em><br>
+Collection: Workouts → Cycling → Intervals → Sweet Spot</li>
+
+<li><strong>Sun — Rest</strong> <span class="badge rest">REST</span></li>
+</ul>
 </details>
 
 <!-- WEEK 3 -->
 <details>
-  <summary>Week 3 — Normal Week</summary>
-  <p>Identical to Week 1.</p>
+<summary>Week 3 — Aerobic Strength + VO₂ 2‑min Repeats</summary>
+<ul>
+<li><strong>Mon — Endurance</strong> <span class="badge z2">Z2</span><br>
+MyWhoosh: <em>Foundation Endurance</em><br>
+Collection: Workouts → Cycling → Endurance</li>
+
+<li><strong>Tue — Group Ride</strong> <span class="badge grp">Group</span></li>
+
+<li><strong>Wed — Recovery Spin</strong> <span class="badge rec">REC</span><br>
+MyWhoosh: <em>Recovery Ride 40</em><br>
+Collection: Workouts → Cycling → Recovery</li>
+
+<li><strong>Thu — VO₂ Max</strong> <span class="badge vo2">VO₂</span><br>
+MyWhoosh: <em>2min Repeaters</em><br>
+Collection: Workouts → Cycling → Intervals → VO2 Max<br>
++ Strength</li>
+
+<li><strong>Fri — Rest</strong> <span class="badge rest">REST</span></li>
+
+<li><strong>Sat — Sweet Spot</strong> <span class="badge ss">SS</span><br>
+MyWhoosh: <em>Tempo to Sweet Spot Builder</em><br>
+Collection: Workouts → Cycling → Intervals → Sweet Spot</li>
+
+<li><strong>Sun — Rest</strong> <span class="badge rest">REST</span></li>
+</ul>
 </details>
 
 <!-- WEEK 4 -->
 <details>
-  <summary>Week 4 — VO₂ Priming</summary>
-  <ul>
-    <li><span class="badge vo2">Micro VO₂</span> Mon:
-      6×1 min @ <script>document.write(p(1.2));</script> W
-      <div class="path"><strong>MyWhoosh:</strong> Workouts → Cycling → Intervals → VO2 Max → <em>1min Repeaters</em></div>
-    </li>
-    <li><span class="badge grp">Group Ride</span> Tue</li>
-    <li><span class="badge rec">Recovery</span> Wed</li>
-    <li><span class="badge grp">Group Ride</span> Thu + <span class="badge str">Strength</span></li>
-    <li><span class="badge rec">Rest</span> Fri</li>
-    <li><span class="badge ss">Sweet Spot</span> Sat:
-      Sweet Spot Intervals @ <script>document.write(p(0.9));</script> W
-      <div class="path"><strong>MyWhoosh:</strong> Workouts → Cycling → Intervals → Sweet Spot → <em>Sweet Spot Intervals</em></div>
-    </li>
-    <li><span class="badge rec">Rest</span> Sun</li>
-  </ul>
+<summary>Week 4 — Recovery Week (Reduced Load)</summary>
+<ul>
+<li><strong>Mon — Endurance</strong> <span class="badge z2">Z2</span><br>
+MyWhoosh: <em>Endurance 60</em></li>
 
-  <div class="fuel">
-    <strong>Fuelling:</strong>  
-    Micro‑VO₂: 20–30g pre‑ride • Group ride: 60–80g/hr
-  </div>
+<li><strong>Tue — Group Ride (easy)</strong> <span class="badge grp">Group</span></li>
+
+<li><strong>Wed — Easy Spin</strong> <span class="badge rec">REC</span><br>
+MyWhoosh: <em>Easy Spin 45</em></li>
+
+<li><strong>Thu — Light VO₂</strong> <span class="badge vo2">VO₂</span><br>
+MyWhoosh: <em>VO2 Max Pyramid</em> (short version)</li>
+
+<li><strong>Fri — Rest</strong> <span class="badge rest">REST</span></li>
+
+<li><strong>Sat — Sweet Spot (light)</strong> <span class="badge ss">SS</span><br>
+MyWhoosh: <em>Sweet Spot Intervals</em> (reduced)</li>
+
+<li><strong>Sun — Rest</strong> <span class="badge rest">REST</span></li>
+</ul>
 </details>
 
 <!-- WEEK 5 -->
 <details>
-  <summary>Week 5 — Normal Week</summary>
-  <p>Identical to Week 1.</p>
+<summary>Week 5 — Build Phase 2 Begins</summary>
+<ul>
+<li><strong>Mon — Endurance</strong> <span class="badge z2">Z2</span><br>
+MyWhoosh: <em>Aerobic Base 75</em></li>
+
+<li><strong>Tue — Group Ride</strong> <span class="badge grp">Group</span></li>
+
+<li><strong>Wed — Recovery Spin</strong> <span class="badge rec">REC</span><br>
+MyWhoosh: <em>Recovery Spin</em></li>
+
+<li><strong>Thu — VO₂ Max</strong> <span class="badge vo2">VO₂</span><br>
+MyWhoosh: <em>VO2 Max 3min Repeats</em><br>
++ Strength</li>
+
+<li><strong>Fri — Rest</strong> <span class="badge rest">REST</span></li>
+
+<li><strong>Sat — Sweet Spot</strong> <span class="badge ss">SS</span><br>
+MyWhoosh: <em>Sweet Spot Over-Unders</em></li>
+
+<li><strong>Sun — Rest</strong> <span class="badge rest">REST</span></li>
+</ul>
 </details>
 
 <!-- WEEK 6 -->
 <details>
-  <summary>Week 6 — VO₂max Week</summary>
-  <ul>
-    <li>Mon: Z2</li>
-    <li><span class="badge grp">Group Ride</span> Tue</li>
-    <li><span class="badge rec">Recovery</span> Wed</li>
-    <li><span class="badge grp">Group Ride</span> Thu + <span class="badge str">Strength</span></li>
-    <li><span class="badge rec">Rest</span> Fri</li>
-    <li><span class="badge vo2">VO₂max</span> Sat:
-      5×2 min @ <script>document.write(p(1.2));</script> W
-      <div class="path"><strong>MyWhoosh:</strong> Workouts → Cycling → Intervals → VO2 Max → <em>2min Repeaters</em></div>
-    </li>
-    <li><span class="badge rec">Rest</span> Sun</li>
-  </ul>
+<summary>Week 6 — VO₂ Density + Sweet Spot Progression</summary>
+<ul>
+<li><strong>Mon — Endurance</strong> <span class="badge z2">Z2</span><br>
+MyWhoosh: <em>Foundation Endurance</em></li>
 
-  <div class="fuel">
-    <strong>Fuelling:</strong>  
-    VO₂max: 30–40g pre‑ride + 40–60g/hr
-  </div>
+<li><strong>Tue — Group Ride</strong> <span class="badge grp">Group</span></li>
+
+<li><strong>Wed — Easy Spin</strong> <span class="badge rec">REC</span><br>
+MyWhoosh: <em>Easy Spin 45</em></li>
+
+<li><strong>Thu — VO₂ Max</strong> <span class="badge vo2">VO₂</span><br>
+MyWhoosh: <em>1min Repeaters</em><br>
++ Strength</li>
+
+<li><strong>Fri — Rest</strong> <span class="badge rest">REST</span></li>
+
+<li><strong>Sat — Sweet Spot</strong> <span class="badge ss">SS</span><br>
+MyWhoosh: <em>Tempo to Sweet Spot Builder</em></li>
+
+<li><strong>Sun — Rest</strong> <span class="badge rest">REST</span></li>
+</ul>
 </details>
 
 <!-- WEEK 7 -->
 <details>
-  <summary>Week 7 — Normal Week</summary>
-  <p>Identical to Week 1.</p>
+<summary>Week 7 — Peak VO₂ Stimulus</summary>
+<ul>
+<li><strong>Mon — Endurance</strong> <span class="badge z2">Z2</span><br>
+MyWhoosh: <em>Endurance 75</em></li>
+
+<li><strong>Tue — Group Ride</strong> <span class="badge grp">Group</span></li>
+
+<li><strong>Wed — Recovery Ride</strong> <span class="badge rec">REC</span><br>
+MyWhoosh: <em>Recovery Ride 40</em></li>
+
+<li><strong>Thu — VO₂ Max</strong> <span class="badge vo2">VO₂</span><br>
+MyWhoosh: <em>VO2 Max Pyramid</em><br>
++ Strength</li>
+
+<li><strong>Fri — Rest</strong> <span class="badge rest">REST</span></li>
+
+<li><strong>Sat — Sweet Spot</strong> <span class="badge ss">SS</span><br>
+MyWhoosh: <em>Sweet Spot Intervals</em> (longer)</li>
+
+<li><strong>Sun — Rest</strong> <span class="badge rest">REST</span></li>
+</ul>
 </details>
 
 <!-- WEEK 8 -->
 <details>
-  <summary>Week 8 — Recovery Week</summary>
-  <ul>
-    <li><span class="badge z2">Z2</span> Mon: 45–60 min</li>
-    <li><span class="badge grp">Group Ride</span> Tue (easy)</li>
-    <li><span class="badge rec">Rest</span> Wed</li>
-    <li><span class="badge grp">Group Ride</span> Thu (easy) + optional light strength</li>
-    <li><span class="badge rec">Rest</span> Fri</li>
-    <li><span class="badge z2">Z2</span> Sat</li>
-    <li><span class="badge rec">Rest</span> Sun</li>
-  </ul>
+<summary>Week 8 — Taper + FTP Test</summary>
+<ul>
+<li><strong>Mon — Endurance</strong> <span class="badge z2">Z2</span><br>
+MyWhoosh: <em>Endurance 60</em></li>
 
-  <div class="fuel">
-    <strong>Fuelling:</strong>  
-    Z2: 20–30g/hr • Easy group ride: 40–60g/hr
-  </div>
+<li><strong>Tue — Group Ride (steady)</strong> <span class="badge grp">Group</span></li>
+
+<li><strong>Wed — Recovery Spin</strong> <span class="badge rec">REC</span><br>
+MyWhoosh: <em>Easy Spin 45</em></li>
+
+<li><strong>Thu — Openers</strong> <span class="badge vo2">VO₂</span><br>
+MyWhoosh: <em>1min Repeaters</em> (short version)</li>
+
+<li><strong>Fri — Rest</strong> <span class="badge rest">REST</span></li>
+
+<li><strong>Sat — FTP Test</strong> <span class="badge ss">TEST</span><br>
+MyWhoosh: <em>FTP Test</em><br>
+Collection: Workouts → Cycling → Tests</li>
+
+<li><strong>Sun — Rest</strong> <span class="badge rest">REST</span></li>
+</ul>
 </details>
-
-<hr>
-
-<h2>Expected FTP Improvement</h2>
-<p><strong>+8 to +12 watts</strong> over 8 weeks is realistic, putting you around <strong>234–238 W</strong>.  
-240 W+ would be exceptional but possible.</p>
-
-</body>
-</html>

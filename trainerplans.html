@@ -1,537 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Rolling 8‑Week Cycling Plan</title>
+
 <style>
-
-/* ------------------------------ */
-/*   GENERAL PAGE LAYOUT          */
-/* ------------------------------ */
-
-body {
-  font-family: Arial, sans-serif;
-  line-height: 1.6;
-  margin: 20px;
-  max-width: 900px;
-}
-
-/* ------------------------------ */
-/*   COLLAPSIBLE SECTIONS         */
-/* ------------------------------ */
-
-.collapsible {
-  background-color: #f0f0f0;
-  color: #333;
-  cursor: pointer;
-  padding: 12px;
-  width: 100%;
-  border: none;
-  text-align: left;
-  font-size: 18px;
-  margin-top: 10px;
-  border-radius: 6px;
-}
-
-.active, .collapsible:hover {
-  background-color: #e0e0e0;
-}
-
-.content {
-  padding: 10px 18px;
-  display: none;
-  border-left: 3px solid #ccc;
-  margin-bottom: 10px;
-}
-
-/* ------------------------------ */
-/*   WEEK BUTTONS                 */
-/* ------------------------------ */
-
-.week-button {
-  background-color: #0078d4;
-  color: white;
-  padding: 10px 14px;
-  border: none;
-  border-radius: 6px;
-  cursor: pointer;
-  margin: 6px 0;
-  font-size: 17px;
-  width: 100%;
-  text-align: left;
-}
-
-.week-button:hover {
-  background-color: #005fa3;
-}
-
-.week-content {
-  display: none;
-  padding: 10px 18px;
-  border-left: 3px solid #0078d4;
-  margin-bottom: 12px;
-}
-
-/* ------------------------------ */
-/*   INTENSITY BADGES             */
-/* ------------------------------ */
-
-.badge {
-  padding: 3px 8px;
-  border-radius: 4px;
-  color: white;
-  font-size: 13px;
-  margin-left: 6px;
-}
-
-.z2 { background-color: #2e8b57; }      /* Green */
-.ss { background-color: #ff8c00; }      /* Orange */
-.thr { background-color: #d9534f; }     /* Red */
-.vo2 { background-color: #6a5acd; }     /* Purple */
-.rest { background-color: #808080; }    /* Grey */
-.str { background-color: #1e90ff; }     /* Blue */
-
-/* ------------------------------ */
-/*   ICONS (TEXT-BASED)           */
-/* ------------------------------ */
-
-.icon-bike { margin-right: 6px; }
-.icon-strength { margin-right: 6px; }
-.icon-rest { margin-right: 6px; }
-
-</style><!-- ========================= -->
-<!--   FUELLING & BREAKFAST    -->
-<!-- ========================= -->
-
-<h2>Nutrition Guidance</h2>
-
-<!-- FUELLING COLLAPSIBLE -->
-<button class="collapsible">🚴 Fuelling for Long Rides</button>
-<div class="content">
-  <p>Start fuelling 30–40 minutes into the ride and aim for 40–60 g carbs per hour.</p>
-
-  <h4>Before the Ride (2–2.5 hours prior)</h4>
-  <ul>
-    <li>Porridge with honey</li>
-    <li>White toast + jam</li>
-    <li>Bagel + honey</li>
-    <li>Rice Krispies + banana</li>
-  </ul>
-
-  <h4>First 60–90 Minutes</h4>
-  <ul>
-    <li>Begin fuelling after 30–40 minutes</li>
-    <li>Jelly babies, wine gums, cereal bars, carb drink</li>
-  </ul>
-
-  <h4>Coffee Stop</h4>
-  <ul>
-    <li>1–2 bars or a pastry</li>
-    <li>Flat white or sugary drink</li>
-  </ul>
-
-  <h4>Mid-Ride</h4>
-  <ul>
-    <li>40–60 g carbs/hr (mix of sweets, bars, carb drink)</li>
-  </ul>
-
-  <h4>Lunch Stop</h4>
-  <ul>
-    <li>White-bread sandwiches</li>
-    <li>Coke or lemonade</li>
-  </ul>
-</div>
-
-<!-- BREAKFAST COLLAPSIBLE -->
-<button class="collapsible">🥣 Pre‑Ride Breakfast Guidance</button>
-<div class="content">
-  <p>Choose low‑fibre, low‑fat, high‑carb foods 2–2.5 hours before riding.</p>
-
-  <h4>Best Options</h4>
-  <ul>
-    <li>Porridge (white oats) + honey</li>
-    <li>White toast + jam</li>
-    <li>Bagel + honey</li>
-    <li>Rice Krispies + banana</li>
-  </ul>
-
-  <h4>Avoid Before Riding</h4>
-  <ul>
-    <li>Soaked oats</li>
-    <li>Chia seeds, flax seeds, pumpkin seeds</li>
-    <li>Wholemeal bread</li>
-    <li>Heavy dairy</li>
-    <li>Peanut butter</li>
-  </ul>
-</div><!-- ========================= -->
-<!--     ROLLING 8-WEEK PLAN   -->
-<!-- ========================= -->
-
-<h2>Rolling 8‑Week Training Plan</h2>
-<p>This plan only needs updating if FTP changes by more than 10%.</p>
-
-<!-- WEEK 1 -->
-<button class="week-button" onclick="toggleWeek('week1')">Week 1</button>
-<div id="week1" class="week-content">
-
-  <p><strong>Monday</strong> — 🚴 Z2 Endurance <span class="badge z2">Z2</span><br>
-  90 minutes steady aerobic riding.</p>
-
-  <p><strong>Tuesday</strong> — 🚴 Long Group Ride <span class="badge z2">Z2</span><br>
-  Keep it conversational. No intensity targets.</p>
-
-  <p><strong>Wednesday</strong> — 🚴 Recovery Spin <span class="badge z2">Z2</span><br>
-  45–60 minutes very easy.</p>
-
-  <p><strong>Thursday</strong> — 🚴 Group Ride (Tempo Climbs) <span class="badge z2">Z2</span><span class="badge ss">Z3</span><br>
-  Ride the climbs at <strong>Tempo (Z3)</strong>. Flats easy.</p>
-
-  <p><strong>Friday</strong> — 💤 Rest Day <span class="badge rest">REST</span></p>
-
-  <p><strong>Saturday</strong> — 🚴 Sweet Spot 1 <span class="badge ss">SS</span><br>
-  3 × 8 min @ Sweet Spot with 4 min recovery.</p>
-
-  <p><strong>Sunday</strong> — 💤 Rest Day <span class="badge rest">REST</span></p>
-
-</div>
-
-<!-- WEEK 2 -->
-<button class="week-button" onclick="toggleWeek('week2')">Week 2</button>
-<div id="week2" class="week-content">
-
-  <p><strong>Monday</strong> — 🚴 Z2 Endurance <span class="badge z2">Z2</span><br>
-  90 minutes steady.</p>
-
-  <p><strong>Tuesday</strong> — 🚴 Long Group Ride <span class="badge z2">Z2</span></p>
-
-  <p><strong>Wednesday</strong> — 🚴 Recovery Spin <span class="badge z2">Z2</span></p>
-
-  <p><strong>Thursday</strong> — 🚴 Group Ride (Tempo Climbs) <span class="badge ss">Z3</span><br>
-  Ride climbs at <strong>Tempo (Z3)</strong>.</p>
-
-  <p><strong>Friday</strong> — 💤 Rest <span class="badge rest">REST</span></p>
-
-  <p><strong>Saturday</strong> — 🚴 Sweet Spot 2 <span class="badge ss">SS</span><br>
-  2 × 12 min @ Sweet Spot.</p>
-
-  <p><strong>Sunday</strong> — 💤 Rest <span class="badge rest">REST</span></p>
-
-</div>
-
-<!-- WEEK 3 -->
-<button class="week-button" onclick="toggleWeek('week3')">Week 3</button>
-<div id="week3" class="week-content">
-
-  <p><strong>Monday</strong> — 🚴 Z2 Endurance <span class="badge z2">Z2</span><br>
-  95 minutes.</p>
-
-  <p><strong>Tuesday</strong> — 🚴 Long Group Ride</p>
-
-  <p><strong>Wednesday</strong> — 🚴 Recovery Spin</p>
-
-  <p><strong>Thursday</strong> — 🚴 Group Ride (Sweet Spot Climbs) <span class="badge ss">SS</span><br>
-  Ride climbs at <strong>Sweet Spot (Z3/4)</strong>.</p>
-
-  <p><strong>Friday</strong> — 💤 Rest</p>
-
-  <p><strong>Saturday</strong> — 🚴 Sweet Spot 3 <span class="badge ss">SS</span><br>
-  3 × 10 min @ Sweet Spot.</p>
-
-  <p><strong>Sunday</strong> — 💤 Rest</p>
-
-</div>
-
-<!-- WEEK 4 -->
-<button class="week-button" onclick="toggleWeek('week4')">Week 4</button>
-<div id="week4" class="week-content">
-
-  <p><strong>Monday</strong> — 🚴 Z2 Endurance <span class="badge z2">Z2</span><br>
-  100 minutes.</p>
-
-  <p><strong>Tuesday</strong> — 🚴 Long Group Ride</p>
-
-  <p><strong>Wednesday</strong> — 🚴 Recovery Spin</p>
-
-  <p><strong>Thursday</strong> — 🚴 Group Ride (Sweet Spot Climbs) <span class="badge ss">SS</span></p>
-
-  <p><strong>Friday</strong> — 💤 Rest</p>
-
-  <p><strong>Saturday</strong> — 🚴 Sweet Spot 4 <span class="badge ss">SS</span><br>
-  2 × 15 min @ Sweet Spot.</p>
-
-  <p><strong>Sunday</strong> — 💤 Rest</p>
-
-</div>
-
-<!-- WEEK 5 -->
-<button class="week-button" onclick="toggleWeek('week5')">Week 5</button>
-<div id="week5" class="week-content">
-
-  <p><strong>Monday</strong> — 🚴 Z2 Endurance <span class="badge z2">Z2</span><br>
-  105 minutes.</p>
-
-  <p><strong>Tuesday</strong> — 🚴 Long Group Ride</p>
-
-  <p><strong>Wednesday</strong> — 🚴 Recovery Spin</p>
-
-  <p><strong>Thursday</strong> — 🚴 Group Ride (Threshold Climbs) <span class="badge thr">THR</span><br>
-  Ride climbs at <strong>Threshold (Z4)</strong>.</p>
-
-  <p><strong>Friday</strong> — 💤 Rest</p>
-
-  <p><strong>Saturday</strong> — 🚴 Sweet Spot 5 <span class="badge ss">SS</span><br>
-  3 × 12 min @ Sweet Spot.</p>
-
-  <p><strong>Sunday</strong> — 💤 Rest</p>
-
-</div>
-
-<!-- WEEK 6 -->
-<button class="week-button" onclick="toggleWeek('week6')">Week 6</button>
-<div id="week6" class="week-content">
-
-  <p><strong>Monday</strong> — 🚴 Z2 Endurance <span class="badge z2">Z2</span><br>
-  110 minutes.</p>
-
-  <p><strong>Tuesday</strong> — 🚴 Long Group Ride</p>
-
-  <p><strong>Wednesday</strong> — 🚴 Recovery Spin</p>
-
-  <p><strong>Thursday</strong> — 🚴 Group Ride (Threshold Climbs) <span class="badge thr">THR</span></p>
-
-  <p><strong>Friday</strong> — 💤 Rest</p>
-
-  <p><strong>Saturday</strong> — 🚴 Sweet Spot 6 <span class="badge ss">SS</span><br>
-  2 × 20 min @ Sweet Spot.</p>
-
-  <p><strong>Sunday</strong> — 💤 Rest</p>
-
-</div>
-
-<!-- WEEK 7 (RECOVERY WEEK) -->
-<button class="week-button" onclick="toggleWeek('week7')">Week 7 — Recovery Week</button>
-<div id="week7" class="week-content">
-
-  <p><strong>Monday</strong> — 🚴 Z2 Easy <span class="badge z2">Z2</span><br>
-  60 minutes.</p>
-
-  <p><strong>Tuesday</strong> — 🚴 Easy Group Ride</p>
-
-  <p><strong>Wednesday</strong> — 🚴 Recovery Spin</p>
-
-  <p><strong>Thursday</strong> — 🚴 Group Ride (Tempo Climbs Only) <span class="badge ss">Z3</span></p>
-
-  <p><strong>Friday</strong> — 💤 Rest</p>
-
-  <p><strong>Saturday</strong> — 🚴 Light Sweet Spot <span class="badge ss">SS</span><br>
-  2 × 8 min @ Sweet Spot.</p>
-
-  <p><strong>Sunday</strong> — 💤 Rest</p>
-
-</div>
-
-<!-- WEEK 8 -->
-<button class="week-button" onclick="toggleWeek('week8')">Week 8</button>
-<div id="week8" class="week-content">
-
-  <p><strong>Monday</strong> — 🚴 Z2 Endurance <span class="badge z2">Z2</span><br>
-  90 minutes.</p>
-
-  <p><strong>Tuesday</strong> — 🚴 Long Group Ride</p>
-
-  <p><strong>Wednesday</strong> — 🚴 Recovery Spin</p>
-
-  <p><strong>Thursday</strong> — 🚴 Group Ride (Sweet Spot Climbs) <span class="badge ss">SS</span><br>
-  If doing the Kolie Moore test this week, keep climbs Z2–Z3.</p>
-
-  <p><strong>Friday</strong> — 💤 Rest</p>
-
-  <p><strong>Saturday</strong> — 🚴 Kolie Moore Baseline Test <span class="badge thr">THR</span><br>
-  OR: 3 × 15 min @ Sweet Spot if not testing.</p>
-
-  <p><strong>Sunday</strong> — 💤 Rest</p>
-
-</div><!-- ========================= -->
-<!--     KOLIE MOORE GUIDE     -->
-<!-- ========================= -->
-
-<h2>Testing & Progress Tracking</h2>
-
-<button class="collapsible">📈 Kolie Moore Baseline Test Guide</button>
-<div class="content">
-
-  <p>The Kolie Moore Baseline Test is a steady-state FTP test that reflects real-world performance far better than a ramp test. It measures your true sustainable power, fatigue resistance, and pacing ability.</p>
-
-  <h3>Why Use This Test?</h3>
-  <ul>
-    <li>More accurate than ramp tests for trained riders</li>
-    <li>Reflects real climbing and endurance performance</li>
-    <li>Less dependent on VO2max “ceiling”</li>
-    <li>More repeatable and less noisy</li>
-    <li>Gives insight into durability, not just a single number</li>
-  </ul>
-
-  <h3>When to Use It</h3>
-  <ul>
-    <li>Every 8–10 weeks</li>
-    <li>Only if FTP has changed by more than 10%</li>
-    <li>After a recovery week (e.g., Week 8)</li>
-  </ul>
-
-  <h3>How the Test Works</h3>
-  <p>The Baseline Test is simple:</p>
-  <ol>
-    <li>10–15 min warm-up (include a few short efforts)</li>
-    <li>Start a long steady effort at your best guess of FTP</li>
-    <li>Hold that power as steadily as possible</li>
-    <li>Increase slightly in the final 3–5 minutes if you can</li>
-    <li>Stop when you can no longer maintain the target power</li>
-  </ol>
-
-  <p>Your FTP is the <strong>average power of the entire steady-state effort</strong>.</p>
-
-  <h3>Pacing Tips</h3>
-  <ul>
-    <li>Start at a power you could hold for 40–50 minutes</li>
-    <li>If you feel good at 10 minutes, hold steady</li>
-    <li>If you feel good at 15 minutes, add 2–5 watts</li>
-    <li>If you feel good at 20 minutes, add another 2–5 watts</li>
-    <li>Finish strong but controlled</li>
-  </ul>
-
-  <h3>What a Good Test Looks Like</h3>
-  <ul>
-    <li>Power is steady with a slight rise at the end</li>
-    <li>Heart rate rises gradually (cardiac drift)</li>
-    <li>You finish with nothing left but without blowing up early</li>
-  </ul>
-
-  <h3>Common Mistakes</h3>
-  <ul>
-    <li>Starting too hard (most common)</li>
-    <li>Using it like a 20-minute TT — it’s not</li>
-    <li>Spiking power on climbs or accelerations</li>
-    <li>Testing too often (stick to every 8–10 weeks)</li>
-  </ul>
-
-  <h3>How It Fits Into Your Rolling Plan</h3>
-  <ul>
-    <li>Placed in <strong>Week 8</strong> of each block</li>
-    
-    <li>Thursday climbs reduced to Z2–Z3 if testing</li>
-    <li>FTP only updated if change is >10%</li>
-    <li>Plan continues unchanged if FTP is stable</li>
-  </ul>
-
-  <p>This test gives you a realistic, stable FTP that matches how you actually ride outdoors.</p>
-<h3>MyWhoosh 20‑Minute FTP Test — Pacing Strategy</h3>
-<p>This pacing plan prevents both early blow‑ups and undercooking the test. It is based on your current FTP (≈225 W) and is designed to produce a smooth, rising power curve.</p>
-
-<h4>Target Power</h4>
-<ul>
-  <li>Aim for an average of <strong>235–245 W</strong> (≈105–108% of FTP)</li>
-  <li>This should give an FTP result of <strong>225–230 W</strong></li>
-</ul>
-
-<h4>Minute‑by‑Minute Pacing</h4>
-<ul>
-  <li><strong>0–3 minutes:</strong> 230 W — “too easy” on purpose</li>
-  <li><strong>3–10 minutes:</strong> 235–238 W — settle into the effort</li>
-  <li><strong>10–15 minutes:</strong> 240 W — controlled discomfort</li>
-  <li><strong>15–18 minutes:</strong> 245 W — tighten the screws</li>
-  <li><strong>18–20 minutes:</strong> 250+ W — empty the tank</li>
-</ul>
-
-<h4>How It Should Feel</h4>
-<ul>
-  <li>The first 3 minutes feel easier than expected</li>
-  <li>The middle 10 minutes feel like a grind but sustainable</li>
-  <li>The final 5 minutes are the hardest of the test</li>
-  <li>You finish with nothing left, but without blowing up early</li>
-</ul>
-
-<h4>Signs of Good Pacing</h4>
-<ul>
-  <li>Power is steady or slightly rising</li>
-  <li>No big spikes or early drop‑offs</li>
-  <li>You can lift power in the final 3–5 minutes</li>
-</ul>
-
-<h4>Signs You Started Too Hard</h4>
-<ul>
-  <li>You fade after 8–10 minutes</li>
-  <li>Your final 2 minutes are lower than the middle</li>
-  <li>Breathing is ragged early in the test</li>
-</ul>
-
-<p>This pacing strategy gives you a stable, accurate 20‑minute result that aligns closely with your real‑world performance.</p>
-</div><!-- ========================= -->
-<!--     INTERACTIVE SCRIPTS   -->
-<!-- ========================= -->
-
-<script>
-
-/* -------------------------------------- */
-/*   COLLAPSIBLE SECTIONS (Fuelling etc.) */
-/* -------------------------------------- */
-
-var collapsibles = document.getElementsByClassName("collapsible");
-for (let i = 0; i < collapsibles.length; i++) {
-  collapsibles[i].addEventListener("click", function () {
-    this.classList.toggle("active");
-    var content = this.nextElementSibling;
-    content.style.display = content.style.display === "block" ? "none" : "block";
-  });
-}
-
-/* -------------------------------------- */
-/*   WEEK TOGGLE BUTTONS                  */
-/* -------------------------------------- */
-
-function toggleWeek(id) {
-  const section = document.getElementById(id);
-  section.style.display = section.style.display === "none" ? "block" : "none";
-}
-
-/* -------------------------------------- */
-/*   FUELLING CALCULATOR                  */
-/* -------------------------------------- */
-
-function calculateFuel() {
-  const duration = parseInt(document.getElementById("rideDuration").value);
-
-  if (!duration || duration < 30) {
-    document.getElementById("fuelResult").innerHTML =
-      "<p>Please enter a ride duration of at least 30 minutes.</p>";
-    return;
+  body {
+    font-family: Arial, sans-serif;
+    line-height: 1.6;
+    padding: 20px;
+    max-width: 800px;
+    margin: auto;
   }
 
-  // Recommended carbs per hour
-  let carbsPerHour = 40;
-  if (duration >= 120) carbsPerHour = 50;
-  if (duration >= 180) carbsPerHour = 60;
+  /* Collapsible blocks */
+  details {
+    margin: 14px 0;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    padding: 6px;
+    background: #fafafa;
+  }
 
-  const totalCarbs = Math.round((duration / 60) * carbsPerHour);
+  summary {
+    font-size: 1.15rem;
+    padding: 14px;
+    cursor: pointer;
+    background: #f0f0f0;
+    border-radius: 8px;
+    font-weight: bold;
+  }
 
-  document.getElementById("fuelResult").innerHTML = `
-    <h4>Recommended Fuel</h4>
-    <p><strong>${carbsPerHour} g carbs per hour</strong></p>
-    <p>Total for this ride: <strong>${totalCarbs} g carbs</strong></p>
+  /* Intensity badges */
+  .badge {
+    padding: 3px 7px;
+    border-radius: 4px;
+    font-size: 0.8rem;
+    color: white;
+    margin-right: 6px;
+  }
 
-    <h4>Examples</h4>
-    <ul>
-      <li>${Math.round(totalCarbs / 25)} × cereal bars (25 g each)</li>
-      <li>${Math.round(totalCarbs / 20)} × handfuls of jelly babies (20 g each)</li>
-      <li>${Math.round(totalCarbs / 60)} × bottles of carb drink (60 g each)</li>
-    </ul>
-  `;
-}
+  .z2 { background:#4caf50; }
+  .ss { background:#ff9800; }
+  .vo2 { background:#e53935; }
+  .rec { background:#2196f3; }
+  .str { background:#6a1b9a; }
+  .grp { background:#795548; }
 
+  /* Fuelling notes */
+  .fuel {
+    background: #fff3cd;
+    padding: 8px;
+    border-left: 4px solid #ffca28;
+    margin-top: 10px;
+    border-radius: 4px;
+  }
+</style>
+
+<script>
+  /* AUTO‑UPDATING FTP SYSTEM */
+  let ftp = 226;  // <-- Update this once when your FTP changes
+
+  function p(percent) {
+    return Math.round(ftp * percent);
+  }
 </script>
 
-<!-- ========================= -->
-<!--     FUELLING CALCULATOR   -->
-<!-- ========================= -->
+</head>
+<body>
 
-<h2>Fuelling Calculator</h2>
-<p>Enter your planned ride duration to get recommended fuelling.</p>
+<h1>Rolling 8‑Week Cycling Plan</h1>
+<p>This plan updates automatically when you change your FTP above.</p>
 
-<input type="number" id="rideDuration" placeholder="Ride duration (minutes)" style="padding:8px; width:200px;">
-<button onclick="calculateFuel()" style="padding:8px 12px; margin-left:10px;">Calculate</button>
+<hr>
 
-<div id="fuelResult" style="margin-top:15px;"></div>
+<!-- WEEK 1 -->
+<details>
+  <summary>Week 1 — Base Week</summary>
+  <ul>
+    <li><span class="badge z2">Z2</span> Mon: 60–75 min easy</li>
+    <li><span class="badge grp">Group Ride</span> Tue: Long ride</li>
+    <li><span class="badge rec">Recovery</span> Wed: 45–60 min</li>
+    <li><span class="badge grp">Group Ride</span> Thu + <span class="badge str">Strength</span></li>
+    <li><span class="badge rec">Rest</span> Fri</li>
+    <li><span class="badge ss">Sweet Spot</span> Sat:
+      2×20 min @ <script>document.write(p(0.9));</script> W
+    </li>
+    <li><span class="badge rec">Rest</span> Sun</li>
+  </ul>
+
+  <div class="fuel">
+    <strong>Fuelling:</strong>  
+    Z2: 20–30g/hr • Group ride: 60–80g/hr • Sweet Spot: 40–60g/hr
+  </div>
+</details>
+
+<!-- WEEK 2 -->
+<details>
+  <summary>Week 2 — VO₂max Week</summary>
+  <ul>
+    <li>Mon: Z2</li>
+    <li><span class="badge grp">Group Ride</span> Tue</li>
+    <li><span class="badge rec">Recovery</span> Wed</li>
+    <li><span class="badge grp">Group Ride</span> Thu + <span class="badge str">Strength</span></li>
+    <li><span class="badge rec">Rest</span> Fri</li>
+    <li><span class="badge vo2">VO₂max</span> Sat:
+      4×3 min @ <script>document.write(p(1.12));</script> W
+    </li>
+    <li><span class="badge rec">Rest</span> Sun</li>
+  </ul>
+
+  <div class="fuel">
+    <strong>Fuelling:</strong>  
+    VO₂max: 30–40g pre‑ride + 40–60g/hr
+  </div>
+</details>
+
+<!-- WEEK 3 -->
+<details>
+  <summary>Week 3 — Normal Week</summary>
+  <p>Identical to Week 1.</p>
+</details>
+
+<!-- WEEK 4 -->
+<details>
+  <summary>Week 4 — VO₂ Priming</summary>
+  <ul>
+    <li><span class="badge vo2">Micro VO₂</span> Mon:
+      6×1 min @ <script>document.write(p(1.2));</script> W
+    </li>
+    <li><span class="badge grp">Group Ride</span> Tue</li>
+    <li><span class="badge rec">Recovery</span> Wed</li>
+    <li><span class="badge grp">Group Ride</span> Thu + <span class="badge str">Strength</span></li>
+    <li><span class="badge rec">Rest</span> Fri</li>
+    <li><span class="badge ss">Sweet Spot</span> Sat</li>
+    <li><span class="badge rec">Rest</span> Sun</li>
+  </ul>
+
+  <div class="fuel">
+    <strong>Fuelling:</strong>  
+    Micro‑VO₂: 20–30g pre‑ride • Group ride: 60–80g/hr
+  </div>
+</details>
+
+<!-- WEEK 5 -->
+<details>
+  <summary>Week 5 — Normal Week</summary>
+  <p>Identical to Week 1.</p>
+</details>
+
+<!-- WEEK 6 -->
+<details>
+  <summary>Week 6 — VO₂max Week</summary>
+  <ul>
+    <li>Mon: Z2</li>
+    <li><span class="badge grp">Group Ride</span> Tue</li>
+    <li><span class="badge rec">Recovery</span> Wed</li>
+    <li><span class="badge grp">Group Ride</span> Thu + <span class="badge str">Strength</span></li>
+    <li><span class="badge rec">Rest</span> Fri</li>
+    <li><span class="badge vo2">VO₂max</span> Sat:
+      5×2 min @ <script>document.write(p(1.2));</script> W
+    </li>
+    <li><span class="badge rec">Rest</span> Sun</li>
+  </ul>
+
+  <div class="fuel">
+    <strong>Fuelling:</strong>  
+    VO₂max: 30–40g pre‑ride + 40–60g/hr
+  </div>
+</details>
+
+<!-- WEEK 7 -->
+<details>
+  <summary>Week 7 — Normal Week</summary>
+  <p>Identical to Week 1.</p>
+</details>
+
+<!-- WEEK 8 -->
+<details>
+  <summary>Week 8 — Recovery Week</summary>
+  <ul>
+    <li><span class="badge z2">Z2</span> Mon: 45–60 min</li>
+    <li><span class="badge grp">Group Ride</span> Tue (easy)</li>
+    <li><span class="badge rec">Rest</span> Wed</li>
+    <li><span class="badge grp">Group Ride</span> Thu (easy) + optional light strength</li>
+    <li><span class="badge rec">Rest</span> Fri</li>
+    <li><span class="badge z2">Z2</span> Sat</li>
+    <li><span class="badge rec">Rest</span> Sun</li>
+  </ul>
+
+  <div class="fuel">
+    <strong>Fuelling:</strong>  
+    Z2: 20–30g/hr • Easy group ride: 40–60g/hr
+  </div>
+</details>
+
+<hr>
+
+<h2>Expected FTP Improvement</h2>
+<p><strong>+8 to +12 watts</strong> over 8 weeks is realistic, putting you around <strong>234–238 W</strong>.  
+240 W+ would be exceptional but possible.</p>
+
+</body>
+</html>

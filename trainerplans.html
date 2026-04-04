@@ -74,11 +74,11 @@
     color: white;
   }
 
-  .rec { background: #60A5FA; }
-  .end { background: #22C55E; }
-  .ss  { background: #F97316; }
-  .thr { background: #EF4444; }
-  .neu { background: #A855F7; }
+  .rec { background: #60A5FA; }      /* Recovery */
+  .end { background: #22C55E; }      /* Endurance */
+  .ss  { background: #F97316; }      /* Sweet Spot */
+  .thr { background: #EF4444; }      /* Threshold */
+  .neu { background: #A855F7; }      /* Neuromuscular */
 
   /* Navigation Buttons */
   .nav-buttons {
@@ -109,6 +109,9 @@
 
 <!-- Navigation Buttons -->
 <div class="nav-buttons">
+  <button onclick="document.getElementById('ftp-test').scrollIntoView({behavior:'smooth'});">
+    FTP Test
+  </button>
   <button onclick="document.getElementById('strength-and-mobility').scrollIntoView({behavior:'smooth'});">
     Strength & Mobility
   </button>
@@ -124,7 +127,7 @@
 </div>
 
 <!-- ========================= -->
-<!-- WEEK 1–8 (YOUR ORIGINAL PLAN) -->
+<!-- WEEK 1–8 (ORIGINAL PLAN) -->
 <!-- ========================= -->
 
 <!-- WEEK 1 -->
@@ -291,7 +294,83 @@
 </details>
 
 <!-- ========================= -->
-<!-- NEW SECTIONS BELOW -->
+<!-- FTP TEST PROTOCOL (NEW) -->
+<!-- ========================= -->
+
+<section id="ftp-test">
+<details>
+  <summary><strong>20‑Minute FTP Test Protocol</strong></summary>
+  <ul>
+    <li><strong>Goal:</strong> Estimate FTP using a 20‑minute maximal effort, with proper warm‑up and pacing.</li>
+
+    <li><strong>Warm‑Up (20–25 min):</strong>
+      <ul>
+        <li>10 min easy Z2 spinning.</li>
+        <li>3 × 1 min at ~FTP with 1 min easy between.</li>
+        <li>5 min easy.</li>
+        <li>Optional: 1 × 30s hard (above FTP), 2–3 min easy after.</li>
+      </ul>
+    </li>
+
+    <li><strong>5‑Minute Blowout Effort:</strong>
+      <ul>
+        <li>Ride 5 min hard, around 110–120% of your current FTP or “very hard but controlled”.</li>
+        <li>Purpose: open up the system and reduce anaerobic contribution in the 20‑min test.</li>
+      </ul>
+    </li>
+
+    <li><strong>Recovery Before Test:</strong>
+      <ul>
+        <li>10 min very easy spinning (Z1–low Z2).</li>
+        <li>Drink, relax shoulders, settle breathing.</li>
+      </ul>
+    </li>
+
+    <li><strong>20‑Minute Test Pacing:</strong>
+      <ul>
+        <li><strong>Minutes 0–3:</strong> Slightly conservative. Aim for ~95–97% of what you think you can hold for 20 min.</li>
+        <li><strong>Minutes 3–15:</strong> Settle into a steady effort. Breathing hard but controlled, RPE ~8/10.</li>
+        <li><strong>Minutes 15–18:</strong> If you’ve paced well, gently lift power 2–5%.</li>
+        <li><strong>Minutes 18–20:</strong> Empty the tank. No big sprint, just hold or slightly lift to the line.</li>
+      </ul>
+    </li>
+
+    <li><strong>How It Should Feel:</strong>
+      <ul>
+        <li>First 5 min: “This feels hard, but I can do it.”</li>
+        <li>Middle 10 min: “This is tough, I need to focus to hold it.”</li>
+        <li>Last 5 min: “I’m counting down seconds, but not blowing up completely.”</li>
+      </ul>
+    </li>
+
+    <li><strong>Calculating FTP:</strong>
+      <ul>
+        <li>Take your <strong>average power for the 20‑minute test</strong>.</li>
+        <li>Multiply by <strong>0.95</strong> to estimate FTP.</li>
+        <li>Example: 250 W average × 0.95 ≈ 238 W FTP.</li>
+      </ul>
+    </li>
+
+    <li><strong>Post‑Test Notes:</strong>
+      <ul>
+        <li>Record: average power, average HR, RPE, and how pacing felt.</li>
+        <li>If you faded badly in the last 5 min, you likely started too hard.</li>
+        <li>If you finished with too much left, you likely started too easy.</li>
+      </ul>
+    </li>
+
+    <li><strong>When to Re‑Test:</strong>
+      <ul>
+        <li>Every 6–8 weeks, or after a clear jump in fitness.</li>
+        <li>In your rolling plan, only adjust targets if FTP changes by ~10% or more.</li>
+      </ul>
+    </li>
+  </ul>
+</details>
+</section>
+
+<!-- ========================= -->
+<!-- STRENGTH & MOBILITY -->
 <!-- ========================= -->
 
 <section id="strength-and-mobility">

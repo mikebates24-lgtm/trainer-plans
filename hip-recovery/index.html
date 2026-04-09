@@ -42,10 +42,26 @@
     <h1>Hip Recovery Exercise Guide</h1>
 
     <div class="section">
-        <div class="placeholder">
-            This page will guide users through selecting age, weight, and recovery stage to view general exercise suggestions.
-        </div>
+        <div id="selection-area">
+
+    <h2>Select Age Group</h2>
+    <div class="button-row">
+        <button class="select-btn" data-age="under60">Under 60</button>
+        <button class="select-btn" data-age="60to75">60–75</button>
+        <button class="select-btn" data-age="over75">75+</button>
     </div>
 
-</body>
-</html>
+    <h2>Select Weight Category</h2>
+    <div class="button-row">
+        <button class="select-btn" data-weight="light">Light–Moderate</button>
+        <button class="select-btn" data-weight="average">Average</button>
+        <button class="select-btn" data-weight="higher">Higher Weight</button>
+    </div>
+
+    <div style="text-align:center; margin-top:30px;">
+        <button id="continue-btn" class="continue-btn" disabled>Continue</button>
+    </div>
+
+</div>
+
+<div id="output-area" style="display:none;"></div>

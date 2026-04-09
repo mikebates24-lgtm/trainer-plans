@@ -73,7 +73,34 @@
             <button class="stage-btn" data-stage="weeks1to2">Weeks 1–2</button>
             <button class="stage-btn" data-stage="weeks3to6">Weeks 3–6</button>
             <button class="stage-btn" data-stage="weeks7to12">Weeks 7–12</button>
-        </div>
+        </div>.exercise-block {
+    background: #ffffff;
+    border-radius: 8px;
+    margin-bottom: 12px;
+    padding: 0;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+.exercise-header {
+    padding: 14px 18px;
+    cursor: pointer;
+    font-size: 1.1rem;
+    background: #f0f0f0;
+    border-radius: 8px;
+    transition: 0.2s;
+}
+
+.exercise-header:hover {
+    background: #e0e0e0;
+}
+
+.exercise-content {
+    display: none;
+    padding: 14px 18px;
+    border-top: 1px solid #ddd;
+    font-size: 0.95rem;
+    line-height: 1.5;
+}
     </div>
 
     <div id="exercise-output" style="display:none;"></div>

@@ -1,572 +1,180 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<body> 
-    <style>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Hip Recovery Exercise Guide</title>
-    
-    /* ------------------------------
-   GENERAL LAYOUT & TYPOGRAPHY
---------------------------------*/
-body {
-    font-family: Arial, sans-serif;
-    margin: 0;
-    padding: 20px;
-    background: #f7f7f7;
-    color: #333;
-}
 
-h1 {
-    text-align: center;
-    margin-bottom: 30px;
-}
-
-.section {
-    max-width: 700px;
-    margin: 0 auto;
-    background: white;
-    padding: 20px;
-    border-radius: 10px;
-    box-shadow: 0 0 10px rgba(0,0,0,0.1);
-}
-
-.placeholder {
-    text-align: center;
-    padding: 40px;
-    font-size: 1.2rem;
-    color: #666;
-}
-
-/* ------------------------------
-   STAGE BUTTONS
---------------------------------*/
-.stage-selector {
-    display: flex;
-    justify-content: space-between;
-    margin-bottom: 20px;
-}
-
-.stage-btn {
-    flex: 1;
-    margin: 0 5px;
-    padding: 12px;
-    background: #e0e0e0;
-    border: none;
-    border-radius: 8px;
-    cursor: pointer;
-    font-size: 1rem;
-    transition: background 0.3s, transform 0.2s;
-}
-
-.stage-btn:hover {
-    background: #d5d5d5;
-}
-
-.stage-btn.active {
-    background: #4CAF50;
-    color: white;
-    transform: scale(1.03);
-}
-
-/* ------------------------------
-   EXERCISE CARDS
---------------------------------*/
-.exercise-card {
-    background: #fafafa;
-    border-radius: 8px;
-    padding: 15px;
-    margin-bottom: 12px;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.08);
-    cursor: pointer;
-    transition: transform 0.2s;
-}
-
-.exercise-card:hover {
-    transform: scale(1.01);
-}
-
-.exercise-header {
-    font-size: 1.1rem;
-    font-weight: bold;
-    display: flex;
-    align-items: center;
-    gap: 10px;
-}
-
-.exercise-content {
-    display: none;
-    margin-top: 10px;
-    padding-left: 5px;
-    color: #555;
-}
-
-/* ------------------------------
-   ANIMATIONS
---------------------------------*/
-@keyframes fadeIn {
-    from { opacity: 0; }
-    to   { opacity: 1; }
-}
-
-@keyframes slideDown {
-    from { transform: translateY(-5px); opacity: 0; }
-    to   { transform: translateY(0); opacity: 1; }
-}
-
-.slide-down {
-    animation: slideDown 0.3s ease;
-}
-
-/* ------------------------------
-   ICON ANIMATIONS
---------------------------------*/
-.icon-bounce {
-    animation: iconBounce 0.35s ease;
-}
-
-@keyframes iconBounce {
-    0%   { transform: translateY(0); }
-    30%  { transform: translateY(-4px); }
-    60%  { transform: translateY(2px); }
-    100% { transform: translateY(0); }
-}
-
-.icon-pulse {
-    animation: iconPulse 0.4s ease;
-}
-
-@keyframes iconPulse {
-    0%   { transform: scale(1); }
-    50%  { transform: scale(1.15); }
-    100% { transform: scale(1); }
-}
-
-/* Desktop-only hover wiggle */
-@media (hover: hover) {
-    .exercise-header:hover {
-        animation: iconWiggle 0.25s ease;
-    }
-
-    @keyframes iconWiggle {
-        0%   { transform: rotate(0deg); }
-        25%  { transform: rotate(2deg); }
-        75%  { transform: rotate(-2deg); }
-        100% { transform: rotate(0deg); }
-    }
-}
-
-/* ------------------------------
-   RESTART BUTTON
---------------------------------*/
-#restart-btn {
-    display: block;
-    margin: 25px auto 0;
-    padding: 12px 20px;
-    background: #ff5252;
-    color: white;
-    border: none;
-    border-radius: 8px;
-    cursor: pointer;
-    font-size: 1rem;
-    transition: background 0.3s, transform 0.2s;
-}
-
-#restart-btn:hover {
-    background: #e04848;
-    transform: scale(1.03);
-}
-
-/* ------------------------------
-   RESPONSIVE
---------------------------------*/
-@media (max-width: 600px) {
-    .stage-selector {
-        flex-direction: column;
-    }
-
-    .stage-btn {
-        margin: 5px 0;
-    }
-}
-    /* ------------------------------
-   GENERAL LAYOUT & TYPOGRAPHY
---------------------------------*/
-body {
-    font-family: Arial, sans-serif;
-    margin: 0;
-    padding: 20px;
-    background: #f7f7f7;
-    color: #333;
-}
-
-h1 {
-    text-align: center;
-    margin-bottom: 30px;
-}
-
-.section {
-    max-width: 700px;
-    margin: 0 auto;
-    background: white;
-    padding: 20px;
-    border-radius: 10px;
-    box-shadow: 0 0 10px rgba(0,0,0,0.1);
-}
-
-.placeholder {
-    text-align: center;
-    padding: 40px;
-    font-size: 1.2rem;
-    color: #666;
-}
-
-/* ------------------------------
-   STAGE BUTTONS
---------------------------------*/
-.stage-selector {
-    display: flex;
-    justify-content: space-between;
-    margin-bottom: 20px;
-}
-
-.stage-btn {
-    flex: 1;
-    margin: 0 5px;
-    padding: 12px;
-    background: #e0e0e0;
-    border: none;
-    border-radius: 8px;
-    cursor: pointer;
-    font-size: 1rem;
-    transition: background 0.3s, transform 0.2s;
-}
-
-.stage-btn:hover {
-    background: #d5d5d5;
-}
-
-.stage-btn.active {
-    background: #4CAF50;
-    color: white;
-    transform: scale(1.03);
-}
-
-/* ------------------------------
-   EXERCISE CARDS
---------------------------------*/
-.exercise-card {
-    background: #fafafa;
-    border-radius: 8px;
-    padding: 15px;
-    margin-bottom: 12px;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.08);
-    cursor: pointer;
-    transition: transform 0.2s;
-}
-
-.exercise-card:hover {
-    transform: scale(1.01);
-}
-
-.exercise-header {
-    font-size: 1.1rem;
-    font-weight: bold;
-    display: flex;
-    align-items: center;
-    gap: 10px;
-}
-
-.exercise-content {
-    display: none;
-    margin-top: 10px;
-    padding-left: 5px;
-    color: #555;
-}
-
-/* ------------------------------
-   ANIMATIONS
---------------------------------*/
-@keyframes fadeIn {
-    from { opacity: 0; }
-    to   { opacity: 1; }
-}
-
-@keyframes slideDown {
-    from { transform: translateY(-5px); opacity: 0; }
-    to   { transform: translateY(0); opacity: 1; }
-}
-
-.slide-down {
-    animation: slideDown 0.3s ease;
-}
-
-/* ------------------------------
-   ICON ANIMATIONS
---------------------------------*/
-.icon-bounce {
-    animation: iconBounce 0.35s ease;
-}
-
-@keyframes iconBounce {
-    0%   { transform: translateY(0); }
-    30%  { transform: translateY(-4px); }
-    60%  { transform: translateY(2px); }
-    100% { transform: translateY(0); }
-}
-
-.icon-pulse {
-    animation: iconPulse 0.4s ease;
-}
-
-@keyframes iconPulse {
-    0%   { transform: scale(1); }
-    50%  { transform: scale(1.15); }
-    100% { transform: scale(1); }
-}
-
-/* Desktop-only hover wiggle */
-@media (hover: hover) {
-    .exercise-header:hover {
-        animation: iconWiggle 0.25s ease;
-    }
-
-    @keyframes iconWiggle {
-        0%   { transform: rotate(0deg); }
-        25%  { transform: rotate(2deg); }
-        75%  { transform: rotate(-2deg); }
-        100% { transform: rotate(0deg); }
-    }
-}
-
-/* ------------------------------
-   RESTART BUTTON
---------------------------------*/
-#restart-btn {
-    display: block;
-    margin: 25px auto 0;
-    padding: 12px 20px;
-    background: #ff5252;
-    color: white;
-    border: none;
-    border-radius: 8px;
-    cursor: pointer;
-    font-size: 1rem;
-    transition: background 0.3s, transform 0.2s;
-}
-
-#restart-btn:hover {
-    background: #e04848;
-    transform: scale(1.03);
-}
-
-/* ------------------------------
-   RESPONSIVE
---------------------------------*/
-@media (max-width: 600px) {
-    .stage-selector {
-        flex-direction: column;
-    }
-
-    .stage-btn {
-        margin: 5px 0;
-    }
-}
-/* Icon bounce when expanding */
-.icon-bounce {
-    animation: iconBounce 0.35s ease;
-}
-
-@keyframes iconBounce {
-    0%   { transform: translateY(0); }
-    30%  { transform: translateY(-4px); }
-    60%  { transform: translateY(2px); }
-    100% { transform: translateY(0); }
-}
-
-/* Icon pulse when selecting a stage */
-.icon-pulse {
-    animation: iconPulse 0.4s ease;
-}
-
-@keyframes iconPulse {
-    0%   { transform: scale(1); }
-    50%  { transform: scale(1.15); }
-    100% { transform: scale(1); }
-}
-
-/* Optional: tiny wiggle on hover (desktop only) */
-@media (hover: hover) {
-    .exercise-header:hover {
-        animation: iconWiggle 0.25s ease;
-    }
-
-    @keyframes iconWiggle {
-        0%   { transform: rotate(0deg); }
-        25%  { transform: rotate(2deg); }
-        75%  { transform: rotate(-2deg); }
-        100% { transform: rotate(0deg); }
-    }
-}
-/* ------------------------------
-   GLOBAL STYLING
------------------------------- */
-
-body {
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
-    margin: 0;
-    padding: 20px;
-    background: #f2f4f7;
-    color: #333;
-}
-
-h1 {
-    text-align: center;
-    margin-bottom: 30px;
-    font-weight: 600;
-    color: #222;
-}
-
-h2 {
-    text-align: center;
-    margin-top: 10px;
-    margin-bottom: 20px;
-    font-weight: 500;
-    color: #333;
-}
-
-.section {
-    max-width: 750px;
-    margin: 0 auto;
-    background: white;
-    padding: 25px;
-    border-radius: 14px;
-    box-shadow: 0 4px 14px rgba(0,0,0,0.08);
-}
-
-/* ------------------------------
-   BUTTON ROWS
------------------------------- */
-
-.button-row {
-    display: flex;
-    justify-content: center;
-    gap: 15px;
-    margin: 15px 0 30px 0;
-    flex-wrap: wrap;
-}
-
-/* ------------------------------
-   SELECT BUTTONS (AGE + WEIGHT)
------------------------------- */
-
-.select-btn {
-    padding: 12px 20px;
-    border: none;
-    background: #e7e9ec;
-    border-radius: 10px;
-    cursor: pointer;
-    font-size: 1rem;
-    transition: 0.2s;
-    min-width: 140px;
-}
-
-.select-btn:hover {
-    background: #d8dbe0;
-}
-
-.select-btn.active {
-    background: #4CAF50;
-    color: white;
-    box-shadow: 0 2px 6px rgba(76,175,80,0.4);
-}
-
-/* ------------------------------
-   CONTINUE BUTTON
------------------------------- */
-
-.continue-btn {
-    padding: 14px 28px;
-    font-size: 1.1rem;
-    background: #0078D4;
-    color: white;
-    border: none;
-    border-radius: 10px;
-    cursor: pointer;
-    transition: 0.2s;
-}
-
-.continue-btn:hover:not(:disabled) {
-    background: #0069bd;
-}
-
-.continue-btn:disabled {
-    background: #9bbcd1;
-    cursor: not-allowed;
-}
-
-/* ------------------------------
-   STAGE BUTTONS
------------------------------- */
-
-.stage-btn {
-    padding: 12px 20px;
-    border: none;
-    background: #e7e9ec;
-    border-radius: 10px;
-    cursor: pointer;
-    font-size: 1rem;
-    transition: 0.2s;
-    min-width: 140px;
-}
-
-.stage-btn:hover {
-    background: #d8dbe0;
-}
-
-.stage-btn.active {
-    background: #FF9800;
-    color: white;
-    box-shadow: 0 2px 6px rgba(255,152,0,0.4);
-}
-
-/* ------------------------------
-   EXERCISE BLOCKS (EXPANDABLE)
------------------------------- */
-
-.exercise-block {
-    background: #ffffff;
-    border-radius: 12px;
-    margin-bottom: 14px;
-    padding: 0;
-    box-shadow: 0 3px 10px rgba(0,0,0,0.08);
-    overflow: hidden;
-}
-
-.exercise-header {
-    padding: 16px 20px;
-    cursor: pointer;
-    font-size: 1.05rem;
-    background: #f7f7f7;
-    border-radius: 12px;
-    transition: 0.2s;
-    font-weight: 500;
-}
-
-.exercise-header:hover {
-    background: #ececec;
-}
-
-.exercise-content {
-    display: none;
-    padding: 16px 20px;
-    border-top: 1px solid #ddd;
-    font-size: 0.95rem;
-    line-height: 1.55;
-    background: white;
-}
- </style>  
+    <style>
+        /* ------------------------------ GENERAL LAYOUT & TYPOGRAPHY --------------------------------*/
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background: #f7f7f7;
+            color: #333;
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .section {
+            max-width: 700px;
+            margin: 0 auto;
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+
+        .placeholder {
+            text-align: center;
+            padding: 40px;
+            font-size: 1.2rem;
+            color: #666;
+        }
+
+        /* ------------------------------ STAGE BUTTONS --------------------------------*/
+        .stage-selector {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 20px;
+        }
+
+        .stage-btn {
+            flex: 1;
+            margin: 0 5px;
+            padding: 12px;
+            background: #e0e0e0;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: background 0.3s, transform 0.2s;
+        }
+
+        .stage-btn:hover {
+            background: #d5d5d5;
+        }
+
+        .stage-btn.active {
+            background: #4CAF50;
+            color: white;
+            transform: scale(1.03);
+        }
+
+        /* ------------------------------ EXERCISE CARDS --------------------------------*/
+        .exercise-card {
+            background: #fafafa;
+            border-radius: 8px;
+            padding: 15px;
+            margin-bottom: 12px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.08);
+            cursor: pointer;
+            transition: transform 0.2s;
+        }
+
+        .exercise-card:hover {
+            transform: scale(1.01);
+        }
+
+        .exercise-header {
+            font-size: 1.1rem;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .exercise-content {
+            display: none;
+            margin-top: 10px;
+            padding-left: 5px;
+            color: #555;
+        }
+
+        /* ------------------------------ ANIMATIONS --------------------------------*/
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to   { opacity: 1; }
+        }
+
+        @keyframes slideDown {
+            from { transform: translateY(-5px); opacity: 0; }
+            to   { transform: translateY(0); opacity: 1; }
+        }
+
+        .slide-down {
+            animation: slideDown 0.3s ease;
+        }
+
+        /* ------------------------------ ICON ANIMATIONS --------------------------------*/
+        .icon-bounce {
+            animation: iconBounce 0.35s ease;
+        }
+
+        @keyframes iconBounce {
+            0%   { transform: translateY(0); }
+            30%  { transform: translateY(-4px); }
+            60%  { transform: translateY(2px); }
+            100% { transform: translateY(0); }
+        }
+
+        .icon-pulse {
+            animation: iconPulse 0.4s ease;
+        }
+
+        @keyframes iconPulse {
+            0%   { transform: scale(1); }
+            50%  { transform: scale(1.15); }
+            100% { transform: scale(1); }
+        }
+
+        @media (hover: hover) {
+            .exercise-header:hover {
+                animation: iconWiggle 0.25s ease;
+            }
+
+            @keyframes iconWiggle {
+                0%   { transform: rotate(0deg); }
+                25%  { transform: rotate(2deg); }
+                75%  { transform: rotate(-2deg); }
+                100% { transform: rotate(0deg); }
+            }
+        }
+
+        /* ------------------------------ RESTART BUTTON --------------------------------*/
+        #restart-btn {
+            display: block;
+            margin: 25px auto 0;
+            padding: 12px 20px;
+            background: #ff5252;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: background 0.3s, transform 0.2s;
+        }
+
+        #restart-btn:hover {
+            background: #e04848;
+            transform: scale(1.03);
+        }
+
+        /* ------------------------------ RESPONSIVE --------------------------------*/
+        @media (max-width: 600px) {
+            .stage-selector {
+                flex-direction: column;
+            }
+
+            .stage-btn {
+                margin: 5px 0;
+            }
+        }
+    </style>
 </head>
 
 <body>
@@ -574,225 +182,28 @@ h2 {
     <h1>Hip Recovery Exercise Guide</h1>
 
     <div class="section">
-        <div id="selection-area">
+        <div class="stage-selector">
+            <button class="stage-btn" onclick="selectStage(1)">Stage 1</button>
+            <button class="stage-btn" onclick="selectStage(2)">Stage 2</button>
+            <button class="stage-btn" onclick="selectStage(3)">Stage 3</button>
+        </div>
 
-    <h2>Select Age Group</h2>
-    <div class="button-row">
-        <button class="select-btn" data-age="under60">Under 60</button>
-        <button class="select-btn" data-age="60to75">60–75</button>
-        <button class="select-btn" data-age="over75">75+</button>
+        <div id="output-area" style="display:none;"></div>
+
+        <button id="restart-btn" onclick="restart()">Restart</button>
     </div>
 
-    <h2>Select Weight Category</h2>
-    <div class="button-row">
-        <button class="select-btn" data-weight="light">Light–Moderate</button>
-        <button class="select-btn" data-weight="average">Average</button>
-        <button class="select-btn" data-weight="higher">Higher Weight</button>
-    </div>
-
-    <div style="text-align:center; margin-top:30px;">
-        <button id="continue-btn" class="continue-btn" disabled>Continue</button>
-    </div>
-
-</div>
-
-<div id="output-area" style="display:none;">
-
-    <div id="stage-selection" style="display:none;">
-        <h2>Select Recovery Stage</h2>
-
-        <div class="button-row">
-            <button class="stage-btn" data-stage="weeks1to2">Weeks 1–2</button>
-            <button class="stage-btn" data-stage="weeks3to6">Weeks 3–6</button>
-            <button class="stage-btn" data-stage="weeks7to12">Weeks 7–12</button>
-        </div>.exercise-block {
-    background: #ffffff;
-    border-radius: 8px;
-    margin-bottom: 12px;
-    padding: 0;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-}
-
-.exercise-header {
-    padding: 14px 18px;
-    cursor: pointer;
-    font-size: 1.1rem;
-    background: #f0f0f0;
-    border-radius: 8px;
-    transition: 0.2s;
-}
-
-.exercise-header:hover {
-    background: #e0e0e0;
-}
-
-.exercise-content {
-    display: none;
-    padding: 14px 18px;
-    border-top: 1px solid #ddd;
-    font-size: 0.95rem;
-    line-height: 1.5;
-}
-    </div>
-
-  <div id="exercise-output" style="display:none;"></div>
-
-<div id="restart-area" style="display:none; text-align:center; margin-top:25px;">
-    <button id="restart-btn" class="restart-btn">Start Over</button>
-</div>
-
-</div>
-<script>
-let selectedAge = null;
-let selectedWeight = null;
-let selectedStage = null;
-
-// ---------------------------
-// AGE + WEIGHT SELECTION
----------------------------
-
-document.querySelectorAll(".select-btn").forEach(btn => {
-    btn.addEventListener("click", () => {
-        if (btn.dataset.age) {
-            selectedAge = btn.dataset.age;
-        }
-        if (btn.dataset.weight) {
-            selectedWeight = btn.dataset.weight;
+    <script>
+        function selectStage(stage) {
+            document.getElementById("output-area").style.display = "block";
+            document.getElementById("output-area").innerHTML =
+                "<div class='exercise-card'><div class='exercise-header'>Exercise for Stage " + stage + "</div><div class='exercise-content'>Details for Stage " + stage + "</div></div>";
         }
 
-        document.querySelectorAll(".select-btn").forEach(b => b.classList.remove("active"));
-        btn.classList.add("active");
+        function restart() {
+            document.getElementById("output-area").style.display = "none";
+        }
+    </script>
 
-        document.getElementById("continue-btn").disabled = !(selectedAge && selectedWeight);
-    });
-});
-
-// ---------------------------
-// CONTINUE BUTTON → SHOW STAGE SELECTOR
-// ---------------------------
-
-document.getElementById("continue-btn").addEventListener("click", () => {
-    document.getElementById("selection-area").style.display = "none";
-    document.getElementById("output-area").style.display = "block";
-
-    document.getElementById("output-area").innerHTML = `
-        <h2>Selections Confirmed</h2>
-        <p><strong>Age Group:</strong> ${selectedAge}</p>
-        <p><strong>Weight Category:</strong> ${selectedWeight}</p>
-        <p>Please select your recovery stage below.</p>
-    `;
-
-    const stageSel = document.getElementById("stage-selection");
-    stageSel.style.display = "block";
-    stageSel.classList.add("fade-in");
-});
-
-// ---------------------------
-// EXERCISE DATA
-// ---------------------------
-
-const exerciseData = {
-    weeks1to2: [
-        { icon: "🦶", name: "Ankle Pumps", description: "Gently move your foot up and down to promote circulation." },
-        { icon: "↔️", name: "Heel Slides", description: "Slide your heel toward your body while lying down." },
-        { icon: "🧍", name: "Supported Standing", description: "Stand holding a stable surface and shift weight gently." },
-        { icon: "🚶", name: "Short Walks", description: "Take brief, comfortable walks to maintain mobility." }
-    ],
-    weeks3to6: [
-        { icon: "🪑", name: "Seated Marching", description: "Lift one knee at a time while seated." },
-        { icon: "🦵", name: "Standing Hip Abduction", description: "Hold support and move your leg out to the side." },
-        { icon: "🍑", name: "Glute Squeezes", description: "Tighten glutes for a few seconds, then relax." },
-        { icon: "⚖️", name: "Balance (Supported)", description: "Hold support and shift weight gently." }
-    ],
-    weeks7to12: [
-        { icon: "🪑⬆️", name: "Sit-to-Stand", description: "Rise from a chair with controlled movement." },
-        { icon: "🪜", name: "Step-Ups", description: "Use a low step and support as needed." },
-        { icon: "🟦", name: "Resistance Band Work", description: "Light band exercises for hips and legs." },
-        { icon: "🚶‍♂️➡️", name: "Walking Progression", description: "Increase walking time gradually." }
-    ]
-};
-    ]
-};
-    ]
-};
-
-// ---------------------------
-// DISPLAY EXERCISES
-// ---------------------------
-
-function displayExercises(stage) {
-    const container = document.getElementById("exercise-output");
-    container.innerHTML = "";
-
-    container.classList.add("fade-in");
-    setTimeout(() => container.classList.remove("fade-in"), 400);
-
-    exerciseData[stage].forEach(ex => {
-        const block = document.createElement("div");
-        block.className = "exercise-block";
-
-        const header = document.createElement("div");
-        header.className = "exercise-header";
-       header.textContent = `${ex.icon}  ${ex.name}`;
-
-        const content = document.createElement("div");
-        content.className = "exercise-content";
-        content.textContent = ex.description;
-
-        header.addEventListener("click", () => {
-            if (content.style.display === "block") {
-                content.style.display = "none";
-            } else {
-                content.style.display = "block";
-                content.classList.add("slide-down");
-                setTimeout(() => content.classList.remove("slide-down"), 300);
-            }
-        });
-
-        block.appendChild(header);
-        block.appendChild(content);
-        container.appendChild(block);
-    });
-
-    document.getElementById("restart-area").style.display = "block";
-}
-
-// ---------------------------
-// STAGE BUTTONS
-// ---------------------------
-
-document.querySelectorAll(".stage-btn").forEach(btn => {
-    btn.addEventListener("click", () => {
-        selectedStage = btn.dataset.stage;
-
-        document.querySelectorAll(".stage-btn").forEach(b => b.classList.remove("active"));
-        btn.classList.add("active");
-
-        document.getElementById("exercise-output").style.display = "block";
-        displayExercises(selectedStage);
-    });
-});
-
-// ---------------------------
-// START OVER BUTTON
-// ---------------------------
-
-document.getElementById("restart-btn").addEventListener("click", () => {
-    selectedAge = null;
-    selectedWeight = null;
-    selectedStage = null;
-
-    document.querySelectorAll(".select-btn").forEach(b => b.classList.remove("active"));
-    document.querySelectorAll(".stage-btn").forEach(b => b.classList.remove("active"));
-
-    document.getElementById("selection-area").style.display = "block";
-    document.getElementById("output-area").style.display = "none";
-    document.getElementById("stage-selection").style.display = "none";
-    document.getElementById("exercise-output").style.display = "none";
-    document.getElementById("restart-area").style.display = "none";
-
-    document.getElementById("continue-btn").disabled = true;
-});
-</script>
 </body>
 </html>

@@ -133,6 +133,7 @@
 <div class="card">
     <h2 style="color: var(--accent)">Your Profile</h2>
     <div class="profile-inputs">
+
         <label>Age</label>
         <input type="number" id="age" placeholder="Enter your age">
 
@@ -141,6 +142,15 @@
 
         <label>Pain Level (0–10)</label>
         <input type="range" id="pain" min="0" max="10" value="2">
+
+        <label>Select Your Phase</label>
+        <select id="phase" onchange="updateWeekBlocks()">
+            <option value="">Select...</option>
+            <option value="1-2">Weeks 1–2</option>
+            <option value="3-4">Weeks 3–4</option>
+            <option value="5-6">Weeks 5–6</option>
+            <option value="7-8">Weeks 7–8</option>
+        </select>
 
         <button class="btn" onclick="generateRecommendations()">Update Recommendations</button>
         <button class="btn-reset" onclick="resetAll()">Reset</button>
@@ -171,12 +181,7 @@
         Mobility & Warm‑Up
         <span>+</span>
     </div>
-    <div class="content">
-        <div class="exercise"><input class="checkbox" type="checkbox">Pelvic Tilts — 10–15 reps</div>
-        <div class="exercise"><input class="checkbox" type="checkbox">Cat‑Cow — 10 reps</div>
-        <div class="exercise"><input class="checkbox" type="checkbox">Hip Circles — 10 each direction</div>
-        <div class="exercise"><input class="checkbox" type="checkbox">Glute Activation — 10–12 reps</div>
-    </div>
+    <div class="content" id="mobility"></div>
 </div>
 
 <!-- STRENGTH -->
@@ -185,12 +190,7 @@
         Strength & Stability
         <span>+</span>
     </div>
-    <div class="content">
-        <div class="exercise"><input class="checkbox" type="checkbox">Bridge Holds — 20–30 sec</div>
-        <div class="exercise"><input class="checkbox" type="checkbox">Side‑lying Leg Raises — 12–15 each</div>
-        <div class="exercise"><input class="checkbox" type="checkbox">Clamshells — 12–15 each</div>
-        <div class="exercise"><input class="checkbox" type="checkbox">Mini Squats — 10–12 reps</div>
-    </div>
+    <div class="content" id="strength"></div>
 </div>
 
 <!-- STRETCHING -->
@@ -199,12 +199,7 @@
         Stretching & Cool‑Down
         <span>+</span>
     </div>
-    <div class="content">
-        <div class="exercise"><input class="checkbox" type="checkbox">Hip Flexor Stretch — 20–30 sec</div>
-        <div class="exercise"><input class="checkbox" type="checkbox">Piriformis Stretch — 20–30 sec</div>
-        <div class="exercise"><input class="checkbox" type="checkbox">Hamstring Stretch — 20–30 sec</div>
-        <div class="exercise"><input class="checkbox" type="checkbox">Glute Stretch — 20–30 sec</div>
-    </div>
+    <div class="content" id="stretching"></div>
 </div>
 
 <script>
@@ -221,22 +216,129 @@ function toggleSection(header) {
     }
 }
 
+function updateWeekBlocks() {
+    const phase = document.getElementById("phase").value;
+
+    const mobility = document.getElementById("mobility");
+    const strength = document.getElementById("strength");
+    const stretching = document.getElementById("stretching");
+
+    mobility.innerHTML = "";
+    strength.innerHTML = "";
+    stretching.innerHTML = "";
+
+    if (!phase) return;
+
+    const blocks = {
+        "1-2": {
+            mobility: [
+                "Pelvic Tilts — 10–12 reps",
+                "Cat‑Cow — 8–10 reps",
+                "Hip Circles — 8 each direction",
+                "Glute Activation — 10 reps"
+            ],
+            strength: [
+                "Bridge Holds — 15–20 sec",
+                "Side‑lying Leg Raises — 10–12 each",
+                "Clamshells — 10–12 each"
+            ],
+            stretching: [
+                "Hip Flexor Stretch — 20 sec",
+                "Piriformis Stretch — 20 sec",
+                "Hamstring Stretch — 20 sec"
+            ]
+        },
+        "3-4": {
+            mobility: [
+                "Pelvic Tilts — 12–15 reps",
+                "Cat‑Cow — 10 reps",
+                "Hip CARs — 5 each direction",
+                "Glute Activation — 12 reps"
+            ],
+            strength: [
+                "Bridge Holds — 20–25 sec",
+                "Side‑lying Leg Raises — 12–15 each",
+                "Clamshells — 12–15 each",
+                "Mini Squats — 10 reps"
+            ],
+            stretching: [
+                "Hip Flexor Stretch — 25 sec",
+                "Piriformis Stretch — 25 sec",
+                "Hamstring Stretch — 25 sec"
+            ]
+        },
+        "5-6": {
+            mobility: [
+                "Pelvic Tilts — 15 reps",
+                "Cat‑Cow — 12 reps",
+                "Hip CARs — 6 each direction",
+                "Standing Hip Flexor Mobility — 8 reps"
+            ],
+            strength: [
+                "Bridge Holds — 25–30 sec",
+                "Side‑lying Leg Raises — 15 each",
+                "Clamshells — 15 each",
+                "Mini Squats — 12 reps",
+                "Single‑leg Balance — 20 sec each"
+            ],
+            stretching: [
+                "Hip Flexor Stretch — 30 sec",
+                "Piriformis Stretch — 30 sec",
+                "Hamstring Stretch — 30 sec"
+            ]
+        },
+        "7-8": {
+            mobility: [
+                "Pelvic Tilts — 15–20 reps",
+                "Cat‑Cow — 12–15 reps",
+                "Hip CARs — 8 each direction",
+                "End‑range Hip Flexor Mobility — 8 reps"
+            ],
+            strength: [
+                "Bridge Holds — 30 sec",
+                "Side‑lying Leg Raises — 15–18 each",
+                "Clamshells — 15–18 each",
+                "Mini Squats — 15 reps",
+                "Single‑leg Balance — 25 sec each"
+            ],
+            stretching: [
+                "Hip Flexor Stretch — 30–35 sec",
+                "Piriformis Stretch — 30–35 sec",
+                "Hamstring Stretch — 30–35 sec"
+            ]
+        }
+    };
+
+    blocks[phase].mobility.forEach(ex => {
+        mobility.innerHTML += `<div class="exercise"><input class="checkbox" type="checkbox">${ex}</div>`;
+    });
+
+    blocks[phase].strength.forEach(ex => {
+        strength.innerHTML += `<div class="exercise"><input class="checkbox" type="checkbox">${ex}</div>`;
+    });
+
+    blocks[phase].stretching.forEach(ex => {
+        stretching.innerHTML += `<div class="exercise"><input class="checkbox" type="checkbox">${ex}</div>`;
+    });
+}
+
 function generateRecommendations() {
     const age = Number(document.getElementById("age").value);
     const weight = Number(document.getElementById("weight").value);
     const pain = Number(document.getElementById("pain").value);
+    const phase = document.getElementById("phase").value;
 
     let rec = "";
     let plan = "";
 
-    if (!age || !weight) {
-        rec = "<div class='recommendation'>Please enter age and weight to generate recommendations.</div>";
+    if (!age || !weight || !phase) {
+        rec = "<div class='recommendation'>Please enter age, weight, and select a phase.</div>";
         document.getElementById("recommendations").innerHTML = rec;
         document.getElementById("todayPlan").innerHTML = "";
         return;
     }
 
-    // AGE GROUP LOGIC
+    // AGE LOGIC
     if (age < 60) {
         rec += "<div class='recommendation'>Age group: Under 60 — standard baseline, full routine unless pain dictates otherwise.</div>";
     } else if (age <= 75) {
@@ -264,7 +366,15 @@ function generateRecommendations() {
     }
 
     // TODAY'S PLAN SUMMARY
+    const phaseText = {
+        "1-2": "Foundation phase — gentle mobility and basic activation.",
+        "3-4": "Stability phase — controlled tempo and moderate reps.",
+        "5-6": "Strength integration — moderate reps and added variations.",
+        "7-8": "Advanced control — full routine unless pain dictates otherwise."
+    };
+
     plan += `<div class='today-plan'><strong>Today’s Plan:</strong><br>
+    You are in <strong>Weeks ${phase}</strong> — ${phaseText[phase]}<br><br>
     Based on your profile (Age ${age}, ${weight} kg, Pain ${pain}), focus on `;
 
     if (pain >= 6) {
@@ -285,9 +395,14 @@ function resetAll() {
     document.getElementById("age").value = "";
     document.getElementById("weight").value = "";
     document.getElementById("pain").value = 2;
+    document.getElementById("phase").value = "";
 
     document.getElementById("recommendations").innerHTML = "";
     document.getElementById("todayPlan").innerHTML = "";
+
+    document.getElementById("mobility").innerHTML = "";
+    document.getElementById("strength").innerHTML = "";
+    document.getElementById("stretching").innerHTML = "";
 
     document.querySelectorAll(".checkbox").forEach(cb => cb.checked = false);
 

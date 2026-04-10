@@ -13,6 +13,7 @@
         --accent: #3fe0c5;
         --accent-soft: rgba(63, 224, 197, 0.2);
         --border: #333;
+        --danger: #ff6b6b;
     }
 
     body {
@@ -67,7 +68,8 @@
         border-radius: 5px;
     }
 
-    .profile-inputs input {
+    .profile-inputs input,
+    .profile-inputs select {
         width: 100%;
         padding: 8px;
         margin: 6px 0 12px 0;
@@ -89,12 +91,32 @@
         color: #000;
     }
 
+    .btn-reset {
+        width: 100%;
+        padding: 10px;
+        background: var(--danger);
+        border: none;
+        border-radius: 5px;
+        font-weight: bold;
+        cursor: pointer;
+        margin-top: 10px;
+        color: #000;
+    }
+
     .recommendation {
         padding: 10px;
         background: var(--accent-soft);
         border-left: 4px solid var(--accent);
         border-radius: 5px;
         margin-bottom: 10px;
+    }
+
+    .today-plan {
+        padding: 12px;
+        background: rgba(255,255,255,0.05);
+        border-left: 4px solid var(--accent);
+        border-radius: 5px;
+        margin-top: 10px;
     }
 
     .checkbox {
@@ -121,6 +143,7 @@
         <input type="range" id="pain" min="0" max="10" value="2">
 
         <button class="btn" onclick="generateRecommendations()">Update Recommendations</button>
+        <button class="btn-reset" onclick="resetAll()">Reset</button>
     </div>
 </div>
 
@@ -131,6 +154,15 @@
         <span>+</span>
     </div>
     <div class="content" id="recommendations"></div>
+</div>
+
+<!-- TODAY'S PLAN -->
+<div class="card">
+    <div class="section-header" onclick="toggleSection(this)">
+        Today’s Plan Summary
+        <span>+</span>
+    </div>
+    <div class="content" id="todayPlan"></div>
 </div>
 
 <!-- MOBILITY -->
@@ -194,36 +226,74 @@ function generateRecommendations() {
     const weight = Number(document.getElementById("weight").value);
     const pain = Number(document.getElementById("pain").value);
 
-    let output = "";
+    let rec = "";
+    let plan = "";
 
     if (!age || !weight) {
-        output = "<div class='recommendation'>Please enter age and weight to generate recommendations.</div>";
-        document.getElementById("recommendations").innerHTML = output;
+        rec = "<div class='recommendation'>Please enter age and weight to generate recommendations.</div>";
+        document.getElementById("recommendations").innerHTML = rec;
+        document.getElementById("todayPlan").innerHTML = "";
         return;
     }
 
-    // AGE LOGIC
-    if (age > 55) {
-        output += "<div class='recommendation'>Reduce rep ranges by ~20% and prioritise slow, controlled movements.</div>";
+    // AGE GROUP LOGIC
+    if (age < 60) {
+        rec += "<div class='recommendation'>Age group: Under 60 — standard baseline, full routine unless pain dictates otherwise.</div>";
+    } else if (age <= 75) {
+        rec += "<div class='recommendation'>Age group: 60–75 — avoid end‑range loading, use controlled tempo.</div>";
     } else {
-        output += "<div class='recommendation'>Standard rep ranges are appropriate for your age.</div>";
+        rec += "<div class='recommendation'>Age group: 75+ — reduce reps/holds, prioritise balance and stability.</div>";
     }
 
     // WEIGHT LOGIC
-    if (weight > 95) {
-        output += "<div class='recommendation'>Avoid deep squats; focus on supported movements and glute activation.</div>";
+    if (weight < 70) {
+        rec += "<div class='recommendation'>Weight category: Under 70 kg — standard movement selection.</div>";
+    } else if (weight <= 95) {
+        rec += "<div class='recommendation'>Weight category: 70–95 kg — slight caution with deep squats or single‑leg loading.</div>";
+    } else {
+        rec += "<div class='recommendation'>Weight category: 95+ kg — avoid deep squats; prioritise glute activation and reduced‑range strength.</div>";
     }
 
     // PAIN LOGIC
     if (pain >= 6) {
-        output += "<div class='recommendation'>High pain detected — avoid strength work today and focus on mobility + gentle stretching.</div>";
+        rec += "<div class='recommendation'>High pain — avoid strength work today; focus on mobility and gentle stretching.</div>";
     } else if (pain >= 3) {
-        output += "<div class='recommendation'>Moderate pain — reduce intensity and avoid end‑range positions.</div>";
+        rec += "<div class='recommendation'>Moderate pain — reduce intensity and avoid end‑range positions.</div>";
     } else {
-        output += "<div class='recommendation'>Low pain — full routine recommended.</div>";
+        rec += "<div class='recommendation'>Low pain — full routine recommended.</div>";
     }
 
-    document.getElementById("recommendations").innerHTML = output;
+    // TODAY'S PLAN SUMMARY
+    plan += `<div class='today-plan'><strong>Today’s Plan:</strong><br>
+    Based on your profile (Age ${age}, ${weight} kg, Pain ${pain}), focus on `;
+
+    if (pain >= 6) {
+        plan += "gentle mobility and stretching only. Avoid all loaded movements.";
+    } else if (pain >= 3) {
+        plan += "moderate‑intensity mobility, reduced‑range strength work, and avoid deep flexion.";
+    } else {
+        plan += "full mobility, strength, and stretching routine with normal progression.";
+    }
+
+    plan += "</div>";
+
+    document.getElementById("recommendations").innerHTML = rec;
+    document.getElementById("todayPlan").innerHTML = plan;
+}
+
+function resetAll() {
+    document.getElementById("age").value = "";
+    document.getElementById("weight").value = "";
+    document.getElementById("pain").value = 2;
+
+    document.getElementById("recommendations").innerHTML = "";
+    document.getElementById("todayPlan").innerHTML = "";
+
+    document.querySelectorAll(".checkbox").forEach(cb => cb.checked = false);
+
+    localStorage.clear();
+
+    document.querySelectorAll(".content").forEach(c => c.style.display = "none");
 }
 </script>
 

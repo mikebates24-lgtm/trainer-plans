@@ -3,29 +3,40 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Hip Recovery Exercise Tool</title>
+<title>Hip Recovery Tool</title>
 
 <style>
+    :root {
+        --bg: #111;
+        --card: #1a1a1a;
+        --text: #eaeaea;
+        --accent: #3fe0c5;
+        --accent-soft: rgba(63, 224, 197, 0.2);
+        --border: #333;
+    }
+
     body {
         font-family: Arial, sans-serif;
+        background: var(--bg);
+        color: var(--text);
         margin: 0;
         padding: 20px;
-        background: #f7f7f7;
-        color: #222;
         line-height: 1.6;
     }
 
     h1 {
         text-align: center;
-        margin-bottom: 20px;
+        margin-bottom: 25px;
+        color: var(--accent);
     }
 
-    .section {
-        background: white;
-        border-radius: 8px;
+    .card {
+        background: var(--card);
+        border: 1px solid var(--border);
+        border-radius: 10px;
         padding: 15px;
         margin-bottom: 15px;
-        box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        box-shadow: 0 0 10px rgba(0,0,0,0.4);
     }
 
     .section-header {
@@ -35,6 +46,7 @@
         display: flex;
         justify-content: space-between;
         align-items: center;
+        color: var(--accent);
     }
 
     .section-header span {
@@ -45,89 +57,122 @@
     .content {
         display: none;
         margin-top: 10px;
-        padding-left: 10px;
-    }
-
-    ul {
-        padding-left: 20px;
     }
 
     .exercise {
         margin-bottom: 10px;
+        padding: 8px;
+        background: var(--accent-soft);
+        border-left: 3px solid var(--accent);
+        border-radius: 5px;
     }
 
-    .footer {
-        text-align: center;
-        margin-top: 40px;
-        font-size: 0.9rem;
-        color: #666;
+    .profile-inputs input {
+        width: 100%;
+        padding: 8px;
+        margin: 6px 0 12px 0;
+        border-radius: 5px;
+        border: 1px solid var(--border);
+        background: #222;
+        color: var(--text);
+    }
+
+    .btn {
+        width: 100%;
+        padding: 10px;
+        background: var(--accent);
+        border: none;
+        border-radius: 5px;
+        font-weight: bold;
+        cursor: pointer;
+        margin-top: 10px;
+        color: #000;
+    }
+
+    .recommendation {
+        padding: 10px;
+        background: var(--accent-soft);
+        border-left: 4px solid var(--accent);
+        border-radius: 5px;
+        margin-bottom: 10px;
+    }
+
+    .checkbox {
+        margin-right: 10px;
     }
 </style>
-
 </head>
+
 <body>
 
-<h1>Hip Recovery Exercise Tool</h1>
+<h1>Hip Recovery Tool</h1>
 
-<!-- SECTION TEMPLATE -->
-<div class="section">
+<!-- USER PROFILE -->
+<div class="card">
+    <h2 style="color: var(--accent)">Your Profile</h2>
+    <div class="profile-inputs">
+        <label>Age</label>
+        <input type="number" id="age" placeholder="Enter your age">
+
+        <label>Weight (kg)</label>
+        <input type="number" id="weight" placeholder="Enter your weight">
+
+        <label>Pain Level (0–10)</label>
+        <input type="range" id="pain" min="0" max="10" value="2">
+
+        <button class="btn" onclick="generateRecommendations()">Update Recommendations</button>
+    </div>
+</div>
+
+<!-- RECOMMENDATIONS -->
+<div class="card">
+    <div class="section-header" onclick="toggleSection(this)">
+        Personalised Recommendations
+        <span>+</span>
+    </div>
+    <div class="content" id="recommendations"></div>
+</div>
+
+<!-- MOBILITY -->
+<div class="card">
     <div class="section-header" onclick="toggleSection(this)">
         Mobility & Warm‑Up
         <span>+</span>
     </div>
     <div class="content">
-        <ul>
-            <li class="exercise"><strong>Pelvic Tilts</strong> — 10–15 slow reps</li>
-            <li class="exercise"><strong>Cat‑Cow</strong> — 10 reps</li>
-            <li class="exercise"><strong>Hip Circles</strong> — 10 each direction</li>
-            <li class="exercise"><strong>Glute Activation</strong> — 10–12 reps</li>
-        </ul>
+        <div class="exercise"><input class="checkbox" type="checkbox">Pelvic Tilts — 10–15 reps</div>
+        <div class="exercise"><input class="checkbox" type="checkbox">Cat‑Cow — 10 reps</div>
+        <div class="exercise"><input class="checkbox" type="checkbox">Hip Circles — 10 each direction</div>
+        <div class="exercise"><input class="checkbox" type="checkbox">Glute Activation — 10–12 reps</div>
     </div>
 </div>
 
-<div class="section">
+<!-- STRENGTH -->
+<div class="card">
     <div class="section-header" onclick="toggleSection(this)">
         Strength & Stability
         <span>+</span>
     </div>
     <div class="content">
-        <ul>
-            <li class="exercise"><strong>Bridge Holds</strong> — 20–30 sec</li>
-            <li class="exercise"><strong>Side‑lying Leg Raises</strong> — 12–15 each side</li>
-            <li class="exercise"><strong>Clamshells</strong> — 12–15 each side</li>
-            <li class="exercise"><strong>Mini Squats</strong> — 10–12 reps</li>
-        </ul>
+        <div class="exercise"><input class="checkbox" type="checkbox">Bridge Holds — 20–30 sec</div>
+        <div class="exercise"><input class="checkbox" type="checkbox">Side‑lying Leg Raises — 12–15 each</div>
+        <div class="exercise"><input class="checkbox" type="checkbox">Clamshells — 12–15 each</div>
+        <div class="exercise"><input class="checkbox" type="checkbox">Mini Squats — 10–12 reps</div>
     </div>
 </div>
 
-<div class="section">
+<!-- STRETCHING -->
+<div class="card">
     <div class="section-header" onclick="toggleSection(this)">
         Stretching & Cool‑Down
         <span>+</span>
     </div>
     <div class="content">
-        <ul>
-            <li class="exercise"><strong>Hip Flexor Stretch</strong> — 20–30 sec each side</li>
-            <li class="exercise"><strong>Piriformis Stretch</strong> — 20–30 sec</li>
-            <li class="exercise"><strong>Hamstring Stretch</strong> — 20–30 sec</li>
-            <li class="exercise"><strong>Glute Stretch</strong> — 20–30 sec</li>
-        </ul>
+        <div class="exercise"><input class="checkbox" type="checkbox">Hip Flexor Stretch — 20–30 sec</div>
+        <div class="exercise"><input class="checkbox" type="checkbox">Piriformis Stretch — 20–30 sec</div>
+        <div class="exercise"><input class="checkbox" type="checkbox">Hamstring Stretch — 20–30 sec</div>
+        <div class="exercise"><input class="checkbox" type="checkbox">Glute Stretch — 20–30 sec</div>
     </div>
-</div>
-
-<div class="section">
-    <div class="section-header" onclick="toggleSection(this)">
-        Notes & Guidance
-        <span>+</span>
-    </div>
-    <div class="content">
-        <p>Move slowly, stay within a comfortable range, and avoid sharp pain.  
-        Progress gradually and prioritise control over intensity.</p>
-    </div>
-</div>
-
-<div class="footer">
-    Hip Recovery Tool — Rebuilt Clean Version
 </div>
 
 <script>
@@ -137,13 +182,48 @@ function toggleSection(header) {
 
     if (content.style.display === "block") {
         content.style.display = "none";
-        icon.style.transform = "rotate(0deg)";
         icon.textContent = "+";
     } else {
         content.style.display = "block";
-        icon.style.transform = "rotate(45deg)";
         icon.textContent = "×";
     }
+}
+
+function generateRecommendations() {
+    const age = Number(document.getElementById("age").value);
+    const weight = Number(document.getElementById("weight").value);
+    const pain = Number(document.getElementById("pain").value);
+
+    let output = "";
+
+    if (!age || !weight) {
+        output = "<div class='recommendation'>Please enter age and weight to generate recommendations.</div>";
+        document.getElementById("recommendations").innerHTML = output;
+        return;
+    }
+
+    // AGE LOGIC
+    if (age > 55) {
+        output += "<div class='recommendation'>Reduce rep ranges by ~20% and prioritise slow, controlled movements.</div>";
+    } else {
+        output += "<div class='recommendation'>Standard rep ranges are appropriate for your age.</div>";
+    }
+
+    // WEIGHT LOGIC
+    if (weight > 95) {
+        output += "<div class='recommendation'>Avoid deep squats; focus on supported movements and glute activation.</div>";
+    }
+
+    // PAIN LOGIC
+    if (pain >= 6) {
+        output += "<div class='recommendation'>High pain detected — avoid strength work today and focus on mobility + gentle stretching.</div>";
+    } else if (pain >= 3) {
+        output += "<div class='recommendation'>Moderate pain — reduce intensity and avoid end‑range positions.</div>";
+    } else {
+        output += "<div class='recommendation'>Low pain — full routine recommended.</div>";
+    }
+
+    document.getElementById("recommendations").innerHTML = output;
 }
 </script>
 

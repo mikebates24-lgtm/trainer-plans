@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>Hip Replacement Rider – Static Bike Recovery</title>
+  <title>Hip Replacement Rider – Static Bike & MyWhoosh Guide</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <style>
     :root {
@@ -524,6 +524,141 @@
     .foot-warning {
       color: var(--warning);
     }
+
+    /* Disclaimer card */
+    .disclaimer-card {
+      border-color: rgba(255, 200, 87, 0.9);
+      background: radial-gradient(circle at top left, rgba(255, 200, 87, 0.12), #1a1205);
+    }
+
+    .disclaimer-card::before {
+      background: radial-gradient(circle at top, rgba(255, 200, 87, 0.12), transparent 60%);
+    }
+
+    .disclaimer-title {
+      font-size: 0.85rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--warning);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .disclaimer-icon {
+      font-size: 1rem;
+    }
+
+    .disclaimer-text {
+      font-size: 0.78rem;
+      color: var(--muted);
+      margin-top: 4px;
+      line-height: 1.4;
+    }
+
+    .disclaimer-text strong {
+      color: var(--warning);
+    }
+
+    /* MyWhoosh workout card */
+    .whoosh-card {
+      position: relative;
+      z-index: 1;
+      margin-top: 4px;
+      border-radius: var(--radius-lg);
+      border: 1px solid rgba(25, 197, 197, 0.8);
+      background: radial-gradient(circle at top left, rgba(25, 197, 197, 0.18), #050816);
+      box-shadow:
+        0 0 24px rgba(25, 197, 197, 0.55),
+        0 16px 40px rgba(0, 0, 0, 0.7);
+      padding: 10px 12px 10px;
+    }
+
+    .whoosh-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+      margin-bottom: 6px;
+    }
+
+    .whoosh-title {
+      font-size: 0.82rem;
+      font-weight: 600;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: #e5f7ff;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .whoosh-icon {
+      font-size: 1rem;
+    }
+
+    .whoosh-chip {
+      font-size: 0.7rem;
+      padding: 3px 9px;
+      border-radius: var(--radius-pill);
+      border: 1px solid rgba(25, 197, 197, 0.7);
+      color: var(--accent);
+      background: rgba(5, 15, 20, 0.95);
+    }
+
+    .whoosh-body {
+      font-size: 0.78rem;
+      color: var(--muted);
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .whoosh-row strong {
+      color: var(--text);
+      font-weight: 500;
+    }
+
+    .whoosh-badges {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-top: 4px;
+    }
+
+    .whoosh-badge {
+      font-size: 0.7rem;
+      padding: 3px 8px;
+      border-radius: var(--radius-pill);
+      border: 1px solid rgba(120, 180, 255, 0.4);
+      background: rgba(5, 10, 26, 0.95);
+      color: var(--muted);
+    }
+
+    .whoosh-badge.primary {
+      border-color: rgba(25, 197, 197, 0.9);
+      color: var(--accent);
+    }
+
+    .whoosh-badge.warning {
+      border-color: rgba(255, 200, 87, 0.9);
+      color: var(--warning);
+    }
+
+    .whoosh-badge.danger {
+      border-color: rgba(255, 107, 129, 0.9);
+      color: var(--danger);
+    }
+
+    .whoosh-note-label {
+      font-weight: 500;
+      color: var(--text);
+    }
+
+    .whoosh-muted {
+      color: var(--muted);
+    }
   </style>
 </head>
 <body>
@@ -533,7 +668,7 @@
         <div class="logo-pill">HR</div>
         <div>
           <h1>Hip Replacement Rider</h1>
-          <p class="subtitle">Static bike guidance for post‑op cyclists (general patterns, not medical advice)</p>
+          <p class="subtitle">Static bike & MyWhoosh guidance for cyclists after hip replacement (general patterns only)</p>
         </div>
       </div>
       <nav class="nav-links">
@@ -542,12 +677,36 @@
       </nav>
     </header>
 
+    <!-- DISCLAIMER CARD -->
+    <section class="card disclaimer-card">
+      <div class="card-header">
+        <div class="disclaimer-title">
+          <span class="disclaimer-icon">⚠️</span>
+          <span>Important – read before using this tool</span>
+        </div>
+      </div>
+      <div class="disclaimer-text">
+        <p>
+          <strong>This app does not provide medical advice.</strong> It reflects general patterns used in many post‑operative
+          cycling and rehabilitation programmes for educational purposes only.
+        </p>
+        <p>
+          Any cycling, static‑bike, MyWhoosh workout, or rehab exercise shown here must be undertaken
+          <strong>only with the explicit approval and guidance of your surgeon or physiotherapist.</strong>
+        </p>
+        <p>
+          If you have not been cleared for cycling or exercise, or if your team’s advice differs from this tool,
+          <strong>follow their instructions and ignore this app.</strong>
+        </p>
+      </div>
+    </section>
+
     <div class="grid">
       <!-- INPUTS CARD -->
       <section class="card">
         <div class="card-header">
           <div class="card-title">Recovery inputs</div>
-          <div class="chip">Adjust to see today’s guidance</div>
+          <div class="chip">Adjust to see today’s general guidance</div>
         </div>
         <div class="inputs-grid">
           <div class="field">
@@ -602,24 +761,64 @@
       <!-- STATUS CARD -->
       <section class="card">
         <div class="card-header">
-          <div class="card-title">Recommended today</div>
+          <div class="card-title">Recommended today (general pattern)</div>
           <div class="chip" id="phaseLabel">Phase: —</div>
         </div>
         <div class="status-main">
-          <div class="status-title" id="statusTitle">Adjust inputs to see guidance</div>
+          <div class="status-title" id="statusTitle">Adjust inputs to see general guidance</div>
           <div class="status-summary" id="statusSummary">
-            This tool reflects common rehab patterns only. Your surgeon and physio may advise something different – their plan always takes priority.
+            This tool reflects broad patterns seen in many rehab programmes. It is not personalised advice. Your surgeon and physio may advise something different – their plan always takes priority.
           </div>
           <div class="status-metrics" id="statusMetrics">
             <!-- Filled by JS -->
           </div>
           <div class="alert-strip" id="globalAlert">
             <strong>Important:</strong>
-            <span>This app cannot give medical clearance. Do not start or change cycling without explicit approval from your surgical team.</span>
+            <span>Do not start or change cycling without explicit approval from your surgical team, even if this app suggests that cycling might be reasonable in principle.</span>
           </div>
         </div>
       </section>
     </div>
+
+    <!-- MYWHOOSH WORKOUT CARD (ABOVE REHAB) -->
+    <section class="card">
+      <div class="card-header">
+        <div class="card-title">MyWhoosh workout (if appropriate)</div>
+        <div class="chip">Uses only workouts confirmed in your library</div>
+      </div>
+      <div id="whooshContainer">
+        <div class="whoosh-card" id="whooshCard">
+          <div class="whoosh-header">
+            <div class="whoosh-title">
+              <span class="whoosh-icon">🚴</span>
+              <span>MyWhoosh workout of the day</span>
+            </div>
+            <div class="whoosh-chip" id="whooshPhaseChip">Phase: —</div>
+          </div>
+          <div class="whoosh-body" id="whooshBody">
+            <div class="whoosh-row" id="whooshWorkoutRow">
+              <strong>Workout:</strong> <span class="whoosh-muted">No workout suggested – see notes below.</span>
+            </div>
+            <div class="whoosh-row" id="whooshPathRow">
+              <strong>Path:</strong> <span class="whoosh-muted">—</span>
+            </div>
+            <div class="whoosh-badges" id="whooshBadges">
+              <!-- Filled by JS -->
+            </div>
+            <div class="whoosh-row" id="whooshWhyRow">
+              <span class="whoosh-note-label">Why this workout:</span>
+              <span class="whoosh-muted" id="whooshWhyText">No structured workout suggested for this combination of phase, pain, and clearance.</span>
+            </div>
+            <div class="whoosh-row" id="whooshSafetyRow">
+              <span class="whoosh-note-label">Safety notes:</span>
+              <span class="whoosh-muted" id="whooshSafetyText">
+                Any use of MyWhoosh should be cleared by your clinical team. If you are not sure, do not start a structured workout.
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
 
     <div class="grid">
       <!-- TURBO SESSION CARD -->
@@ -664,7 +863,7 @@
       <section class="card">
         <div class="card-header">
           <div class="card-title">Rehab exercises</div>
-          <div class="chip">Tick off what you’ve done today</div>
+          <div class="chip">Tick off what you’ve done today (if approved)</div>
         </div>
 
         <div class="section">
@@ -672,413 +871,3 @@
             <div class="section-title">Mobility & warm‑up</div>
             <div class="section-toggle" id="mobilityToggle">›</div>
           </div>
-          <div class="section-body" id="mobilityBody">
-            <div class="section-inner">
-              <ul class="checkbox-list">
-                <li>
-                  <input type="checkbox" id="ex-ankle" data-key="ex-ankle" />
-                  <label for="ex-ankle">Ankle pumps – gentle foot flex/point to help circulation.</label>
-                </li>
-                <li>
-                  <input type="checkbox" id="ex-heel" data-key="ex-heel" />
-                  <label for="ex-heel">Heel slides (within comfort and precautions) – sliding heel towards you on the bed.</label>
-                </li>
-                <li>
-                  <input type="checkbox" id="ex-hipcircles" data-key="ex-hipcircles" />
-                  <label for="ex-hipcircles">Small hip circles / gentle ROM as advised by physio.</label>
-                </li>
-              </ul>
-            </div>
-          </div>
-        </div>
-
-        <div class="section">
-          <div class="section-header" data-target="strengthBody">
-            <div class="section-title">Strength & stability</div>
-            <div class="section-toggle" id="strengthToggle">›</div>
-          </div>
-          <div class="section-body" id="strengthBody">
-            <div class="section-inner">
-              <ul class="checkbox-list">
-                <li>
-                  <input type="checkbox" id="ex-glute" data-key="ex-glute" />
-                  <label for="ex-glute">Glute squeezes – gently tightening buttock muscles while lying or sitting.</label>
-                </li>
-                <li>
-                  <input type="checkbox" id="ex-quad" data-key="ex-quad" />
-                  <label for="ex-quad">Static quadriceps sets – tightening thigh muscles with the leg straight.</label>
-                </li>
-                <li>
-                  <input type="checkbox" id="ex-bridge" data-key="ex-bridge" />
-                  <label for="ex-bridge">Bridges (when cleared) – lifting hips gently from the bed to engage glutes and core.</label>
-                </li>
-                <li>
-                  <input type="checkbox" id="ex-abduction" data-key="ex-abduction" />
-                  <label for="ex-abduction">Side‑lying or standing hip abduction (as advised) – strengthening outer hip stabilisers.</label>
-                </li>
-              </ul>
-            </div>
-          </div>
-        </div>
-
-        <div class="section">
-          <div class="section-header" data-target="cooldownBody">
-            <div class="section-title">Cool‑down & walking</div>
-            <div class="section-toggle" id="cooldownToggle">›</div>
-          </div>
-          <div class="section-body" id="cooldownBody">
-            <div class="section-inner">
-              <ul class="checkbox-list">
-                <li>
-                  <input type="checkbox" id="ex-walk" data-key="ex-walk" />
-                  <label for="ex-walk">Short, frequent walks (within your team’s guidance) to build tolerance.</label>
-                </li>
-                <li>
-                  <input type="checkbox" id="ex-stretch" data-key="ex-stretch" />
-                  <label for="ex-stretch">Gentle stretching / positional relief as recommended by your physio.</label>
-                </li>
-                <li>
-                  <input type="checkbox" id="ex-ice" data-key="ex-ice" />
-                  <label for="ex-ice">Swelling management (e.g. elevation / cooling) as advised.</label>
-                </li>
-              </ul>
-            </div>
-          </div>
-        </div>
-      </section>
-    </div>
-
-    <!-- CAUTION CARD -->
-    <section class="card">
-      <div class="card-header">
-        <div class="card-title">Caution & red flags</div>
-        <div class="chip">Surgeon & physio first</div>
-      </div>
-      <div class="section-inner">
-        <div class="alert-strip danger">
-          <strong>Not a medical device:</strong>
-          <span>
-            This app cannot diagnose, clear you for exercise, or replace professional advice. It only reflects common patterns used in many rehab programmes.
-          </span>
-        </div>
-        <ul class="list">
-          <li>
-            <span class="bullet"></span>
-            <span>Do not start or progress cycling without explicit clearance from your surgeon or physiotherapist.</span>
-          </li>
-          <li>
-            <span class="bullet"></span>
-            <span>Avoid hip positions that break your specific precautions (often flexion beyond ~90°, crossing legs, or twisting on the operated leg).</span>
-          </li>
-          <li>
-            <span class="bullet"></span>
-            <span>Seek urgent medical advice if you notice sudden severe pain, a sense of dislocation, marked swelling, fever, or difficulty weight‑bearing.</span>
-          </li>
-        </ul>
-      </div>
-    </section>
-
-    <footer>
-      <div class="foot-note">
-        <strong>Reminder:</strong> This is a planning aid for cyclists, not a prescription. Your clinical team’s instructions always override this tool.
-      </div>
-      <div class="foot-warning">
-        Listen to pain, protect the joint, and progress patiently – fitness returns, but the implant must last.
-      </div>
-    </footer>
-  </div>
-
-  <script>
-    const weekInput = document.getElementById("week");
-    const approachInput = document.getElementById("approach");
-    const clearanceInput = document.getElementById("clearance");
-    const experienceInput = document.getElementById("experience");
-    const equipmentInput = document.getElementById("equipment");
-    const painInput = document.getElementById("pain");
-    const painValue = document.getElementById("painValue");
-
-    const phaseLabel = document.getElementById("phaseLabel");
-    const phaseBadges = document.getElementById("phaseBadges");
-    const statusTitle = document.getElementById("statusTitle");
-    const statusSummary = document.getElementById("statusSummary");
-    const statusMetrics = document.getElementById("statusMetrics");
-    const globalAlert = document.getElementById("globalAlert");
-
-    const turboSummary = document.getElementById("turboSummary");
-    const turboTags = document.getElementById("turboTags");
-
-    const sectionToggles = [
-      { toggle: "turboToggle", body: "turboBody" },
-      { toggle: "mobilityToggle", body: "mobilityBody" },
-      { toggle: "strengthToggle", body: "strengthBody" },
-      { toggle: "cooldownToggle", body: "cooldownBody" }
-    ];
-
-    const checkboxIds = [
-      "ex-ankle",
-      "ex-heel",
-      "ex-hipcircles",
-      "ex-glute",
-      "ex-quad",
-      "ex-bridge",
-      "ex-abduction",
-      "ex-walk",
-      "ex-stretch",
-      "ex-ice"
-    ];
-
-    function getPhase(week) {
-      if (week < 0) week = 0;
-      if (week < 2) return { id: 1, label: "Phase 1 – Early healing (no bike)", colour: "risk" };
-      if (week < 4) return { id: 2, label: "Phase 2 – Gentle ROM only", colour: "risk" };
-      if (week < 6) return { id: 3, label: "Phase 3 – Intro easy spin", colour: "ok" };
-      if (week < 12) return { id: 4, label: "Phase 4 – Steady aerobic", colour: "ok" };
-      return { id: 5, label: "Phase 5 – Building capacity", colour: "ok" };
-    }
-
-    function updatePainLabel() {
-      painValue.textContent = painInput.value;
-    }
-
-    function updateGuidance() {
-      const week = parseFloat(weekInput.value || "0");
-      const approach = approachInput.value;
-      const clearance = clearanceInput.value;
-      const experience = experienceInput.value;
-      const equipment = equipmentInput.value;
-      const pain = parseInt(painInput.value || "0", 10);
-
-      const phase = getPhase(week);
-
-      phaseLabel.textContent = phase.label;
-
-      phaseBadges.innerHTML = "";
-
-      const phaseBadge = document.createElement("span");
-      phaseBadge.className = "badge phase";
-      phaseBadge.textContent = phase.label;
-      phaseBadges.appendChild(phaseBadge);
-
-      const equipBadge = document.createElement("span");
-      equipBadge.className = "badge";
-      equipBadge.textContent =
-        equipment === "none" ? "No bike available yet" : `Equipment: ${equipment}`;
-      phaseBadges.appendChild(equipBadge);
-
-      const painBadge = document.createElement("span");
-      painBadge.className = pain <= 3 ? "badge ok" : pain <= 6 ? "badge risk" : "badge risk";
-      painBadge.textContent = `Pain: ${pain}/10`;
-      phaseBadges.appendChild(painBadge);
-
-      const approachBadge = document.createElement("span");
-      approachBadge.className = "badge";
-      approachBadge.textContent =
-        approach === "unknown" ? "Approach: not specified" : `Approach: ${approach}`;
-      phaseBadges.appendChild(approachBadge);
-
-      statusMetrics.innerHTML = "";
-
-      function addMetric(label, value) {
-        const pill = document.createElement("div");
-        pill.className = "metric-pill";
-        pill.innerHTML = `<strong>${label}:</strong> ${value}`;
-        statusMetrics.appendChild(pill);
-      }
-
-      let canBikeInPrinciple = false;
-      let suggestedDuration = "—";
-      let suggestedRPE = "—";
-      let suggestedFocus = "";
-
-      if (clearance === "no") {
-        statusTitle.textContent = "No cycling without explicit clearance.";
-        statusSummary.textContent =
-          "Your surgical team must confirm when a stationary bike is appropriate. Until then, focus on walking tolerance and the rehab exercises suggested by your physio.";
-        globalAlert.classList.add("danger");
-        globalAlert.classList.remove("warning");
-        globalAlert.innerHTML =
-          "<strong>Important:</strong> No cycling should begin or progress without explicit approval from your surgeon or physiotherapist.";
-      } else {
-        globalAlert.classList.remove("danger");
-        globalAlert.classList.add("warning");
-        globalAlert.innerHTML =
-          "<strong>Still check in:</strong> Even with clearance, use pain and swelling as guides, and report any setbacks to your team.";
-        if (phase.id === 1) {
-          statusTitle.textContent = "Early healing – bike usually not the priority.";
-          statusSummary.textContent =
-            "In the first couple of weeks, most protocols emphasise wound healing, swelling control, and short walks. If a bike is used at all, it is typically only under direct professional supervision.";
-        } else if (phase.id === 2) {
-          statusTitle.textContent = "Gentle range‑of‑motion pedalling only.";
-          statusSummary.textContent =
-            "Some programmes introduce a stationary bike around weeks 2–4 as a way to explore gentle motion – often with minimal or no resistance, and only if the hip can move comfortably without forcing flexion.";
-          canBikeInPrinciple = true;
-          suggestedDuration = "5–10 minutes";
-          suggestedRPE = "RPE 1–2/10 (very easy)";
-          suggestedFocus = "Smooth, pain‑free motion; no training effect needed.";
-        } else if (phase.id === 3) {
-          statusTitle.textContent = "Intro easy spin – protecting the new joint.";
-          statusSummary.textContent =
-            "If early sessions are well tolerated, some cyclists progress to short, easy spins on a static bike. The goal is gentle aerobic work and coordination, not fitness gains.";
-          canBikeInPrinciple = true;
-          suggestedDuration = "10–15 minutes";
-          suggestedRPE = "RPE 1–2/10 (very easy, full conversation)";
-          suggestedFocus = "Smooth cadence, no surges, stay seated.";
-        } else if (phase.id === 4) {
-          statusTitle.textContent = "Steady aerobic work – still conservative.";
-          statusSummary.textContent =
-            "With good healing and stable symptoms, many riders can extend easy aerobic sessions. The emphasis remains on joint protection and consistency rather than intensity.";
-          canBikeInPrinciple = true;
-          suggestedDuration = "15–25 minutes";
-          suggestedRPE = "RPE 2–3/10 (easy aerobic)";
-          suggestedFocus = "Steady spin, no standing, no hard intervals.";
-        } else {
-          statusTitle.textContent = "Building capacity – long‑term protection.";
-          statusSummary.textContent =
-            "Beyond 12 weeks, some riders gradually rebuild longer aerobic sessions. Any return to higher intensity should be agreed with the clinical team and introduced slowly.";
-          canBikeInPrinciple = true;
-          suggestedDuration = "20–40 minutes (progressive)";
-          suggestedRPE = "RPE 2–3/10, occasional 4/10 only if cleared";
-          suggestedFocus = "Endurance and smoothness, not maximal efforts.";
-        }
-      }
-
-      addMetric("Bike allowed in principle", clearance === "yes" && canBikeInPrinciple ? "Yes, if symptoms are stable" : "Not recommended at this phase");
-      addMetric("Suggested duration", suggestedDuration);
-      addMetric("Suggested effort", suggestedRPE);
-      if (suggestedFocus) addMetric("Focus", suggestedFocus);
-      addMetric("Cycling background", experience === "club" ? "Trained / club rider" : experience === "recreational" ? "Recreational" : "New to cycling");
-
-      updateTurboSection(canBikeInPrinciple && clearance === "yes", phase, pain, equipment);
-    }
-
-    function updateTurboSection(canBike, phase, pain, equipment) {
-      turboSummary.innerHTML = "";
-      turboTags.innerHTML = "";
-
-      function addTag(text, type) {
-        const tag = document.createElement("div");
-        tag.className = "session-tag " + (type || "");
-        tag.textContent = text;
-        turboTags.appendChild(tag);
-      }
-
-      if (!canBike) {
-        turboSummary.innerHTML =
-          "<strong>No static bike session is suggested by this tool today.</strong> Focus on walking tolerance and the rehab exercises above, and follow your team’s specific plan.";
-        addTag("No bike suggested", "no");
-        addTag("Prioritise healing & walking", "caution");
-        return;
-      }
-
-      let warmup = "";
-      let main = "";
-      let cooldown = "";
-      let notes = "";
-
-      if (phase.id === 2) {
-        warmup = "2–3 minutes of very gentle, partial or full revolutions with almost no resistance.";
-        main =
-          "5–10 minutes of easy pedalling, staying within a pain‑free range of motion. Stop if the hip feels tight, unstable, or painful.";
-        cooldown = "2–3 minutes of slower pedalling, then gentle walking.";
-        notes =
-          "Think of this as assisted joint motion rather than a workout. The goal is comfort and confidence, not fitness.";
-      } else if (phase.id === 3) {
-        warmup = "3–5 minutes of very easy spinning at low resistance.";
-        main =
-          "8–12 minutes of continuous, easy pedalling at RPE 1–2/10. Keep cadence smooth, stay seated, and avoid any surges or standing efforts.";
-        cooldown = "3–5 minutes of very easy pedalling, then a short walk.";
-        notes =
-          "If pain or stiffness increases during or after the session, shorten the next ride or pause and discuss with your physio.";
-      } else if (phase.id === 4) {
-        warmup = "5 minutes of easy spinning at low resistance.";
-        main =
-          "12–20 minutes of steady, easy aerobic riding at RPE 2–3/10. Keep the saddle high enough to avoid deep hip flexion.";
-        cooldown = "5 minutes of very easy pedalling, followed by gentle mobility work.";
-        notes =
-          "You are maintaining aerobic fitness while still prioritising joint protection. No intervals or high‑force efforts yet.";
-      } else {
-        warmup = "5–8 minutes of easy spinning, gradually finding a comfortable cadence.";
-        main =
-          "20–30 minutes of steady aerobic riding at RPE 2–3/10. If your team has cleared it, you may occasionally touch RPE 4/10, but avoid maximal efforts.";
-        cooldown = "5–8 minutes of easy pedalling, then your usual cool‑down routine.";
-        notes =
-          "Progress volume slowly over weeks, not days. Any new pain, swelling, or loss of confidence should trigger a step back and a check‑in with your team.";
-      }
-
-      turboSummary.innerHTML = `
-        <div><strong>Warm‑up:</strong> ${warmup}</div>
-        <div><strong>Main:</strong> ${main}</div>
-        <div><strong>Cool‑down:</strong> ${cooldown}</div>
-        <div><strong>Notes:</strong> ${notes}</div>
-      `;
-
-      addTag("Seated only", "safe");
-      addTag("High saddle / avoid deep flexion", "caution");
-      addTag("Stop if pain spikes", "caution");
-      if (pain >= 4) addTag("Current pain ≥ 4/10 – be extra cautious", "caution");
-      if (equipment === "none") addTag("No bike available – walking & rehab only", "no");
-    }
-
-    function setupSections() {
-      sectionToggles.forEach(({ toggle, body }) => {
-        const toggleEl = document.getElementById(toggle);
-        const bodyEl = document.getElementById(body);
-        if (!toggleEl || !bodyEl) return;
-
-        const header = toggleEl.parentElement;
-        header.addEventListener("click", () => {
-          const isOpen = bodyEl.classList.contains("open");
-          if (isOpen) {
-            bodyEl.style.maxHeight = bodyEl.scrollHeight + "px";
-            requestAnimationFrame(() => {
-              bodyEl.style.maxHeight = "0px";
-              bodyEl.classList.remove("open");
-              toggleEl.classList.remove("open");
-            });
-          } else {
-            bodyEl.classList.add("open");
-            toggleEl.classList.add("open");
-            bodyEl.style.maxHeight = bodyEl.scrollHeight + "px";
-          }
-        });
-
-        if (toggle === "mobilityToggle" || toggle === "strengthToggle") {
-          bodyEl.classList.add("open");
-          toggleEl.classList.add("open");
-          bodyEl.style.maxHeight = bodyEl.scrollHeight + "px";
-        }
-      });
-    }
-
-    function loadCheckboxes() {
-      checkboxIds.forEach((id) => {
-        const el = document.getElementById(id);
-        if (!el) return;
-        const key = "hipReplacementRider_" + id;
-        const stored = localStorage.getItem(key);
-        if (stored === "true") el.checked = true;
-        el.addEventListener("change", () => {
-          localStorage.setItem(key, el.checked ? "true" : "false");
-        });
-      });
-    }
-
-    weekInput.addEventListener("input", updateGuidance);
-    approachInput.addEventListener("change", updateGuidance);
-    clearanceInput.addEventListener("change", updateGuidance);
-    experienceInput.addEventListener("change", updateGuidance);
-    equipmentInput.addEventListener("change", updateGuidance);
-    painInput.addEventListener("input", () => {
-      updatePainLabel();
-      updateGuidance();
-    });
-
-    document.addEventListener("DOMContentLoaded", () => {
-      setupSections();
-      loadCheckboxes();
-      updatePainLabel();
-      updateGuidance();
-    });
-  </script>
-</body>
-</html>

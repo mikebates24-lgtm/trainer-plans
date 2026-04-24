@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Hip‑Replacement Rider — Training App</title>
+<title>Hip‑Replacement Rider — Training Plan</title>
 
 <style>
     body {
@@ -16,7 +16,6 @@
         overflow: hidden;
     }
 
-    /* --- SIDEBAR --- */
     .sidebar {
         width: 300px;
         background: #111418;
@@ -62,7 +61,6 @@
         color: #4fc3f7;
     }
 
-    /* --- MAIN PANEL --- */
     .main {
         flex: 1;
         overflow-y: auto;
@@ -71,12 +69,18 @@
 
     .main h1 {
         font-size: 28px;
-        margin-bottom: 20px;
+        margin-bottom: 12px;
         color: #4fc3f7;
     }
 
-    /* --- GLOW SETUP PANEL --- */
-    .setup-toggle {
+    .tagline {
+        font-size: 14px;
+        color: #9ea7af;
+        margin-bottom: 14px;
+    }
+
+    .setup-toggle,
+    .weekly-toggle {
         background: #14171c;
         border-radius: 12px;
         padding: 12px 16px;
@@ -86,32 +90,35 @@
         align-items: center;
         justify-content: space-between;
         cursor: pointer;
-        margin-bottom: 12px;
+        margin-bottom: 10px;
         transition: 0.2s;
     }
 
-    .setup-toggle:hover {
+    .setup-toggle:hover,
+    .weekly-toggle:hover {
         box-shadow: 0 0 18px rgba(79,195,247,0.55);
         border-color: #4fc3f7;
     }
 
-    .setup-toggle span {
+    .setup-toggle span,
+    .weekly-toggle span {
         font-size: 15px;
         color: #cfd8dc;
     }
 
-    .setup-toggle .chevron {
+    .chevron {
         font-size: 18px;
         color: #4fc3f7;
     }
 
-    .setup-panel {
+    .setup-panel,
+    .weekly-panel {
         background: #14171c;
         border-radius: 12px;
         border: 1px solid #1f242b;
         box-shadow: 0 0 18px rgba(79,195,247,0.45);
         padding: 18px 18px 16px;
-        margin-bottom: 24px;
+        margin-bottom: 20px;
         display: none;
     }
 
@@ -131,11 +138,6 @@
         margin-bottom: 6px;
     }
 
-    .setup-field select,
-    .setup-field input[type="checkbox"] {
-        font-size: 14px;
-    }
-
     .setup-field select {
         width: 100%;
         padding: 8px 10px;
@@ -144,6 +146,7 @@
         background: #1a1d22;
         color: #e6e6e6;
         outline: none;
+        font-size: 14px;
     }
 
     .setup-field select:focus {
@@ -200,12 +203,41 @@
         color: #cfd8dc;
     }
 
-    /* --- WORKOUT CARD --- */
+    .weekly-strip {
+        display: grid;
+        grid-template-columns: repeat(7, minmax(0, 1fr));
+        gap: 8px;
+        font-size: 12px;
+    }
+
+    .day-cell {
+        background: #1a1d22;
+        border-radius: 8px;
+        padding: 6px 8px;
+        border: 1px solid #2a2f36;
+        min-height: 54px;
+    }
+
+    .day-name {
+        font-weight: 600;
+        color: #cfd8dc;
+        margin-bottom: 2px;
+    }
+
+    .day-content {
+        color: #9ea7af;
+        line-height: 1.3;
+    }
+
+    .day-fatigue-low { border-color: #4caf50; }
+    .day-fatigue-mod { border-color: #ffb300; }
+    .day-fatigue-high { border-color: #e53935; }
+
     .card {
         background: #14171c;
         border-radius: 14px;
         padding: 22px;
-        margin-bottom: 25px;
+        margin-bottom: 22px;
         border: 1px solid #1f242b;
         box-shadow: 0 0 12px rgba(79,195,247,0.25);
         transition: 0.25s;
@@ -219,7 +251,7 @@
     .card-header {
         display: flex;
         align-items: center;
-        margin-bottom: 12px;
+        margin-bottom: 10px;
     }
 
     .badge {
@@ -246,7 +278,7 @@
     }
 
     .card p {
-        margin: 8px 0;
+        margin: 6px 0;
         line-height: 1.5;
         color: #c7c7c7;
     }
@@ -256,27 +288,60 @@
         box-shadow: 0 0 18px rgba(79,195,247,0.45);
     }
 
-    .tagline {
-        font-size: 14px;
+    .card-meta {
+        font-size: 13px;
         color: #9ea7af;
-        margin-bottom: 10px;
+        margin-top: 4px;
     }
 
-    /* --- DISCLAIMER --- */
+    .fatigue-label {
+        font-size: 13px;
+        color: #cfd8dc;
+        margin-top: 4px;
+    }
+
+    .coach-notes {
+        font-size: 13px;
+        color: #b0bec5;
+        margin-top: 8px;
+        border-top: 1px dashed #263238;
+        padding-top: 8px;
+    }
+
+    .card-actions {
+        margin-top: 10px;
+    }
+
+    .complete-btn {
+        background: transparent;
+        border-radius: 999px;
+        border: 1px solid #4fc3f7;
+        color: #4fc3f7;
+        padding: 6px 12px;
+        font-size: 13px;
+        cursor: pointer;
+        transition: 0.2s;
+    }
+
+    .complete-btn:hover {
+        background: #4fc3f7;
+        color: #0d0f12;
+        box-shadow: 0 0 10px rgba(79,195,247,0.7);
+    }
+
     .disclaimer {
-        margin-top: 40px;
+        margin-top: 32px;
         font-size: 13px;
         color: #8a8a8a;
         line-height: 1.5;
         border-top: 1px solid #1f242b;
-        padding-top: 20px;
+        padding-top: 18px;
     }
 </style>
 </head>
 
 <body>
 
-<!-- SIDEBAR -->
 <div class="sidebar">
     <h2>Hip‑Replacement Rider</h2>
 
@@ -290,7 +355,6 @@
     <button onclick="loadAll()">All Workouts</button>
 </div>
 
-<!-- MAIN PANEL -->
 <div class="main" id="main">
     <div id="setup-container">
         <div class="setup-toggle" onclick="toggleSetupPanel()">
@@ -314,8 +378,8 @@
                     <label for="experience">Cycling experience</label>
                     <select id="experience">
                         <option value="beginner">Beginner</option>
-                        <option value="intermediate" selected>Intermediate</option>
-                        <option value="advanced">Advanced</option>
+                        <option value="intermediate">Intermediate</option>
+                        <option value="advanced" selected>Advanced</option>
                     </select>
                 </div>
 
@@ -352,458 +416,3 @@
             </div>
 
             <div class="setup-actions">
-                <button onclick="applySettings()">Apply settings</button>
-                <div class="setup-summary" id="setup-summary">
-                    Using default settings — adjust and apply to personalise today.
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <h1 id="main-title">Welcome</h1>
-    <p class="tagline" id="main-tagline">Select a phase, tool, or apply recovery settings to begin.</p>
-    <p>Select a phase or tool from the sidebar to begin.</p>
-</div>
-
-<script>
-/* --- CYCLING BADGE ICON --- */
-const badgeIcon = `
-<div class="badge">
-<svg viewBox="0 0 24 24">
-<path d="M5 16a3 3 0 1 0 0 6 3 3 0 0 0 0-6zm14-9a2 2 0 1 0 0-4 2 2 0 0 0 0 4zM5 14l3-5h4l3 5m-6-5l2-4h4" />
-</svg>
-</div>`;
-
-/* --- BASE WORKOUT DATA (PHASED) --- */
-const baseWorkouts = {
-    phase1: [
-        {
-            id: "mobility-0",
-            title: "Gentle Mobility Routine",
-            purpose: "Restore movement without loading the joint.",
-            safety: "Stop immediately if you feel sharp pain.",
-            type: "mobility"
-        },
-        {
-            id: "assisted-pedal-0",
-            title: "Assisted Pedal Motion",
-            purpose: "Neuromuscular activation with zero resistance.",
-            safety: "Keep ROM small and controlled.",
-            type: "mobility"
-        }
-    ],
-    phase2: [
-        {
-            id: "spin-lowres-1",
-            title: "Low‑Resistance Spin",
-            purpose: "Rebuild aerobic base with controlled cadence.",
-            safety: "Stay well below moderate effort.",
-            type: "indoor-easy"
-        },
-        {
-            id: "bands-1",
-            title: "Band‑Only Strength",
-            purpose: "Rebuild hip stability without axial load.",
-            safety: "Avoid fatigue; focus on form.",
-            type: "strength"
-        }
-    ],
-    phase3: [
-        {
-            id: "mywhoosh-endurance-1",
-            title: "MyWhoosh: Aerobic Endurance",
-            purpose: "Return to steady cycling with controlled HR.",
-            safety: "Stay in low aerobic range; stop if discomfort increases.",
-            type: "indoor-easy",
-            primary: true
-        },
-        {
-            id: "outdoor-easy-1",
-            title: "Outdoor: Easy Spin",
-            purpose: "Reintroduce real‑world pedalling and balance.",
-            safety: "Choose flat routes; avoid traffic stress.",
-            type: "outdoor-easy"
-        }
-    ]
-};
-
-/* --- STATE & MEMORY --- */
-const STATE_KEY = "hipRiderState";
-
-let appState = {
-    weekRange: "4-12",
-    experience: "intermediate",
-    painLevel: "mild",
-    equipment: {
-        trainer: true,
-        outdoor: true,
-        bands: false
-    },
-    yesterday: {
-        type: "none",
-        date: null
-    }
-};
-
-function loadState() {
-    try {
-        const raw = localStorage.getItem(STATE_KEY);
-        if (!raw) return;
-        const parsed = JSON.parse(raw);
-        appState = { ...appState, ...parsed };
-    } catch (e) {
-        console.warn("Could not load state", e);
-    }
-}
-
-function saveState() {
-    try {
-        localStorage.setItem(STATE_KEY, JSON.stringify(appState));
-    } catch (e) {
-        console.warn("Could not save state", e);
-    }
-}
-
-/* --- SETUP PANEL TOGGLE --- */
-function toggleSetupPanel() {
-    const panel = document.getElementById("setup-panel");
-    const chev = document.getElementById("setup-chevron");
-    if (panel.style.display === "block") {
-        panel.style.display = "none";
-        chev.textContent = "▸";
-    } else {
-        panel.style.display = "block";
-        chev.textContent = "▾";
-    }
-}
-
-/* --- FATIGUE WINDOW BY EXPERIENCE --- */
-function getFatigueHoursForExperience(exp) {
-    if (exp === "beginner") return 72;
-    if (exp === "intermediate") return 48;
-    if (exp === "advanced") return 24;
-    return 48;
-}
-
-function isFatigued() {
-    if (!appState.yesterday.date || appState.yesterday.type === "none") return false;
-    const fatigueHours = getFatigueHoursForExperience(appState.experience);
-    const then = new Date(appState.yesterday.date).getTime();
-    const now = Date.now();
-    const diffHours = (now - then) / (1000 * 60 * 60);
-    return diffHours < fatigueHours;
-}
-
-/* --- APPLY SETTINGS --- */
-function applySettings() {
-    const weekRange = document.getElementById("weekRange").value;
-    const experience = document.getElementById("experience").value;
-    const painLevel = document.getElementById("painLevel").value;
-    const equipTrainer = document.getElementById("equipTrainer").checked;
-    const equipOutdoor = document.getElementById("equipOutdoor").checked;
-    const equipBands = document.getElementById("equipBands").checked;
-    const yesterdayTypeSelect = document.getElementById("yesterdayType").value;
-
-    appState.weekRange = weekRange;
-    appState.experience = experience;
-    appState.painLevel = painLevel;
-    appState.equipment = {
-        trainer: equipTrainer,
-        outdoor: equipOutdoor,
-        bands: equipBands
-    };
-
-    // Hybrid memory: auto if available, else manual override
-    if (yesterdayTypeSelect === "auto") {
-        // keep existing yesterday if present, else assume "none"
-        if (!appState.yesterday.date) {
-            appState.yesterday = { type: "none", date: null };
-        }
-    } else {
-        appState.yesterday = {
-            type: yesterdayTypeSelect,
-            date: new Date().toISOString()
-        };
-    }
-
-    saveState();
-    updateSetupSummary();
-    renderTodayRecommendation();
-}
-
-/* --- SETUP SUMMARY TEXT --- */
-function updateSetupSummary() {
-    const fatigued = isFatigued();
-    const summary = document.getElementById("setup-summary");
-
-    const eq = [];
-    if (appState.equipment.trainer) eq.push("indoor trainer");
-    if (appState.equipment.outdoor) eq.push("outdoor bike");
-    if (appState.equipment.bands) eq.push("bands");
-
-    const eqText = eq.length ? eq.join(", ") : "no equipment";
-
-    const yType = appState.yesterday.type === "none"
-        ? "no structured session"
-        : appState.yesterday.type.replace("-", " ");
-
-    const fatigueText = fatigued ? "fatigue window active" : "fresh enough for gentle progression";
-
-    summary.innerHTML = `
-        <strong>${appState.weekRange} weeks</strong>, 
-        <strong>${appState.experience}</strong> rider, 
-        pain: <strong>${appState.painLevel}</strong>, 
-        equipment: <strong>${eqText}</strong>, 
-        yesterday: <strong>${yType}</strong> — ${fatigueText}.
-    `;
-}
-
-/* --- COACHING ENGINE: BUILD TODAY'S PLAN --- */
-function buildTodayPlan() {
-    const fatigued = isFatigued();
-    const { weekRange, experience, painLevel, equipment } = appState;
-
-    const plan = {
-        phase: 3,
-        mywhoosh: null,
-        outdoor: null,
-        extras: [],
-        safetyNote: "",
-        intensityTag: ""
-    };
-
-    // Phase selection by week range
-    if (weekRange === "0-2") plan.phase = 1;
-    else if (weekRange === "2-4") plan.phase = 1;
-    else if (weekRange === "4-12") plan.phase = 2;
-    else if (weekRange === "12+") plan.phase = 3;
-
-    // Safety gating by pain + early weeks
-    if (weekRange === "0-2" || weekRange === "2-4") {
-        plan.mywhoosh = null;
-        plan.outdoor = null;
-        plan.extras = baseWorkouts.phase1;
-        plan.safetyNote = "Early post‑op phase — focus on protection and gentle mobility only.";
-        plan.intensityTag = "Protection only";
-        return plan;
-    }
-
-    if (painLevel === "moderate") {
-        plan.mywhoosh = null;
-        plan.outdoor = null;
-        plan.extras = [
-            baseWorkouts.phase1[0],
-            baseWorkouts.phase2[1]
-        ];
-        plan.safetyNote = "Moderate pain today — avoid cycling. Focus on mobility and gentle stability work.";
-        plan.intensityTag = "Deload / pain‑limited";
-        return plan;
-    }
-
-    // From here: cycling allowed, but modulated by fatigue + experience
-    const phaseWorkouts = plan.phase === 2 ? baseWorkouts.phase2 : baseWorkouts.phase3.slice();
-
-    // MyWhoosh recommendation
-    if (equipment.trainer) {
-        const baseMyWhoosh = baseWorkouts.phase3[0];
-        let title = baseMyWhoosh.title;
-        let purpose = baseMyWhoosh.purpose;
-        let safety = baseMyWhoosh.safety;
-
-        if (experience === "beginner") {
-            title += " — 30 min (Beginner)";
-            safety += " Keep cadence comfortable and avoid standing efforts.";
-        } else if (experience === "intermediate") {
-            title += " — 40–50 min (Intermediate)";
-            safety += " You may include short cadence lifts if pain stays stable.";
-        } else {
-            title += " — 60 min (Advanced)";
-            safety += " Include controlled cadence builds if hip feels stable.";
-        }
-
-        if (fatigued) {
-            title = title.replace(/60 min|40–50 min|30 min/, "30–40 min (Reduced)");
-            safety += " Fatigue window active — keep this easier than usual.";
-            plan.intensityTag = "Reduced for fatigue";
-        } else {
-            plan.intensityTag = "Normal progression";
-        }
-
-        plan.mywhoosh = {
-            ...baseMyWhoosh,
-            title,
-            purpose,
-            safety,
-            primary: true
-        };
-    }
-
-    // Outdoor suggestion
-    if (equipment.outdoor && !fatigued && painLevel === "none") {
-        const baseOutdoor = baseWorkouts.phase3[1];
-        let title = baseOutdoor.title;
-        let safety = baseOutdoor.safety;
-
-        if (experience === "beginner") {
-            title += " — 20–30 min flat loop";
-            safety += " Keep it very easy and stay close to home.";
-        } else if (experience === "intermediate") {
-            title += " — 40–60 min gentle loop";
-            safety += " Avoid long climbs; focus on smooth pedalling.";
-        } else {
-            title += " — 60–75 min endurance loop";
-            safety += " Short, gentle rises are acceptable if pain stays at none.";
-        }
-
-        plan.outdoor = {
-            ...baseOutdoor,
-            title,
-            safety
-        };
-    } else if (equipment.outdoor && fatigued) {
-        // Outdoor available but fatigued — keep as optional / caution
-        const baseOutdoor = baseWorkouts.phase3[1];
-        plan.outdoor = {
-            ...baseOutdoor,
-            title: baseOutdoor.title + " — optional recovery spin",
-            safety: baseOutdoor.safety + " Only if you feel genuinely fresh; otherwise skip."
-        };
-    }
-
-    // Extras: mobility / bands depending on equipment
-    const extras = [];
-    if (equipment.bands) {
-        extras.push(baseWorkouts.phase2[1]);
-    }
-    extras.push(baseWorkouts.phase1[0]);
-    plan.extras = extras;
-
-    // Safety note
-    if (!plan.safetyNote) {
-        if (fatigued) {
-            plan.safetyNote = "Recent load still within your fatigue window — today is biased toward easier endurance and stability.";
-        } else {
-            plan.safetyNote = "You are outside the main fatigue window — gentle progression is appropriate if pain stays stable.";
-        }
-    }
-
-    return plan;
-}
-
-/* --- RENDER HELPERS --- */
-function renderWorkoutsList(list, titleText, taglineText) {
-    const main = document.getElementById("main");
-    const setupContainer = document.getElementById("setup-container");
-
-    main.innerHTML = "";
-    main.appendChild(setupContainer);
-
-    const title = document.createElement("h1");
-    title.id = "main-title";
-    title.textContent = titleText || "Workouts";
-    main.appendChild(title);
-
-    if (taglineText) {
-        const tag = document.createElement("p");
-        tag.id = "main-tagline";
-        tag.className = "tagline";
-        tag.textContent = taglineText;
-        main.appendChild(tag);
-    }
-
-    list.forEach(w => {
-        const card = document.createElement("div");
-        card.className = "card" + (w.primary ? " primary" : "");
-        card.innerHTML = `
-            <div class="card-header">
-                ${badgeIcon}
-                <div class="card-title">${w.title}</div>
-            </div>
-            <p><strong>Purpose:</strong> ${w.purpose}</p>
-            <p><strong>Safety:</strong> ${w.safety}</p>
-        `;
-        main.appendChild(card);
-    });
-
-    const disclaimer = document.createElement("div");
-    disclaimer.className = "disclaimer";
-    disclaimer.innerHTML = `
-        This app provides general training structure only.<br>
-        It does not provide personalised medical or rehabilitation advice.<br>
-        Always follow guidance from your clinical team.
-    `;
-    main.appendChild(disclaimer);
-}
-
-/* --- PUBLIC RENDER FUNCTIONS (SIDEBAR) --- */
-function renderPhaseWorkouts(phase) {
-    let list;
-    if (phase === 1) list = baseWorkouts.phase1;
-    else if (phase === 2) list = baseWorkouts.phase2;
-    else list = baseWorkouts.phase3;
-
-    renderWorkoutsList(list, "Workouts", `Phase ${phase} selection — generic view (not personalised).`);
-}
-
-function loadPhase(n) {
-    renderPhaseWorkouts(n);
-}
-
-function loadToday() {
-    const plan = buildTodayPlan();
-    const list = [];
-
-    if (plan.mywhoosh) list.push(plan.mywhoosh);
-    if (plan.outdoor) list.push(plan.outdoor);
-    if (plan.extras && plan.extras.length) {
-        plan.extras.forEach(e => list.push(e));
-    }
-
-    // Add a synthetic "Today summary" card at the top
-    const summaryCard = {
-        title: "Today’s Recommendation",
-        purpose: plan.intensityTag || "Personalised plan for today based on your recovery setup.",
-        safety: plan.safetyNote,
-        primary: true
-    };
-
-    renderWorkoutsList([summaryCard, ...list], "Today’s Plan", "Personalised using your recovery setup and recent load.");
-}
-
-function loadAll() {
-    const all = [
-        ...baseWorkouts.phase1,
-        ...baseWorkouts.phase2,
-        ...baseWorkouts.phase3
-    ];
-    renderWorkoutsList(all, "All Workouts", "Full library — not filtered by your current recovery status.");
-}
-
-/* --- INITIALISATION --- */
-function renderTodayRecommendation() {
-    // If user has applied settings at least once, show Today’s Plan by default
-    loadToday();
-}
-
-function initFromState() {
-    loadState();
-
-    // Populate UI from state
-    document.getElementById("weekRange").value = appState.weekRange;
-    document.getElementById("experience").value = appState.experience;
-    document.getElementById("painLevel").value = appState.painLevel;
-    document.getElementById("equipTrainer").checked = appState.equipment.trainer;
-    document.getElementById("equipOutdoor").checked = appState.equipment.outdoor;
-    document.getElementById("equipBands").checked = appState.equipment.bands;
-
-    updateSetupSummary();
-}
-
-document.addEventListener("DOMContentLoaded", () => {
-    initFromState();
-    // Start on welcome; user can either click Today or apply settings
-});
-</script>
-
-</body>
-</html>

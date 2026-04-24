@@ -1,873 +1,265 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <title>Hip Replacement Rider – Static Bike & MyWhoosh Guide</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <style>
-    :root {
-      --bg: #050810;
-      --bg-alt: #0b1020;
-      --card: #101728;
-      --accent: #19c5c5;
-      --accent-soft: rgba(25, 197, 197, 0.2);
-      --accent-strong: rgba(25, 197, 197, 0.6);
-      --text: #f5f7ff;
-      --muted: #9aa4c6;
-      --danger: #ff6b81;
-      --warning: #ffc857;
-      --success: #4cd964;
-      --border: #1f2940;
-      --shadow-soft: 0 0 25px rgba(25, 197, 197, 0.25);
-      --radius-lg: 14px;
-      --radius-md: 10px;
-      --radius-pill: 999px;
-      --transition-fast: 0.18s ease-out;
-      --transition-med: 0.25s ease-out;
-      --font-main: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
-        sans-serif;
-    }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Hip‑Replacement Rider — Training App</title>
 
-    * {
-      box-sizing: border-box;
-    }
-
+<style>
     body {
-      margin: 0;
-      min-height: 100vh;
-      font-family: var(--font-main);
-      background: radial-gradient(circle at top, #111a33 0, #050810 55%, #02030a 100%);
-      color: var(--text);
-      display: flex;
-      justify-content: center;
-      padding: 16px;
+        margin: 0;
+        font-family: system-ui, sans-serif;
+        background: #0d0f12;
+        color: #e6e6e6;
+        display: flex;
+        height: 100vh;
+        overflow: hidden;
     }
 
-    .app-shell {
-      width: 100%;
-      max-width: 960px;
-      background: linear-gradient(145deg, rgba(10, 16, 32, 0.98), rgba(4, 7, 18, 0.98));
-      border-radius: 24px;
-      border: 1px solid rgba(120, 180, 255, 0.12);
-      box-shadow:
-        0 24px 60px rgba(0, 0, 0, 0.7),
-        0 0 40px rgba(25, 197, 197, 0.18);
-      padding: 18px 18px 22px;
-      display: flex;
-      flex-direction: column;
-      gap: 16px;
+    /* --- SIDEBAR --- */
+    .sidebar {
+        width: 300px;
+        background: #111418;
+        border-right: 1px solid #1c1f24;
+        padding: 30px 20px;
+        box-sizing: border-box;
+        display: flex;
+        flex-direction: column;
     }
 
-    header {
-      display: flex;
-      flex-wrap: wrap;
-      align-items: center;
-      justify-content: space-between;
-      gap: 12px;
-      padding: 6px 4px 4px;
+    .sidebar h2 {
+        font-size: 22px;
+        margin-bottom: 25px;
+        color: #4fc3f7;
+        letter-spacing: 0.5px;
     }
 
-    .title-block {
-      display: flex;
-      align-items: center;
-      gap: 10px;
+    .sidebar .section-title {
+        margin-top: 25px;
+        margin-bottom: 10px;
+        font-size: 14px;
+        text-transform: uppercase;
+        color: #7aa0b8;
+        letter-spacing: 1px;
     }
 
-    .logo-pill {
-      width: 40px;
-      height: 40px;
-      border-radius: 14px;
-      background: radial-gradient(circle at 30% 20%, #4ff5ff, #0a7f7f 45%, #021b1b 100%);
-      box-shadow: 0 0 18px rgba(25, 197, 197, 0.7);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: #021010;
-      font-weight: 700;
-      font-size: 18px;
+    .sidebar button {
+        background: #1a1d22;
+        border: 1px solid #2a2f36;
+        padding: 12px 14px;
+        margin-bottom: 10px;
+        border-radius: 8px;
+        color: #d0d0d0;
+        font-size: 15px;
+        cursor: pointer;
+        text-align: left;
+        transition: 0.2s;
     }
 
-    h1 {
-      margin: 0;
-      font-size: 1.2rem;
-      letter-spacing: 0.03em;
+    .sidebar button:hover {
+        background: #22262d;
+        border-color: #4fc3f7;
+        color: #4fc3f7;
     }
 
-    .subtitle {
-      margin: 0;
-      font-size: 0.78rem;
-      color: var(--muted);
+    /* --- MAIN PANEL --- */
+    .main {
+        flex: 1;
+        overflow-y: auto;
+        padding: 30px;
     }
 
-    .nav-links {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 8px;
+    .main h1 {
+        font-size: 28px;
+        margin-bottom: 20px;
+        color: #4fc3f7;
     }
 
-    .nav-link {
-      text-decoration: none;
-      font-size: 0.78rem;
-      padding: 6px 12px;
-      border-radius: var(--radius-pill);
-      border: 1px solid rgba(25, 197, 197, 0.4);
-      color: var(--accent);
-      background: radial-gradient(circle at top left, rgba(25, 197, 197, 0.18), transparent 55%);
-      box-shadow: 0 0 12px rgba(25, 197, 197, 0.25);
-      transition: background var(--transition-fast), transform var(--transition-fast),
-        box-shadow var(--transition-fast), border-color var(--transition-fast);
-    }
-
-    .nav-link:hover {
-      background: rgba(25, 197, 197, 0.16);
-      transform: translateY(-1px);
-      box-shadow: 0 0 18px rgba(25, 197, 197, 0.4);
-      border-color: rgba(25, 197, 197, 0.8);
-    }
-
-    .grid {
-      display: grid;
-      grid-template-columns: minmax(0, 1.1fr) minmax(0, 1.1fr);
-      gap: 14px;
-    }
-
-    @media (max-width: 780px) {
-      .grid {
-        grid-template-columns: minmax(0, 1fr);
-      }
-    }
-
+    /* --- WORKOUT CARD --- */
     .card {
-      background: radial-gradient(circle at top left, rgba(25, 197, 197, 0.12), #050816);
-      border-radius: var(--radius-lg);
-      border: 1px solid var(--border);
-      padding: 12px 14px 14px;
-      box-shadow: 0 14px 30px rgba(0, 0, 0, 0.6);
-      position: relative;
-      overflow: hidden;
+        background: #14171c;
+        border-radius: 14px;
+        padding: 22px;
+        margin-bottom: 25px;
+        border: 1px solid #1f242b;
+        box-shadow: 0 0 12px rgba(79,195,247,0.25);
+        transition: 0.25s;
     }
 
-    .card::before {
-      content: "";
-      position: absolute;
-      inset: -40%;
-      background: radial-gradient(circle at top, rgba(25, 197, 197, 0.08), transparent 60%);
-      opacity: 0.7;
-      pointer-events: none;
+    .card:hover {
+        box-shadow: 0 0 18px rgba(79,195,247,0.45);
+        border-color: #4fc3f7;
     }
 
     .card-header {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 8px;
-      margin-bottom: 8px;
-      position: relative;
-      z-index: 1;
-    }
-
-    .card-title {
-      font-size: 0.9rem;
-      font-weight: 600;
-      letter-spacing: 0.04em;
-      text-transform: uppercase;
-      color: #e5f7ff;
-    }
-
-    .chip {
-      font-size: 0.7rem;
-      padding: 3px 9px;
-      border-radius: var(--radius-pill);
-      border: 1px solid rgba(255, 255, 255, 0.12);
-      color: var(--muted);
-      background: rgba(3, 8, 20, 0.9);
-    }
-
-    .inputs-grid {
-      display: grid;
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap: 10px;
-      position: relative;
-      z-index: 1;
-    }
-
-    @media (max-width: 640px) {
-      .inputs-grid {
-        grid-template-columns: minmax(0, 1fr);
-      }
-    }
-
-    .field {
-      display: flex;
-      flex-direction: column;
-      gap: 4px;
-      font-size: 0.78rem;
-    }
-
-    .field label {
-      color: var(--muted);
-      font-size: 0.75rem;
-    }
-
-    .field select,
-    .field input[type="number"],
-    .field input[type="range"] {
-      border-radius: var(--radius-md);
-      border: 1px solid rgba(120, 180, 255, 0.25);
-      background: rgba(5, 10, 26, 0.95);
-      color: var(--text);
-      padding: 6px 8px;
-      font-size: 0.8rem;
-      outline: none;
-      transition: border-color var(--transition-fast), box-shadow var(--transition-fast),
-        background var(--transition-fast), transform var(--transition-fast);
-    }
-
-    .field select:focus,
-    .field input[type="number"]:focus,
-    .field input[type="range"]:focus {
-      border-color: var(--accent);
-      box-shadow: 0 0 0 1px rgba(25, 197, 197, 0.4);
-      transform: translateY(-0.5px);
-    }
-
-    .range-row {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-    }
-
-    .range-value {
-      font-size: 0.75rem;
-      color: var(--accent);
-      min-width: 24px;
-      text-align: right;
-    }
-
-    .badge-row {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 6px;
-      margin-top: 4px;
-      font-size: 0.7rem;
+        display: flex;
+        align-items: center;
+        margin-bottom: 12px;
     }
 
     .badge {
-      padding: 3px 8px;
-      border-radius: var(--radius-pill);
-      border: 1px solid rgba(255, 255, 255, 0.12);
-      background: rgba(3, 8, 20, 0.9);
-      color: var(--muted);
+        width: 42px;
+        height: 42px;
+        border-radius: 50%;
+        background: #4fc3f7;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-right: 14px;
+        box-shadow: 0 0 10px rgba(79,195,247,0.6);
     }
 
-    .badge.phase {
-      border-color: var(--accent-strong);
-      color: var(--accent);
-      background: rgba(10, 40, 40, 0.9);
+    .badge svg {
+        width: 24px;
+        height: 24px;
+        fill: #0d0f12;
     }
 
-    .badge.risk {
-      border-color: rgba(255, 200, 87, 0.7);
-      color: var(--warning);
-      background: rgba(40, 30, 5, 0.9);
+    .card-title {
+        font-size: 20px;
+        font-weight: 600;
     }
 
-    .badge.ok {
-      border-color: rgba(76, 217, 100, 0.7);
-      color: var(--success);
-      background: rgba(5, 35, 15, 0.9);
+    .card p {
+        margin: 8px 0;
+        line-height: 1.5;
+        color: #c7c7c7;
     }
 
-    .status-main {
-      position: relative;
-      z-index: 1;
-      display: flex;
-      flex-direction: column;
-      gap: 6px;
-      font-size: 0.8rem;
+    .primary {
+        border: 1px solid #4fc3f7;
+        box-shadow: 0 0 18px rgba(79,195,247,0.45);
     }
 
-    .status-title {
-      font-weight: 600;
-      font-size: 0.85rem;
+    /* --- DISCLAIMER --- */
+    .disclaimer {
+        margin-top: 40px;
+        font-size: 13px;
+        color: #8a8a8a;
+        line-height: 1.5;
+        border-top: 1px solid #1f242b;
+        padding-top: 20px;
     }
-
-    .status-summary {
-      color: var(--muted);
-      line-height: 1.4;
-    }
-
-    .status-metrics {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 8px;
-      margin-top: 4px;
-    }
-
-    .metric-pill {
-      padding: 4px 9px;
-      border-radius: var(--radius-pill);
-      border: 1px solid rgba(120, 180, 255, 0.25);
-      background: rgba(5, 10, 26, 0.9);
-      font-size: 0.75rem;
-      color: var(--muted);
-    }
-
-    .metric-pill strong {
-      color: var(--accent);
-      font-weight: 500;
-    }
-
-    .alert-strip {
-      margin-top: 6px;
-      padding: 6px 8px;
-      border-radius: var(--radius-md);
-      border: 1px dashed rgba(255, 200, 87, 0.7);
-      background: rgba(40, 30, 5, 0.9);
-      color: var(--warning);
-      font-size: 0.75rem;
-      display: flex;
-      gap: 6px;
-      align-items: flex-start;
-    }
-
-    .alert-strip strong {
-      color: var(--warning);
-    }
-
-    .alert-strip.danger {
-      border-color: rgba(255, 107, 129, 0.8);
-      background: rgba(40, 5, 10, 0.9);
-      color: var(--danger);
-    }
-
-    .section {
-      margin-top: 4px;
-      position: relative;
-      z-index: 1;
-    }
-
-    .section-header {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 8px;
-      padding: 6px 0;
-      cursor: pointer;
-      user-select: none;
-    }
-
-    .section-title {
-      font-size: 0.8rem;
-      font-weight: 600;
-      letter-spacing: 0.04em;
-      text-transform: uppercase;
-      color: #e5f7ff;
-    }
-
-    .section-toggle {
-      width: 22px;
-      height: 22px;
-      border-radius: 999px;
-      border: 1px solid rgba(120, 180, 255, 0.4);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 0.8rem;
-      color: var(--muted);
-      background: rgba(5, 10, 26, 0.9);
-      transition: transform var(--transition-fast), background var(--transition-fast),
-        border-color var(--transition-fast), color var(--transition-fast);
-    }
-
-    .section-toggle.open {
-      transform: rotate(90deg);
-      background: rgba(25, 197, 197, 0.12);
-      border-color: var(--accent);
-      color: var(--accent);
-      box-shadow: 0 0 12px rgba(25, 197, 197, 0.4);
-    }
-
-    .section-body {
-      max-height: 0;
-      overflow: hidden;
-      transition: max-height var(--transition-med), opacity var(--transition-med),
-        transform var(--transition-med);
-      opacity: 0;
-      transform: translateY(-4px);
-    }
-
-    .section-body.open {
-      opacity: 1;
-      transform: translateY(0);
-    }
-
-    .section-inner {
-      padding: 6px 0 4px;
-      border-top: 1px solid rgba(120, 180, 255, 0.18);
-      margin-top: 2px;
-    }
-
-    .session-row {
-      display: flex;
-      flex-direction: column;
-      gap: 4px;
-      font-size: 0.78rem;
-      color: var(--muted);
-    }
-
-    .session-row strong {
-      color: var(--text);
-      font-weight: 500;
-    }
-
-    .session-tags {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 6px;
-      margin-top: 4px;
-    }
-
-    .session-tag {
-      font-size: 0.7rem;
-      padding: 3px 8px;
-      border-radius: var(--radius-pill);
-      border: 1px solid rgba(120, 180, 255, 0.3);
-      background: rgba(5, 10, 26, 0.9);
-      color: var(--muted);
-    }
-
-    .session-tag.safe {
-      border-color: rgba(76, 217, 100, 0.7);
-      color: var(--success);
-    }
-
-    .session-tag.caution {
-      border-color: rgba(255, 200, 87, 0.7);
-      color: var(--warning);
-    }
-
-    .session-tag.no {
-      border-color: rgba(255, 107, 129, 0.8);
-      color: var(--danger);
-    }
-
-    .list {
-      list-style: none;
-      padding-left: 0;
-      margin: 4px 0 0;
-      font-size: 0.78rem;
-      color: var(--muted);
-    }
-
-    .list li {
-      display: flex;
-      align-items: flex-start;
-      gap: 6px;
-      margin-bottom: 3px;
-    }
-
-    .list li span.bullet {
-      width: 6px;
-      height: 6px;
-      border-radius: 999px;
-      margin-top: 6px;
-      background: var(--accent);
-      box-shadow: 0 0 8px rgba(25, 197, 197, 0.7);
-      flex-shrink: 0;
-    }
-
-    .checkbox-list {
-      list-style: none;
-      padding-left: 0;
-      margin: 4px 0 0;
-      font-size: 0.78rem;
-      color: var(--muted);
-    }
-
-    .checkbox-list li {
-      display: flex;
-      align-items: center;
-      gap: 6px;
-      margin-bottom: 4px;
-    }
-
-    .checkbox-list input[type="checkbox"] {
-      width: 15px;
-      height: 15px;
-      border-radius: 4px;
-      border: 1px solid rgba(120, 180, 255, 0.4);
-      background: rgba(5, 10, 26, 0.95);
-      accent-color: var(--accent);
-      cursor: pointer;
-    }
-
-    .checkbox-list label {
-      cursor: pointer;
-    }
-
-    footer {
-      margin-top: 4px;
-      padding: 4px 4px 0;
-      font-size: 0.7rem;
-      color: var(--muted);
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: space-between;
-      gap: 6px;
-    }
-
-    .foot-note strong {
-      color: var(--accent);
-    }
-
-    .foot-warning {
-      color: var(--warning);
-    }
-
-    /* Disclaimer card */
-    .disclaimer-card {
-      border-color: rgba(255, 200, 87, 0.9);
-      background: radial-gradient(circle at top left, rgba(255, 200, 87, 0.12), #1a1205);
-    }
-
-    .disclaimer-card::before {
-      background: radial-gradient(circle at top, rgba(255, 200, 87, 0.12), transparent 60%);
-    }
-
-    .disclaimer-title {
-      font-size: 0.85rem;
-      font-weight: 600;
-      text-transform: uppercase;
-      letter-spacing: 0.05em;
-      color: var(--warning);
-      display: flex;
-      align-items: center;
-      gap: 6px;
-    }
-
-    .disclaimer-icon {
-      font-size: 1rem;
-    }
-
-    .disclaimer-text {
-      font-size: 0.78rem;
-      color: var(--muted);
-      margin-top: 4px;
-      line-height: 1.4;
-    }
-
-    .disclaimer-text strong {
-      color: var(--warning);
-    }
-
-    /* MyWhoosh workout card */
-    .whoosh-card {
-      position: relative;
-      z-index: 1;
-      margin-top: 4px;
-      border-radius: var(--radius-lg);
-      border: 1px solid rgba(25, 197, 197, 0.8);
-      background: radial-gradient(circle at top left, rgba(25, 197, 197, 0.18), #050816);
-      box-shadow:
-        0 0 24px rgba(25, 197, 197, 0.55),
-        0 16px 40px rgba(0, 0, 0, 0.7);
-      padding: 10px 12px 10px;
-    }
-
-    .whoosh-header {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 8px;
-      margin-bottom: 6px;
-    }
-
-    .whoosh-title {
-      font-size: 0.82rem;
-      font-weight: 600;
-      letter-spacing: 0.06em;
-      text-transform: uppercase;
-      color: #e5f7ff;
-      display: flex;
-      align-items: center;
-      gap: 6px;
-    }
-
-    .whoosh-icon {
-      font-size: 1rem;
-    }
-
-    .whoosh-chip {
-      font-size: 0.7rem;
-      padding: 3px 9px;
-      border-radius: var(--radius-pill);
-      border: 1px solid rgba(25, 197, 197, 0.7);
-      color: var(--accent);
-      background: rgba(5, 15, 20, 0.95);
-    }
-
-    .whoosh-body {
-      font-size: 0.78rem;
-      color: var(--muted);
-      display: flex;
-      flex-direction: column;
-      gap: 4px;
-    }
-
-    .whoosh-row strong {
-      color: var(--text);
-      font-weight: 500;
-    }
-
-    .whoosh-badges {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 6px;
-      margin-top: 4px;
-    }
-
-    .whoosh-badge {
-      font-size: 0.7rem;
-      padding: 3px 8px;
-      border-radius: var(--radius-pill);
-      border: 1px solid rgba(120, 180, 255, 0.4);
-      background: rgba(5, 10, 26, 0.95);
-      color: var(--muted);
-    }
-
-    .whoosh-badge.primary {
-      border-color: rgba(25, 197, 197, 0.9);
-      color: var(--accent);
-    }
-
-    .whoosh-badge.warning {
-      border-color: rgba(255, 200, 87, 0.9);
-      color: var(--warning);
-    }
-
-    .whoosh-badge.danger {
-      border-color: rgba(255, 107, 129, 0.9);
-      color: var(--danger);
-    }
-
-    .whoosh-note-label {
-      font-weight: 500;
-      color: var(--text);
-    }
-
-    .whoosh-muted {
-      color: var(--muted);
-    }
-  </style>
+</style>
 </head>
+
 <body>
-  <div class="app-shell">
-    <header>
-      <div class="title-block">
-        <div class="logo-pill">HR</div>
-        <div>
-          <h1>Hip Replacement Rider</h1>
-          <p class="subtitle">Static bike & MyWhoosh guidance for cyclists after hip replacement (general patterns only)</p>
-        </div>
-      </div>
-      <nav class="nav-links">
-        <a href="../trainerplans.html" class="nav-link">← Cycling Training Plan</a>
-        <a href="../hip-recovery/" class="nav-link">Hip Recovery Exercises</a>
-      </nav>
-    </header>
 
-    <!-- DISCLAIMER CARD -->
-    <section class="card disclaimer-card">
-      <div class="card-header">
-        <div class="disclaimer-title">
-          <span class="disclaimer-icon">⚠️</span>
-          <span>Important – read before using this tool</span>
-        </div>
-      </div>
-      <div class="disclaimer-text">
-        <p>
-          <strong>This app does not provide medical advice.</strong> It reflects general patterns used in many post‑operative
-          cycling and rehabilitation programmes for educational purposes only.
-        </p>
-        <p>
-          Any cycling, static‑bike, MyWhoosh workout, or rehab exercise shown here must be undertaken
-          <strong>only with the explicit approval and guidance of your surgeon or physiotherapist.</strong>
-        </p>
-        <p>
-          If you have not been cleared for cycling or exercise, or if your team’s advice differs from this tool,
-          <strong>follow their instructions and ignore this app.</strong>
-        </p>
-      </div>
-    </section>
+<!-- SIDEBAR -->
+<div class="sidebar">
+    <h2>Hip‑Replacement Rider</h2>
 
-    <div class="grid">
-      <!-- INPUTS CARD -->
-      <section class="card">
-        <div class="card-header">
-          <div class="card-title">Recovery inputs</div>
-          <div class="chip">Adjust to see today’s general guidance</div>
-        </div>
-        <div class="inputs-grid">
-          <div class="field">
-            <label for="week">Post‑op week (0–16+)</label>
-            <input type="number" id="week" min="0" max="52" value="3" />
-          </div>
-          <div class="field">
-            <label for="approach">Surgical approach</label>
-            <select id="approach">
-              <option value="unknown">Not sure / not specified</option>
-              <option value="posterior">Posterior / posterolateral</option>
-              <option value="anterior">Anterior / anterolateral</option>
-            </select>
-          </div>
-          <div class="field">
-            <label for="clearance">Has your surgeon/physio cleared any bike use?</label>
-            <select id="clearance">
-              <option value="no">No / not yet</option>
-              <option value="yes">Yes – stationary bike allowed</option>
-            </select>
-          </div>
-          <div class="field">
-            <label for="experience">Cycling background</label>
-            <select id="experience">
-              <option value="recreational">Recreational cyclist</option>
-              <option value="club">Club / trained rider</option>
-              <option value="new">New to cycling</option>
-            </select>
-          </div>
-          <div class="field">
-            <label for="equipment">Available equipment</label>
-            <select id="equipment">
-              <option value="smart">Smart turbo + road bike</option>
-              <option value="upright">Upright exercise bike</option>
-              <option value="recumbent">Recumbent bike</option>
-              <option value="none">No bike yet</option>
-            </select>
-          </div>
-          <div class="field">
-            <label for="pain">Current hip pain (0–10)</label>
-            <div class="range-row">
-              <input type="range" id="pain" min="0" max="10" value="2" />
-              <span class="range-value" id="painValue">2</span>
-            </div>
-          </div>
-        </div>
-        <div class="badge-row" id="phaseBadges">
-          <!-- Filled by JS -->
-        </div>
-      </section>
+    <div class="section-title">Training Phases</div>
+    <button onclick="loadPhase(1)">Phase 1 — Protection</button>
+    <button onclick="loadPhase(2)">Phase 2 — Rebuild</button>
+    <button onclick="loadPhase(3)">Phase 3 — Return to Cycling</button>
 
-      <!-- STATUS CARD -->
-      <section class="card">
-        <div class="card-header">
-          <div class="card-title">Recommended today (general pattern)</div>
-          <div class="chip" id="phaseLabel">Phase: —</div>
-        </div>
-        <div class="status-main">
-          <div class="status-title" id="statusTitle">Adjust inputs to see general guidance</div>
-          <div class="status-summary" id="statusSummary">
-            This tool reflects broad patterns seen in many rehab programmes. It is not personalised advice. Your surgeon and physio may advise something different – their plan always takes priority.
-          </div>
-          <div class="status-metrics" id="statusMetrics">
-            <!-- Filled by JS -->
-          </div>
-          <div class="alert-strip" id="globalAlert">
-            <strong>Important:</strong>
-            <span>Do not start or change cycling without explicit approval from your surgical team, even if this app suggests that cycling might be reasonable in principle.</span>
-          </div>
-        </div>
-      </section>
-    </div>
+    <div class="section-title">Tools</div>
+    <button onclick="loadToday()">Today's Recommendation</button>
+    <button onclick="loadAll()">All Workouts</button>
+</div>
 
-    <!-- MYWHOOSH WORKOUT CARD (ABOVE REHAB) -->
-    <section class="card">
-      <div class="card-header">
-        <div class="card-title">MyWhoosh workout (if appropriate)</div>
-        <div class="chip">Uses only workouts confirmed in your library</div>
-      </div>
-      <div id="whooshContainer">
-        <div class="whoosh-card" id="whooshCard">
-          <div class="whoosh-header">
-            <div class="whoosh-title">
-              <span class="whoosh-icon">🚴</span>
-              <span>MyWhoosh workout of the day</span>
-            </div>
-            <div class="whoosh-chip" id="whooshPhaseChip">Phase: —</div>
-          </div>
-          <div class="whoosh-body" id="whooshBody">
-            <div class="whoosh-row" id="whooshWorkoutRow">
-              <strong>Workout:</strong> <span class="whoosh-muted">No workout suggested – see notes below.</span>
-            </div>
-            <div class="whoosh-row" id="whooshPathRow">
-              <strong>Path:</strong> <span class="whoosh-muted">—</span>
-            </div>
-            <div class="whoosh-badges" id="whooshBadges">
-              <!-- Filled by JS -->
-            </div>
-            <div class="whoosh-row" id="whooshWhyRow">
-              <span class="whoosh-note-label">Why this workout:</span>
-              <span class="whoosh-muted" id="whooshWhyText">No structured workout suggested for this combination of phase, pain, and clearance.</span>
-            </div>
-            <div class="whoosh-row" id="whooshSafetyRow">
-              <span class="whoosh-note-label">Safety notes:</span>
-              <span class="whoosh-muted" id="whooshSafetyText">
-                Any use of MyWhoosh should be cleared by your clinical team. If you are not sure, do not start a structured workout.
-              </span>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
+<!-- MAIN PANEL -->
+<div class="main" id="main">
+    <h1>Welcome</h1>
+    <p>Select a phase or tool from the sidebar to begin.</p>
+</div>
 
-    <div class="grid">
-      <!-- TURBO SESSION CARD -->
-      <section class="card">
-        <div class="card-header">
-          <div class="card-title">Static bike / turbo session</div>
-          <div class="chip">Only if cleared by your team</div>
-        </div>
-        <div class="section">
-          <div class="section-header" data-target="turboBody">
-            <div class="section-title">Session outline</div>
-            <div class="section-toggle" id="turboToggle">›</div>
-          </div>
-          <div class="section-body" id="turboBody">
-            <div class="section-inner">
-              <div class="session-row" id="turboSummary">
-                <!-- Filled by JS -->
-              </div>
-              <div class="session-tags" id="turboTags">
-                <!-- Filled by JS -->
-              </div>
-              <ul class="list">
-                <li>
-                  <span class="bullet"></span>
-                  <span>Keep saddle high enough that your hip does not flex beyond roughly 90°. Avoid aggressive forward reach.</span>
-                </li>
-                <li>
-                  <span class="bullet"></span>
-                  <span>Stay seated – no standing efforts, sprints, or surges in the early phases.</span>
-                </li>
-                <li>
-                  <span class="bullet"></span>
-                  <span>Stop and contact your team if pain spikes, the hip feels unstable, or swelling/warmth increase significantly afterwards.</span>
-                </li>
-              </ul>
+<script>
+/* --- CYCLING BADGE ICON --- */
+const badgeIcon = `
+<div class="badge">
+<svg viewBox="0 0 24 24">
+<path d="M5 16a3 3 0 1 0 0 6 3 3 0 0 0 0-6zm14-9a2 2 0 1 0 0-4 2 2 0 0 0 0 4zM5 14l3-5h4l3 5m-6-5l2-4h4" />
+</svg>
+</div>`;
+
+/* --- WORKOUT DATA --- */
+const workouts = {
+    phase1: [
+        {
+            title: "Gentle Mobility Routine",
+            purpose: "Restore movement without loading the joint.",
+            safety: "Stop immediately if you feel sharp pain."
+        },
+        {
+            title: "Assisted Pedal Motion",
+            purpose: "Neuromuscular activation with zero resistance.",
+            safety: "Keep ROM small and controlled."
+        }
+    ],
+    phase2: [
+        {
+            title: "Low‑Resistance Spin",
+            purpose: "Rebuild aerobic base with controlled cadence.",
+            safety: "Stay well below moderate effort."
+        },
+        {
+            title: "Band‑Only Strength",
+            purpose: "Rebuild hip stability without axial load.",
+            safety: "Avoid fatigue; focus on form."
+        }
+    ],
+    phase3: [
+        {
+            title: "MyWhoosh: Aerobic Endurance",
+            purpose: "Return to steady cycling with controlled HR.",
+            safety: "Stay in low aerobic range; stop if discomfort increases.",
+            primary: true
+        },
+        {
+            title: "Outdoor: Easy Spin",
+            purpose: "Reintroduce real‑world pedalling and balance.",
+            safety: "Choose flat routes; avoid traffic stress."
+        }
+    ]
+};
+
+/* --- RENDER FUNCTIONS --- */
+function renderWorkouts(list) {
+    const main = document.getElementById("main");
+    main.innerHTML = `<h1>Workouts</h1>`;
+
+    list.forEach(w => {
+        main.innerHTML += `
+        <div class="card ${w.primary ? 'primary' : ''}">
+            <div class="card-header">
+                ${badgeIcon}
+                <div class="card-title">${w.title}</div>
             </div>
-          </div>
-        </div>
-      </section>
+            <p><strong>Purpose:</strong> ${w.purpose}</p>
+            <p><strong>Safety:</strong> ${w.safety}</p>
+        </div>`;
+    });
 
-      <!-- REHAB EXERCISES CARD -->
-      <section class="card">
-        <div class="card-header">
-          <div class="card-title">Rehab exercises</div>
-          <div class="chip">Tick off what you’ve done today (if approved)</div>
-        </div>
+    main.innerHTML += `
+        <div class="disclaimer">
+            This app provides general training structure only.  
+            It does not provide personalised medical or rehabilitation advice.  
+            Always follow guidance from your clinical team.
+        </div>`;
+}
 
-        <div class="section">
-          <div class="section-header" data-target="mobilityBody">
-            <div class="section-title">Mobility & warm‑up</div>
-            <div class="section-toggle" id="mobilityToggle">›</div>
-          </div>
+/* --- SIDEBAR ACTIONS --- */
+function loadPhase(n) {
+    if (n === 1) renderWorkouts(workouts.phase1);
+    if (n === 2) renderWorkouts(workouts.phase2);
+    if (n === 3) renderWorkouts(workouts.phase3);
+}
+
+function loadToday() {
+    // Simple logic: Phase 3 primary workout
+    renderWorkouts([workouts.phase3[0]]);
+}
+
+function loadAll() {
+    renderWorkouts([
+        ...workouts.phase1,
+        ...workouts.phase2,
+        ...workouts.phase3
+    ]);
+}
+</script>
+
+</body>
+</html>

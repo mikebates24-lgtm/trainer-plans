@@ -608,7 +608,8 @@ function getFatigueHoursForExperience(exp) {
 
 function isFatigued() {
     if (!appState.yesterday.date || appState.yesterday.type === "none") return false;
-    const fatigueHours = getFatigueHoursForExperience(appState.experience);
+    let fatigueHours = getFatigueHoursForExperience(appState.experience);
+fatigueHours += ageFatigueModifier(appState.ageRange);
     const then = new Date(appState.yesterday.date).getTime();
     const now = Date.now();
     const diffHours = (now - then) / (1000 * 60 * 60);

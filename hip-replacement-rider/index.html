@@ -592,6 +592,12 @@ function toggleWeeklyPanel() {
         chev.textContent = "▾";
     }
 }
+function ageFatigueModifier(age) {
+    if (age === "under50") return 0;      // no change
+    if (age === "50-65") return 8;        // +8 hours
+    if (age === "65plus") return 16;      // +16 hours
+    return 0;
+}
 
 function getFatigueHoursForExperience(exp) {
     if (exp === "beginner") return 72;

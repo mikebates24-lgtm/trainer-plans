@@ -337,7 +337,7 @@
         border-top: 1px solid #1f242b;
         padding-top: 18px;
     }
-      /* MOBILE BREAKPOINT */
+   /* MOBILE BREAKPOINT */
 @media (max-width: 700px) {
 
     .sidebar {
@@ -351,17 +351,18 @@
         padding: 20px;
     }
 
-    /* Make buttons full-width on mobile */
     .sidebar button {
         width: 100%;
         text-align: center;
     }
 
-    /* Weekly strip becomes vertical */
     .weekly-strip {
         grid-template-columns: 1fr;
     }
-}
+}   /* ← closes @media, correct */
+
+</style>
+
 
 </style>
 </head>

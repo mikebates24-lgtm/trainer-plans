@@ -336,6 +336,37 @@
         line-height: 1.5;
         border-top: 1px solid #1f242b;
         padding-top: 18px;
+        /* MOBILE BREAKPOINT */
+@media (max-width: 700px) {
+
+    body {
+        flex-direction: column;
+        overflow: auto;
+    }
+
+    .sidebar {
+        width: 100%;
+        border-right: none;
+        border-bottom: 1px solid #1c1f24;
+        padding: 16px;
+    }
+
+    .main {
+        padding: 20px;
+    }
+
+    /* Make buttons full-width on mobile */
+    .sidebar button {
+        width: 100%;
+        text-align: center;
+    }
+
+    /* Weekly strip becomes vertical */
+    .weekly-strip {
+        grid-template-columns: 1fr;
+    }
+}
+
     }
 </style>
 </head>

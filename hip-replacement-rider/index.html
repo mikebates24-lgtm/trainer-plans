@@ -625,6 +625,8 @@ function fatigueLevel() {
 function applySettings() {
     const weekRange = document.getElementById("weekRange").value;
     const experience = document.getElementById("experience").value;
+    const ageRange = document.getElementById("ageRange").value;
+appState.ageRange = ageRange;
     const painLevel = document.getElementById("painLevel").value;
     const equipTrainer = document.getElementById("equipTrainer").checked;
     const equipOutdoor = document.getElementById("equipOutdoor").checked;

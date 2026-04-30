@@ -1018,3 +1018,40 @@ window.addEventListener("resize", handleDesktopMode);
 
 /* Initialise sidebar state */
 handleDesktopMode();
+/* ============================
+   J3 — COLLAPSIBLE PANELS (ACCORDION)
+   ============================ */
+
+const panelToggles = $$(".panel-toggle");
+const panels = $$(".panel-content");
+
+/* Close all panels */
+function closeAllPanels() {
+    panels.forEach(panel => {
+        panel.hidden = true;
+    });
+    panelToggles.forEach(btn => {
+        btn.setAttribute("aria-expanded", "false");
+    });
+}
+
+/* Toggle a specific panel */
+function togglePanel(button) {
+    const targetId = button.dataset.target;
+    const panel = $("#" + targetId);
+    const isOpen = !panel.hidden;
+
+    // Accordion behaviour: close all first
+    closeAllPanels();
+
+    // If the clicked panel was closed, open it
+    if (!isOpen) {
+        panel.hidden = false;
+        button.setAttribute("aria-expanded", "true");
+    }
+}
+
+/* Attach listeners */
+panelToggles.forEach(btn => {
+    btn.addEventListener("click", () => togglePanel(btn));
+});

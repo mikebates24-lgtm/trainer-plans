@@ -920,3 +920,52 @@ body {
         padding: 18px;
     }
 }
+/* ============================
+   J1 — DOM HELPERS + GLOBAL STATE
+   ============================ */
+
+/* Simple selector helpers */
+const $ = (sel) => document.querySelector(sel);
+const $$ = (sel) => document.querySelectorAll(sel);
+
+/* Global app state */
+const state = {
+    age: "50-59",
+    experience: "intermediate",
+    pain: "none",
+    weeks: "7-12",
+    equipment: {
+        indoor: false,
+        outdoor: false,
+        bands: false
+    },
+    yesterday: "none",
+
+    /* Derived values */
+    phase: 1,
+    fatigue: {},      // populated in J5
+    workouts: []      // populated in J6/J7
+};
+
+/* Load initial state (defaults for now) */
+function loadInitialState() {
+    // Later we can load from localStorage (J8)
+    updateSetupSummary();
+}
+
+/* Save state (placeholder for J8) */
+function saveState() {
+    // localStorage.setItem("trainingState", JSON.stringify(state));
+}
+
+/* Central render function (called after any state change) */
+function render() {
+    updateSetupSummary();
+    populateWeeklyStrip();
+    populateWorkouts();
+}
+
+/* Initialise app */
+document.addEventListener("DOMContentLoaded", () => {
+    loadInitialState();
+});

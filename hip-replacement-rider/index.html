@@ -566,36 +566,30 @@ function pickWorkout(category) {
         `;
     }
 
-    /* ============================
-       J3 — TODAY’S RECOMMENDATION
-       ============================ */
+   /* ============================
+   J3 — TODAY’S RECOMMENDATION
+   ============================ */
 
-    function updateToday() {
-        const card = $("#today-card");
+function updateToday() {
+    const card = $("#today-card");
 
-        let recommendation = "Easy Zone 2 ride";
-        let duration = "45–60 minutes";
+    // Determine category based on state
+    let category = "zone2";
 
-        if (state.pain === "moderate") {
-            recommendation = "Recovery spin";
-            duration = "20–30 minutes";
-        }
+    if (state.pain === "moderate") category = "recovery";
+    if (state.pain === "severe") category = "rest";
+    if (state.yesterday === "hard") category = "recovery";
 
-        if (state.pain === "severe") {
-            recommendation = "Rest day";
-            duration = "Full rest";
-        }
+    // Pick a workout
+    const w = pickWorkout(category);
 
-        if (state.yesterday === "hard") {
-            recommendation = "Recovery spin";
-            duration = "20–30 minutes";
-        }
-
-        card.innerHTML = `
-            <h3>${recommendation}</h3>
-            <p>Duration: ${duration}</p>
-        `;
-    }
+    // Render
+    card.innerHTML = `
+        <h3>${w.name}</h3>
+        <p><strong>Category:</strong> ${w.folder}</p>
+        <p><strong>Duration:</strong> ${w.duration}</p>
+    `;
+}
 
     /* ============================
        J4 — WEEKLY PLAN

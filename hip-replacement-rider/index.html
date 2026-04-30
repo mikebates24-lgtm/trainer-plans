@@ -693,3 +693,124 @@ body {
         min-width: 0;
     }
 }
+/* ============================
+   WORKOUT CARDS (VERTICAL LIST)
+   ============================ */
+
+.workouts {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+}
+
+#workout-list {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+/* Card container */
+.workout-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border-light);
+    border-radius: 14px;
+    padding: 20px;
+    box-sizing: border-box;
+
+    /* subtle raised effect */
+    box-shadow: 0 3px 8px var(--shadow);
+
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+/* Header */
+.card-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.badge {
+    width: 36px;
+    height: 36px;
+    border-radius: 8px;
+    background: var(--accent);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #000;
+    font-weight: 600;
+    font-size: 18px;
+}
+
+.card-title {
+    margin: 0;
+    font-size: 20px;
+    font-weight: 600;
+    color: var(--text);
+}
+
+/* Metadata */
+.card-meta {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    font-size: 15px;
+    color: var(--text-mid);
+}
+
+.card-meta strong {
+    color: var(--text);
+}
+
+/* Coach notes */
+.coach-notes {
+    font-size: 15px;
+    line-height: 1.5;
+    color: var(--text-mid);
+    margin: 0;
+}
+
+/* Actions */
+.card-actions {
+    display: flex;
+    gap: 12px;
+    margin-top: 8px;
+}
+
+/* Complete button */
+.complete-btn {
+    padding: 10px 16px;
+    background: var(--accent);
+    border: none;
+    border-radius: 8px;
+    color: #000;
+    font-size: 15px;
+    cursor: pointer;
+    transition: opacity 0.2s;
+}
+
+.complete-btn:hover {
+    opacity: 0.85;
+}
+
+/* MyWhoosh link */
+.whoosh-link {
+    padding: 10px 16px;
+    background: var(--bg-panel);
+    border: 1px solid var(--border-light);
+    border-radius: 8px;
+    color: var(--accent);
+    font-size: 15px;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    transition: border-color 0.2s, color 0.2s;
+}
+
+.whoosh-link:hover {
+    border-color: var(--accent);
+    color: var(--accent);
+}

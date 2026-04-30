@@ -814,3 +814,109 @@ body {
     border-color: var(--accent);
     color: var(--accent);
 }
+/* ============================
+   MOBILE + FOLDABLE BREAKPOINTS
+   ============================ */
+
+/* Compact mode for narrow screens */
+@media (max-width: 480px) {
+
+    body {
+        font-size: 14px;
+    }
+
+    .main {
+        padding: 16px;
+        gap: 24px;
+    }
+
+    .panel-toggle {
+        padding: 12px 14px;
+        font-size: 15px;
+    }
+
+    .setup-grid {
+        gap: 14px;
+    }
+
+    .setup-field select {
+        padding: 8px;
+        font-size: 14px;
+    }
+
+    #apply-settings {
+        padding: 10px 14px;
+        font-size: 14px;
+    }
+
+    .weekly-strip {
+        gap: 12px;
+        padding: 12px 2px;
+    }
+
+    .day-cell {
+        min-width: 95px;
+        padding: 10px;
+        border-radius: 10px;
+    }
+
+    .day-name {
+        font-size: 14px;
+    }
+
+    .day-content {
+        font-size: 13px;
+    }
+
+    .workout-card {
+        padding: 16px;
+        border-radius: 12px;
+        gap: 14px;
+    }
+
+    .card-title {
+        font-size: 18px;
+    }
+
+    .card-meta {
+        font-size: 14px;
+    }
+
+    .coach-notes {
+        font-size: 14px;
+    }
+
+    .complete-btn,
+    .whoosh-link {
+        padding: 8px 12px;
+        font-size: 14px;
+    }
+
+    .footer {
+        padding: 20px 0;
+    }
+
+    .footer-link {
+        font-size: 13px;
+    }
+
+    .disclaimer {
+        font-size: 13px;
+    }
+}
+
+/* Foldable inner-display optimisation */
+@media (max-width: 700px) and (orientation: portrait) {
+
+    .sidebar {
+        width: 240px;
+    }
+
+    .main {
+        padding: 18px;
+    }
+
+    .workout-card {
+        padding: 18px;
+    }
+}

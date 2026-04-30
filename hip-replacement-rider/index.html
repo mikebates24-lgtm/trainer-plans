@@ -693,7 +693,10 @@ function updateToday() {
        J9 — INITIALISE
        ============================ */
 
-    $("#apply-settings").addEventListener("click", applySettings);
+   $("#apply-settings").addEventListener("click", () => {
+    applySettings();
+    updateToday();
+});
 
     drawChart();
 

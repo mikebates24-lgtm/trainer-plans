@@ -1055,3 +1055,49 @@ function togglePanel(button) {
 panelToggles.forEach(btn => {
     btn.addEventListener("click", () => togglePanel(btn));
 });
+/* ============================
+   J4 — SETUP PANEL LOGIC
+   ============================ */
+
+/* Read all setup fields and update state */
+function applySettings() {
+    state.age = $("#age").value;
+    state.experience = $("#experience").value;
+    state.pain = $("#pain").value;
+    state.weeks = $("#weeks").value;
+
+    state.equipment.indoor = $("#eq-indoor").checked;
+    state.equipment.outdoor = $("#eq-outdoor").checked;
+    state.equipment.bands = $("#eq-bands").checked;
+
+    state.yesterday = $("#yesterday").value;
+
+    saveState();
+    render();
+}
+
+/* Generate descriptive summary */
+function updateSetupSummary() {
+    const summary = $("#setup-summary");
+
+    const eqList = [];
+    if (state.equipment.indoor) eqList.push("indoor trainer");
+    if (state.equipment.outdoor) eqList.push("outdoor bike");
+    if (state.equipment.bands) eqList.push("resistance bands");
+
+    const eqText = eqList.length > 0
+        ? `with access to ${eqList.join(", ")}`
+        : "with no equipment selected";
+
+    const painText = state.pain === "none"
+        ? "no pain"
+        : `${state.pain} pain`;
+
+    summary.textContent =
+        `You're an ${state.experience} rider aged ${state.age}, ` +
+        `${state.weeks} weeks post‑op, experiencing ${painText}, ` +
+        `${eqText}.`;
+}
+
+/* Attach listener to Apply button */
+$("#apply-settings").addEventListener("click", applySettings);

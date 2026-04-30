@@ -481,6 +481,7 @@ document.addEventListener("DOMContentLoaded", () => {
         },
         completed: false
     };
+
 /* ============================
    WORKOUT LOOKUP TABLE
    ============================ */
@@ -520,6 +521,12 @@ const workouts = {
         { name: "Rest Day — Full Recovery", folder: "Rest", duration: "Full rest" }
     ]
 };
+
+// ⭐ pickWorkout MUST come after workouts
+function pickWorkout(category) {
+    const list = workouts[category];
+    return list[Math.floor(Math.random() * list.length)];
+}
 
     /* ============================
        J2 — APPLY SETTINGS + SUMMARY

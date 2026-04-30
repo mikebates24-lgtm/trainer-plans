@@ -260,3 +260,63 @@
     </p>
 
 </footer>
+/* ============================
+   GLOBAL VARIABLES + AUTO THEME
+   ============================ */
+
+/* Light mode defaults */
+:root {
+    --accent: #4fc3f7;
+
+    --bg: #ffffff;
+    --bg-panel: #f4f6f8;
+    --bg-card: #ffffff;
+
+    --text: #1a1d21;
+    --text-mid: #4a4f55;
+    --text-dim: #7a828a;
+
+    --border: #d0d4d9;
+    --border-light: #e4e7eb;
+
+    --shadow: rgba(0, 0, 0, 0.08);
+}
+
+/* Dark mode overrides */
+@media (prefers-color-scheme: dark) {
+    :root {
+        --bg: #0d0f12;
+        --bg-panel: #111418;
+        --bg-card: #14171c;
+
+        --text: #e6e6e6;
+        --text-mid: #9ea7af;
+        --text-dim: #7aa0b8;
+
+        --border: #1c1f24;
+        --border-light: #2a2f36;
+
+        --shadow: rgba(79, 195, 247, 0.25);
+    }
+}
+
+/* ============================
+   GLOBAL LAYOUT
+   ============================ */
+
+body {
+    margin: 0;
+    font-family: system-ui, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    display: flex;
+    height: 100vh;
+    overflow: hidden;
+}
+
+/* App wrapper */
+.app {
+    display: flex;
+    width: 100%;
+    height: 100%;
+}

@@ -1605,3 +1605,49 @@ generateTodaysWorkout = function() {
 
     return w;
 };
+/* ============================
+   J10 — PERFORMANCE METRICS
+   ============================ */
+
+/* Estimate FTP based on age + experience */
+function estimateFTP() {
+    let base = 250;
+
+    if (state.experience === "beginner") base -= 40;
+    if (state.experience === "intermediate") base += 0;
+    if (state.experience === "advanced") base += 30;
+
+    if (state.age === "60-69") base -= 20;
+    if (state.age === "70+") base -= 40;
+
+    return base;
+}
+
+/* Estimate IF based on workout intensity */
+function estimateIF(intensity) {
+    const i = intensity.toLowerCase();
+    if (i.includes("very low")) return 0.55;
+    if (i.includes("low")) return 0.65;
+    if (i.includes("moderate")) return 0.80;
+    if (i.includes("high")) return 0.90;
+    return 0.75;
+}
+
+/* Estimate TSS */
+function estimateTSS(durationMin, IF) {
+    return Math.round((durationMin * IF * IF) / 36);
+}
+
+/* Override createWorkoutCard to include metrics */
+const originalCreateCard = createWorkoutCard;
+createWorkoutCard = function(workout) {
+    const ftp = estimateFTP();
+    const IF = estimateIF(workout.intensity);
+
+    const durationMin = parseInt(workout.duration) || 60;
+    const TSS = estimateTSS(durationMin, IF);
+
+    workout.notes += ` Estimated IF: ${IF.toFixed(2)}, TSS: ${TSS}.`;
+
+    return originalCreateCard(workout);
+};

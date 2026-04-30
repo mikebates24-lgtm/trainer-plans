@@ -1157,3 +1157,91 @@ function scrollToToday() {
         targetCell.scrollIntoView({ behavior: "smooth", inline: "center" });
     }
 }
+/* ============================
+   J6 — WORKOUT CARD GENERATOR
+   ============================ */
+
+/* Emoji badges for workout types */
+const badgeIcons = {
+    endurance: "🚴",
+    z2: "🚴",
+    tempo: "⏱️",
+    sweetspot: "🔥",
+    vo2: "💨",
+    climbing: "⛰️",
+    recovery: "💧",
+    rest: "😴",
+    strength: "💪"
+};
+
+/* Build a single workout card */
+function createWorkoutCard(workout) {
+    const card = document.createElement("article");
+    card.className = "workout-card";
+
+    const emoji = badgeIcons[workout.icon] || "🏋️";
+
+    card.innerHTML = `
+        <div class="card-header">
+            <div class="badge">${emoji}</div>
+            <h3 class="card-title">${workout.title}</h3>
+        </div>
+
+        <div class="card-meta">
+            <p><strong>Duration:</strong> ${workout.duration}</p>
+            <p><strong>Intensity:</strong> ${workout.intensity}</p>
+            <p><strong>Equipment:</strong> ${workout.equipment}</p>
+        </div>
+
+        <p class="coach-notes">${workout.notes}</p>
+
+        <div class="card-actions">
+            <button class="complete-btn">Mark Complete</button>
+            <a class="whoosh-link" href="${workout.link}" target="_blank" rel="noopener">
+                Open in MyWhoosh
+            </a>
+        </div>
+    `;
+
+    /* Mark Complete logic */
+    card.querySelector(".complete-btn").addEventListener("click", () => {
+        card.style.opacity = "0.5";
+        card.style.transition = "opacity 0.3s";
+    });
+
+    return card;
+}
+
+/* Populate all workout cards */
+function populateWorkouts() {
+    const container = $("#workout-list");
+    container.innerHTML = "";
+
+    // J7 will generate real workouts; for now, a placeholder example:
+    const exampleWorkouts = [
+        {
+            title: "Endurance Z2 Ride",
+            duration: "60–90 min",
+            intensity: "Low",
+            equipment: "Indoor trainer",
+            notes: "Keep cadence smooth, stay in Z2, focus on relaxed breathing.",
+            link: "#",
+            icon: "z2"
+        },
+        {
+            title: "Sweet Spot Session",
+            duration: "45–60 min",
+            intensity: "Moderate–High",
+            equipment: "Indoor trainer",
+            notes: "Two blocks at Sweet Spot. Maintain steady power, avoid surging.",
+            link: "#",
+            icon: "sweetspot"
+        }
+    ];
+
+    state.workouts = exampleWorkouts; // J7 will override this
+
+    exampleWorkouts.forEach(w => {
+        container.appendChild(createWorkoutCard(w));
+    });
+}

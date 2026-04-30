@@ -45,3 +45,100 @@
         <li><button class="nav-item" data-tool="workouts">All Workouts</button></li>
     </ul>
 </div>
+<!-- ============================
+     SETUP PANEL (COLLAPSIBLE)
+     ============================ -->
+
+<section class="setup">
+
+    <!-- Toggle button -->
+    <button class="panel-toggle" data-target="setup-panel">
+        <span>Setup & Preferences</span>
+        <span class="chevron">▸</span>
+    </button>
+
+    <!-- Collapsible content -->
+    <div id="setup-panel" class="panel-content" hidden>
+
+        <div class="setup-grid">
+
+            <!-- Age -->
+            <div class="setup-field">
+                <label for="age">Age</label>
+                <select id="age">
+                    <option value="40-49">40–49</option>
+                    <option value="50-59">50–59</option>
+                    <option value="60-69">60–69</option>
+                    <option value="70-79">70–79</option>
+                </select>
+            </div>
+
+            <!-- Experience -->
+            <div class="setup-field">
+                <label for="experience">Cycling Experience</label>
+                <select id="experience">
+                    <option value="beginner">Beginner</option>
+                    <option value="intermediate">Intermediate</option>
+                    <option value="advanced">Advanced</option>
+                </select>
+            </div>
+
+            <!-- Pain level -->
+            <div class="setup-field">
+                <label for="pain">Pain Level</label>
+                <select id="pain">
+                    <option value="none">None</option>
+                    <option value="mild">Mild</option>
+                    <option value="moderate">Moderate</option>
+                    <option value="high">High</option>
+                </select>
+            </div>
+
+            <!-- Weeks since hip replacement -->
+            <div class="setup-field">
+                <label for="weeks">Weeks Since Hip Replacement</label>
+                <select id="weeks">
+                    <option value="0-3">0–3 weeks</option>
+                    <option value="4-6">4–6 weeks</option>
+                    <option value="7-12">7–12 weeks</option>
+                    <option value="13+">13+ weeks</option>
+                </select>
+            </div>
+
+            <!-- Equipment -->
+            <div class="setup-field">
+                <label>Equipment Available</label>
+                <div class="checkbox-group">
+                    <label><input type="checkbox" id="eq-indoor"> Indoor trainer</label>
+                    <label><input type="checkbox" id="eq-outdoor"> Outdoor bike</label>
+                    <label><input type="checkbox" id="eq-bands"> Resistance bands</label>
+                </div>
+            </div>
+
+            <!-- Yesterday's workout -->
+            <div class="setup-field">
+                <label for="yesterday">Yesterday’s Workout</label>
+                <select id="yesterday">
+                    <option value="auto">Auto‑detected (if available)</option>
+                    <option value="none">No structured session</option>
+                    <option value="easy">Easy ride</option>
+                    <option value="moderate">Moderate ride</option>
+                    <option value="hard">Hard ride</option>
+                </select>
+            </div>
+
+        </div>
+
+        <!-- Actions -->
+        <div class="setup-actions">
+            <button id="apply-settings">Apply Settings</button>
+        </div>
+
+        <!-- Summary -->
+        <p class="setup-summary" id="setup-summary">
+            <!-- JS will populate this -->
+        </p>
+
+    </div>
+
+</section>

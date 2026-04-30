@@ -244,6 +244,42 @@ button:hover,
         padding: 18px;
     }
 }
+        /* ============================
+   GLOWING BLUE INPUT FIELDS
+   ============================ */
+
+input[type="number"],
+select {
+    width: 100%;
+    padding: 10px 12px;
+    margin: 6px 0 14px 0;
+    background: var(--bg-card);
+    color: var(--text);
+    border: 1px solid rgba(79, 195, 247, 0.4) !important;
+    border-radius: var(--radius);
+    box-shadow:
+        0 0 6px rgba(79, 195, 247, 0.4),
+        0 0 12px rgba(79, 195, 247, 0.25) !important;
+    transition: 0.25s ease;
+    font-size: 1rem;
+}
+
+input[type="number"]:focus,
+select:focus {
+    outline: none;
+    border-color: var(--accent) !important;
+    box-shadow:
+        0 0 10px rgba(79, 195, 247, 0.6),
+        0 0 20px rgba(79, 195, 247, 0.4) !important;
+}
+
+/* Checkboxes */
+input[type="checkbox"] {
+    accent-color: var(--accent);
+    transform: scale(1.2);
+    margin-right: 6px;
+}
+
 /* ============================
    GLOWING BLUE UI ENHANCEMENTS
    ============================ */

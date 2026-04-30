@@ -1101,3 +1101,59 @@ function updateSetupSummary() {
 
 /* Attach listener to Apply button */
 $("#apply-settings").addEventListener("click", applySettings);
+/* ============================
+   J5 — WEEKLY STRIP POPULATION
+   ============================ */
+
+/* Example weekly plan template (J7 will override this) */
+const defaultWeeklyPlan = {
+    mon: { type: "Endurance Z2", duration: "60–90 min", fatigue: "low" },
+    tue: { type: "Group Ride / Tempo", duration: "75–120 min", fatigue: "moderate" },
+    wed: { type: "Recovery Spin", duration: "30–45 min", fatigue: "low" },
+    thu: { type: "Climbing / VO2", duration: "45–75 min", fatigue: "high" },
+    fri: { type: "Rest", duration: "", fatigue: "low" },
+    sat: { type: "Sweet Spot", duration: "45–75 min", fatigue: "moderate" },
+    sun: { type: "Rest", duration: "", fatigue: "low" }
+};
+
+/* Populate the weekly strip */
+function populateWeeklyStrip() {
+    const days = ["mon", "tue", "wed", "thu", "fri", "sat", "sun"];
+
+    days.forEach(day => {
+        const cell = document.querySelector(`.day-cell[data-day="${day}"]`);
+        const content = cell.querySelector(".day-content");
+
+        // J7 will replace this with phase‑aware logic
+        const plan = defaultWeeklyPlan[day];
+
+        // Set fatigue colour class
+        cell.classList.remove("low", "moderate", "high");
+        cell.classList.add(plan.fatigue);
+
+        // Richer text
+        if (plan.duration) {
+            content.textContent = `${plan.type} • ${plan.duration}`;
+        } else {
+            content.textContent = plan.type;
+        }
+    });
+
+    scrollToToday();
+}
+
+/* Scroll to today's cell on mobile */
+function scrollToToday() {
+    const isMobile = window.matchMedia("(max-width: 700px)").matches;
+    if (!isMobile) return;
+
+    const todayIndex = new Date().getDay(); // 0=Sun, 1=Mon...
+    const map = [6, 0, 1, 2, 3, 4, 5]; // convert JS day → our order
+
+    const targetDay = ["mon","tue","wed","thu","fri","sat","sun"][map[todayIndex]];
+    const targetCell = document.querySelector(`.day-cell[data-day="${targetDay}"]`);
+
+    if (targetCell) {
+        targetCell.scrollIntoView({ behavior: "smooth", inline: "center" });
+    }
+}

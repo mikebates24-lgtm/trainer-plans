@@ -469,3 +469,141 @@ body {
     color: var(--text-mid);
     max-width: 600px;
 }
+/* ============================
+   COLLAPSIBLE PANELS
+   ============================ */
+
+/* Toggle button */
+.panel-toggle {
+    width: 100%;
+    background: var(--bg-card);
+    border: 1px solid var(--border-light);
+    padding: 14px 16px;
+    border-radius: 10px;
+    font-size: 16px;
+    color: var(--text);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    cursor: pointer;
+    transition: border-color 0.2s, color 0.2s;
+}
+
+.panel-toggle:hover {
+    border-color: var(--accent);
+    color: var(--accent);
+}
+
+/* Chevron rotation */
+.panel-toggle .chevron {
+    transition: transform 0.3s ease;
+}
+
+.panel-toggle[aria-expanded="true"] .chevron {
+    transform: rotate(90deg);
+}
+
+/* Collapsible content container */
+.panel-content {
+    overflow: hidden;
+    padding: 0 4px;
+    animation: slideDown 0.3s ease forwards;
+}
+
+/* Slide-down animation */
+@keyframes slideDown {
+    from {
+        opacity: 0;
+        max-height: 0;
+    }
+    to {
+        opacity: 1;
+        max-height: 1000px; /* safely large */
+    }
+}
+
+/* ============================
+   SETUP PANEL GRID
+   ============================ */
+
+.setup-grid {
+    display: grid;
+    gap: 20px;
+    margin-top: 20px;
+}
+
+@media (min-width: 700px) {
+    .setup-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+.setup-field label {
+    display: block;
+    margin-bottom: 6px;
+    font-size: 14px;
+    color: var(--text-mid);
+}
+
+.setup-field select {
+    width: 100%;
+    padding: 10px;
+    border-radius: 8px;
+    border: 1px solid var(--border-light);
+    background: var(--bg-card);
+    color: var(--text);
+    font-size: 15px;
+}
+
+/* ============================
+   CHECKBOX GROUP
+   ============================ */
+
+.checkbox-group {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.checkbox-group label {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 15px;
+    color: var(--text);
+}
+
+.checkbox-group input[type="checkbox"] {
+    width: 18px;
+    height: 18px;
+    accent-color: var(--accent);
+}
+
+/* ============================
+   SETUP ACTIONS + SUMMARY
+   ============================ */
+
+.setup-actions {
+    margin-top: 20px;
+}
+
+#apply-settings {
+    padding: 12px 18px;
+    background: var(--accent);
+    border: none;
+    border-radius: 8px;
+    color: #000;
+    font-size: 15px;
+    cursor: pointer;
+    transition: opacity 0.2s;
+}
+
+#apply-settings:hover {
+    opacity: 0.85;
+}
+
+.setup-summary {
+    margin-top: 16px;
+    font-size: 15px;
+    color: var(--text-mid);
+}

@@ -1245,3 +1245,138 @@ function populateWorkouts() {
         container.appendChild(createWorkoutCard(w));
     });
 }
+/* ============================
+   J7 — AGGRESSIVE RECOMMENDATION ENGINE
+   ============================ */
+
+/* Determine training phase based on weeks post‑op */
+function determinePhase() {
+    const w = state.weeks;
+
+    if (w === "0-6") return 1;
+    if (w === "7-12") return 2;
+    if (w === "13-20") return 3;
+    return 4; // fully cleared
+}
+
+/* Aggressive weekly plan templates */
+const aggressivePlans = {
+    1: { // 0–6 weeks: still cautious
+        mon: { type: "Recovery Spin", duration: "20–30 min", fatigue: "low" },
+        tue: { type: "Endurance Z2", duration: "30–45 min", fatigue: "moderate" },
+        wed: { type: "Rest", duration: "", fatigue: "low" },
+        thu: { type: "Endurance Z2", duration: "30–45 min", fatigue: "moderate" },
+        fri: { type: "Rest", duration: "", fatigue: "low" },
+        sat: { type: "Light Sweet Spot", duration: "20–30 min", fatigue: "moderate" },
+        sun: { type: "Rest", duration: "", fatigue: "low" }
+    },
+
+    2: { // 7–12 weeks: ramping up
+        mon: { type: "Endurance Z2", duration: "60–90 min", fatigue: "low" },
+        tue: { type: "Tempo / Group Ride", duration: "75–120 min", fatigue: "moderate" },
+        wed: { type: "Recovery Spin", duration: "30–45 min", fatigue: "low" },
+        thu: { type: "Climbing / VO2", duration: "45–75 min", fatigue: "high" },
+        fri: { type: "Rest", duration: "", fatigue: "low" },
+        sat: { type: "Sweet Spot", duration: "45–75 min", fatigue: "moderate" },
+        sun: { type: "Endurance Z2", duration: "60–90 min", fatigue: "low" }
+    },
+
+    3: { // 13–20 weeks: aggressive build
+        mon: { type: "Endurance Z2", duration: "75–120 min", fatigue: "low" },
+        tue: { type: "Hard Group Ride", duration: "90–150 min", fatigue: "high" },
+        wed: { type: "Recovery Spin", duration: "30–45 min", fatigue: "low" },
+        thu: { type: "VO2 Max", duration: "45–60 min", fatigue: "high" },
+        fri: { type: "Endurance Z2", duration: "60–90 min", fatigue: "moderate" },
+        sat: { type: "Sweet Spot", duration: "60–90 min", fatigue: "high" },
+        sun: { type: "Rest", duration: "", fatigue: "low" }
+    },
+
+    4: { // Fully cleared: full aggressive training
+        mon: { type: "Endurance Z2", duration: "90–150 min", fatigue: "low" },
+        tue: { type: "Race Simulation / Hard Group Ride", duration: "120–180 min", fatigue: "high" },
+        wed: { type: "Recovery Spin", duration: "30–45 min", fatigue: "low" },
+        thu: { type: "VO2 Max", duration: "45–75 min", fatigue: "high" },
+        fri: { type: "Endurance Z2", duration: "75–120 min", fatigue: "moderate" },
+        sat: { type: "Sweet Spot", duration: "75–120 min", fatigue: "high" },
+        sun: { type: "Climbing Session", duration: "60–90 min", fatigue: "moderate" }
+    }
+};
+
+/* Map workout type → emoji icon key */
+function workoutTypeToIcon(type) {
+    const t = type.toLowerCase();
+    if (t.includes("z2") || t.includes("endurance")) return "z2";
+    if (t.includes("tempo")) return "tempo";
+    if (t.includes("sweet")) return "sweetspot";
+    if (t.includes("vo2")) return "vo2";
+    if (t.includes("climb")) return "climbing";
+    if (t.includes("recovery")) return "recovery";
+    if (t.includes("rest")) return "rest";
+    return "endurance";
+}
+
+/* Generate Today’s Recommendation */
+function generateTodaysWorkout() {
+    const phase = determinePhase();
+    const plan = aggressivePlans[phase];
+
+    const days = ["sun","mon","tue","wed","thu","fri","sat"];
+    const today = days[new Date().getDay()];
+
+    const todayPlan = plan[today];
+
+    // Build workout object for J6
+    return {
+        title: todayPlan.type,
+        duration: todayPlan.duration || "—",
+        intensity: todayPlan.fatigue === "high" ? "High" :
+                   todayPlan.fatigue === "moderate" ? "Moderate" : "Low",
+        equipment: state.equipment.indoor ? "Indoor trainer" :
+                   state.equipment.outdoor ? "Outdoor bike" :
+                   "Any",
+        notes: generateCoachNotes(todayPlan),
+        link: "#",
+        icon: workoutTypeToIcon(todayPlan.type)
+    };
+}
+
+/* Generate coach notes */
+function generateCoachNotes(plan) {
+    if (plan.type.includes("VO2")) {
+        return "Push hard on the intervals. Maintain form. Full recovery between efforts.";
+    }
+    if (plan.type.includes("Sweet Spot")) {
+        return "Hold steady power. Avoid surging. Focus on breathing rhythm.";
+    }
+    if (plan.type.includes("Endurance")) {
+        return "Stay relaxed. Keep cadence smooth. Stay in Z2 throughout.";
+    }
+    if (plan.type.includes("Recovery")) {
+        return "Very easy spin. Keep legs loose. No pressure on the pedals.";
+    }
+    if (plan.type.includes("Climbing")) {
+        return "Stay seated for most efforts. Smooth torque. Control breathing.";
+    }
+    return "Ride with purpose. Maintain good form throughout.";
+}
+
+/* Override weekly strip + workouts with aggressive logic */
+function applyAggressiveLogic() {
+    const phase = determinePhase();
+    const plan = aggressivePlans[phase];
+
+    // Override weekly strip plan
+    Object.keys(plan).forEach(day => {
+        defaultWeeklyPlan[day] = plan[day];
+    });
+
+    // Override workout cards
+    state.workouts = [generateTodaysWorkout()];
+}
+
+/* Integrate into render() */
+const originalRender = render;
+render = function() {
+    applyAggressiveLogic();
+    originalRender();
+};

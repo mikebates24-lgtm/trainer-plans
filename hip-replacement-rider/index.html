@@ -1699,3 +1699,103 @@ populateWorkouts = function() {
 $$(".day-cell").forEach(cell => {
     cell.style.transition = "border-color 0.4s, box-shadow 0.4s";
 });
+/* ============================
+   J14 — WEEKLY PROGRESS CHARTS
+   ============================ */
+
+/* Canvas setup */
+const chartCanvas = document.getElementById("progress-chart");
+const ctx = chartCanvas.getContext("2d");
+
+/* Resize canvas to device pixel ratio */
+function resizeChart() {
+    const dpr = window.devicePixelRatio || 1;
+    chartCanvas.width = chartCanvas.clientWidth * dpr;
+    chartCanvas.height = chartCanvas.clientHeight * dpr;
+    ctx.scale(dpr, dpr);
+}
+
+/* Extract TSS values from state.workouts (J10 adds TSS to notes) */
+function extractTSS() {
+    const tssValues = [];
+
+    // Parse TSS from notes
+    state.workouts.forEach(w => {
+        const match = w.notes.match(/TSS:\s*(\d+)/);
+        if (match) tssValues.push(parseInt(match[1]));
+    });
+
+    // If no workouts yet, return placeholder
+    if (tssValues.length === 0) return [0, 0, 0, 0, 0, 0, 0];
+
+    // Pad to 7 days
+    while (tssValues.length < 7) tssValues.push(0);
+
+    return tssValues.slice(0, 7);
+}
+
+/* Draw chart */
+function drawChart() {
+    resizeChart();
+
+    const w = chartCanvas.clientWidth;
+    const h = chartCanvas.clientHeight;
+
+    ctx.clearRect(0, 0, w, h);
+
+    const tss = extractTSS();
+    const maxTSS = Math.max(...tss, 50);
+
+    const padding = 20;
+    const stepX = (w - padding * 2) / 6;
+
+    /* Line colour based on theme */
+    const isDark = document.documentElement.classList.contains("dark");
+    const lineColor = isDark ? "#66ccff" : "#0077cc";
+
+    /* Draw line */
+    ctx.beginPath();
+    ctx.lineWidth = 3;
+    ctx.strokeStyle = lineColor;
+
+    tss.forEach((val, i) => {
+        const x = padding + i * stepX;
+        const y = h - padding - (val / maxTSS) * (h - padding * 2);
+
+        if (i === 0) ctx.moveTo(x, y);
+        else ctx.lineTo(x, y);
+    });
+
+    ctx.stroke();
+
+    /* Draw points */
+    tss.forEach((val, i) => {
+        const x = padding + i * stepX;
+        const y = h - padding - (val / maxTSS) * (h - padding * 2);
+
+        ctx.beginPath();
+        ctx.arc(x, y, 5, 0, Math.PI * 2);
+        ctx.fillStyle = lineColor;
+        ctx.fill();
+    });
+}
+
+/* Animate chart on render */
+function animateChart() {
+    chartCanvas.style.opacity = "0";
+    setTimeout(() => {
+        chartCanvas.style.transition = "opacity 0.6s";
+        chartCanvas.style.opacity = "1";
+        drawChart();
+    }, 50);
+}
+
+/* Hook into render() */
+const originalRenderJ14 = render;
+render = function() {
+    originalRenderJ14();
+    animateChart();
+};
+
+/* Redraw on resize */
+window.addEventListener("resize", drawChart);

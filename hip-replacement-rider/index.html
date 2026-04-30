@@ -8,7 +8,243 @@
          GLOBAL STYLESHEET
          ============================ -->
     <style>
-        /* Your full CSS will go here in Chunk B */
+       /* ============================
+   GLOBAL VARIABLES + AUTO THEME
+   ============================ */
+
+:root {
+    --accent: #4fc3f7;
+
+    --bg: #ffffff;
+    --bg-panel: #f4f6f8;
+    --bg-card: #ffffff;
+
+    --text: #222222;
+    --text-muted: #666666;
+
+    --border: #d0d7de;
+    --shadow: rgba(0, 0, 0, 0.06);
+
+    --radius: 10px;
+    --transition: 0.25s ease;
+    --font: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+}
+
+/* Dark mode */
+@media (prefers-color-scheme: dark) {
+    :root {
+        --bg: #0f1115;
+        --bg-panel: #1a1d23;
+        --bg-card: #1e2128;
+
+        --text: #e6e6e6;
+        --text-muted: #9aa0a6;
+
+        --border: #2a2f36;
+        --shadow: rgba(0, 0, 0, 0.4);
+    }
+}
+
+/* ============================
+   GLOBAL RESET + BASE
+   ============================ */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: var(--font);
+    line-height: 1.5;
+    padding: 0;
+    margin: 0;
+}
+
+/* ============================
+   LAYOUT: SIDEBAR + MAIN
+   ============================ */
+
+.app {
+    display: flex;
+    min-height: 100vh;
+}
+
+.sidebar {
+    width: 260px;
+    background: var(--bg-panel);
+    border-right: 1px solid var(--border);
+    padding: 20px;
+}
+
+.main {
+    flex: 1;
+    padding: 24px;
+}
+
+/* ============================
+   WORKOUT CARDS
+   ============================ */
+
+.workout-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 20px;
+    margin-bottom: 16px;
+    box-shadow: 0 2px 4px var(--shadow);
+    transition: var(--transition);
+}
+
+.workout-card:hover {
+    border-color: var(--accent);
+}
+
+/* ============================
+   BUTTONS
+   ============================ */
+
+button,
+.btn {
+    background: var(--accent);
+    color: #fff;
+    border: none;
+    padding: 12px 18px;
+    border-radius: var(--radius);
+    cursor: pointer;
+    font-size: 1rem;
+    transition: var(--transition);
+}
+
+button:hover,
+.btn:hover {
+    opacity: 0.9;
+}
+
+/* ============================
+   SETUP PANEL
+   ============================ */
+
+.setup-panel {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 20px;
+    margin-bottom: 20px;
+}
+
+/* ============================
+   ACCORDION PANELS
+   ============================ */
+
+.panel-toggle {
+    cursor: pointer;
+    padding: 12px;
+    background: var(--bg-panel);
+    border-radius: var(--radius);
+    margin-bottom: 8px;
+    border: 1px solid var(--border);
+}
+
+.panel-content {
+    display: none;
+    padding: 12px;
+    border-left: 3px solid var(--accent);
+    margin-bottom: 16px;
+}
+
+/* ============================
+   MYWHOOSH LINK
+   ============================ */
+
+.whoosh-link {
+    display: inline-block;
+    padding: 10px 14px;
+    border-radius: var(--radius);
+    border: 1px solid var(--border);
+    color: var(--text-muted);
+    text-decoration: none;
+    transition: var(--transition);
+}
+
+.whoosh-link:hover {
+    border-color: var(--accent);
+    color: var(--accent);
+}
+
+/* ============================
+   CHART CONTAINER
+   ============================ */
+
+.chart-container {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 20px;
+    margin-top: 20px;
+}
+
+/* ============================
+   COMPLETION BUTTON
+   ============================ */
+
+.complete-btn {
+    background: var(--accent);
+    color: #fff;
+    padding: 14px;
+    border-radius: var(--radius);
+    text-align: center;
+    cursor: pointer;
+    margin-top: 20px;
+}
+
+/* ============================
+   RESPONSIVE BREAKPOINTS
+   ============================ */
+
+@media (max-width: 900px) {
+    .app {
+        flex-direction: column;
+    }
+
+    .sidebar {
+        width: 100%;
+        border-right: none;
+        border-bottom: 1px solid var(--border);
+    }
+}
+
+@media (max-width: 600px) {
+    .main {
+        padding: 16px;
+    }
+
+    .workout-card {
+        padding: 16px;
+    }
+}
+
+/* ============================
+   FOLDABLE INNER-DISPLAY OPTIMISATION
+   ============================ */
+
+@media (max-width: 700px) and (orientation: portrait) {
+    .sidebar {
+        padding: 16px;
+    }
+
+    .main {
+        padding: 16px;
+    }
+
+    .workout-card {
+        padding: 18px;
+    }
+}
+
     </style>
 </head>
 

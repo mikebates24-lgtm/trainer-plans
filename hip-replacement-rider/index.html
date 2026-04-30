@@ -381,204 +381,208 @@ button:hover,
     <!-- ============================
          APPLICATION SCRIPT
          ============================ -->
-    <script>
-       /* ============================
-   J1 — DOM HELPERS + GLOBAL STATE
-   ============================ */
+   <script>
+document.addEventListener("DOMContentLoaded", () => {
 
-const $ = (sel) => document.querySelector(sel);
-const $$ = (sel) => document.querySelectorAll(sel);
+    /* ============================
+       J1 — DOM HELPERS + GLOBAL STATE
+       ============================ */
 
-const state = {
-    age: null,
-    experience: null,
-    pain: null,
-    weeks: null,
-    yesterday: null,
-    equipment: {
-        indoor: false,
-        outdoor: false,
-        bands: false
-    },
-    completed: false
-};
+    const $ = (sel) => document.querySelector(sel);
+    const $$ = (sel) => document.querySelectorAll(sel);
 
-/* ============================
-   J2 — APPLY SETTINGS + SUMMARY
-   ============================ */
+    const state = {
+        age: null,
+        experience: null,
+        pain: null,
+        weeks: null,
+        yesterday: null,
+        equipment: {
+            indoor: false,
+            outdoor: false,
+            bands: false
+        },
+        completed: false
+    };
 
-function applySettings() {
-    state.age = $("#age").value;
-    state.experience = $("#experience").value;
-    state.pain = $("#pain").value;
-    state.weeks = $("#weeks").value;
-    state.yesterday = $("#yesterday").value;
+    /* ============================
+       J2 — APPLY SETTINGS + SUMMARY
+       ============================ */
 
-    state.equipment.indoor = $("#eq-indoor").checked;
-    state.equipment.outdoor = $("#eq-outdoor").checked;
-    state.equipment.bands = $("#eq-bands").checked;
+    function applySettings() {
+        state.age = $("#age").value;
+        state.experience = $("#experience").value;
+        state.pain = $("#pain").value;
+        state.weeks = $("#weeks").value;
+        state.yesterday = $("#yesterday").value;
 
-    updateSummary();
-    updateToday();
-    updateWeek();
-    updateEquipmentNotes();
-    updateTrainingNotes();
-}
+        state.equipment.indoor = $("#eq-indoor").checked;
+        state.equipment.outdoor = $("#eq-outdoor").checked;
+        state.equipment.bands = $("#eq-bands").checked;
 
-function updateSummary() {
-    $("#setup-summary").innerHTML = `
-        <strong>Age:</strong> ${state.age || "-"}<br>
-        <strong>Experience:</strong> ${state.experience}<br>
-        <strong>Pain:</strong> ${state.pain}<br>
-        <strong>Weeks:</strong> ${state.weeks || "-"}<br>
-        <strong>Yesterday:</strong> ${state.yesterday}<br>
-        <strong>Equipment:</strong>
-        ${[
-            state.equipment.indoor ? "Indoor trainer" : null,
-            state.equipment.outdoor ? "Outdoor bike" : null,
-            state.equipment.bands ? "Bands" : null
-        ].filter(Boolean).join(", ") || "None"}
-    `;
-}
-
-/* ============================
-   J3 — TODAY’S RECOMMENDATION
-   ============================ */
-
-function updateToday() {
-    const card = $("#today-card");
-
-    let recommendation = "Easy Zone 2 ride";
-    let duration = "45–60 minutes";
-
-    if (state.pain === "moderate") {
-        recommendation = "Recovery spin";
-        duration = "20–30 minutes";
+        updateSummary();
+        updateToday();
+        updateWeek();
+        updateEquipmentNotes();
+        updateTrainingNotes();
     }
 
-    if (state.pain === "severe") {
-        recommendation = "Rest day";
-        duration = "Full rest";
-    }
-
-    if (state.yesterday === "hard") {
-        recommendation = "Recovery spin";
-        duration = "20–30 minutes";
-    }
-
-    card.innerHTML = `
-        <h3>${recommendation}</h3>
-        <p>Duration: ${duration}</p>
-    `;
-}
-
-/* ============================
-   J4 — WEEKLY PLAN
-   ============================ */
-
-function updateWeek() {
-    const container = $("#week-cards");
-    container.innerHTML = "";
-
-    const days = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"];
-
-    days.forEach((day) => {
-        const div = document.createElement("div");
-        div.className = "workout-card";
-        div.innerHTML = `
-            <strong>${day}</strong><br>
-            <span>Workout: TBD</span>
+    function updateSummary() {
+        $("#setup-summary").innerHTML = `
+            <strong>Age:</strong> ${state.age || "-"}<br>
+            <strong>Experience:</strong> ${state.experience}<br>
+            <strong>Pain:</strong> ${state.pain}<br>
+            <strong>Weeks:</strong> ${state.weeks || "-"}<br>
+            <strong>Yesterday:</strong> ${state.yesterday}<br>
+            <strong>Equipment:</strong>
+            ${[
+                state.equipment.indoor ? "Indoor trainer" : null,
+                state.equipment.outdoor ? "Outdoor bike" : null,
+                state.equipment.bands ? "Bands" : null
+            ].filter(Boolean).join(", ") || "None"}
         `;
-        container.appendChild(div);
+    }
+
+    /* ============================
+       J3 — TODAY’S RECOMMENDATION
+       ============================ */
+
+    function updateToday() {
+        const card = $("#today-card");
+
+        let recommendation = "Easy Zone 2 ride";
+        let duration = "45–60 minutes";
+
+        if (state.pain === "moderate") {
+            recommendation = "Recovery spin";
+            duration = "20–30 minutes";
+        }
+
+        if (state.pain === "severe") {
+            recommendation = "Rest day";
+            duration = "Full rest";
+        }
+
+        if (state.yesterday === "hard") {
+            recommendation = "Recovery spin";
+            duration = "20–30 minutes";
+        }
+
+        card.innerHTML = `
+            <h3>${recommendation}</h3>
+            <p>Duration: ${duration}</p>
+        `;
+    }
+
+    /* ============================
+       J4 — WEEKLY PLAN
+       ============================ */
+
+    function updateWeek() {
+        const container = $("#week-cards");
+        container.innerHTML = "";
+
+        const days = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"];
+
+        days.forEach((day) => {
+            const div = document.createElement("div");
+            div.className = "workout-card";
+            div.innerHTML = `
+                <strong>${day}</strong><br>
+                <span>Workout: TBD</span>
+            `;
+            container.appendChild(div);
+        });
+    }
+
+    /* ============================
+       J5 — EQUIPMENT + TRAINING NOTES
+       ============================ */
+
+    function updateEquipmentNotes() {
+        const el = $("#panel-equipment");
+
+        const notes = [];
+
+        if (state.equipment.indoor) notes.push("Indoor trainer available.");
+        if (state.equipment.outdoor) notes.push("Outdoor bike available.");
+        if (state.equipment.bands) notes.push("Resistance bands available.");
+
+        el.innerHTML = notes.length ? notes.join("<br>") : "No equipment selected.";
+    }
+
+    function updateTrainingNotes() {
+        const el = $("#panel-training");
+
+        const notes = [];
+
+        if (state.experience === "beginner") {
+            notes.push("Focus on consistency and low intensity.");
+        }
+        if (state.experience === "advanced") {
+            notes.push("Include threshold and VO2 intervals weekly.");
+        }
+        if (state.pain !== "none") {
+            notes.push("Reduce intensity until pain improves.");
+        }
+
+        el.innerHTML = notes.length ? notes.join("<br>") : "No specific notes.";
+    }
+
+    /* ============================
+       J6 — ACCORDION PANELS
+       ============================ */
+
+    const panelToggles = $$(".panel-toggle");
+    const panels = $$(".panel-content");
+
+    panelToggles.forEach((toggle, i) => {
+        toggle.addEventListener("click", () => {
+            const panel = panels[i];
+            panel.style.display = panel.style.display === "block" ? "none" : "block";
+        });
     });
-}
 
-/* ============================
-   J5 — EQUIPMENT + TRAINING NOTES
-   ============================ */
+    /* ============================
+       J7 — COMPLETION BUTTON
+       ============================ */
 
-function updateEquipmentNotes() {
-    const el = $("#panel-equipment");
-
-    const notes = [];
-
-    if (state.equipment.indoor) notes.push("Indoor trainer available.");
-    if (state.equipment.outdoor) notes.push("Outdoor bike available.");
-    if (state.equipment.bands) notes.push("Resistance bands available.");
-
-    el.innerHTML = notes.length ? notes.join("<br>") : "No equipment selected.";
-}
-
-function updateTrainingNotes() {
-    const el = $("#panel-training");
-
-    const notes = [];
-
-    if (state.experience === "beginner") {
-        notes.push("Focus on consistency and low intensity.");
-    }
-    if (state.experience === "advanced") {
-        notes.push("Include threshold and VO2 intervals weekly.");
-    }
-    if (state.pain !== "none") {
-        notes.push("Reduce intensity until pain improves.");
-    }
-
-    el.innerHTML = notes.length ? notes.join("<br>") : "No specific notes.";
-}
-
-/* ============================
-   J6 — ACCORDION PANELS
-   ============================ */
-
-const panelToggles = $$(".panel-toggle");
-const panels = $$(".panel-content");
-
-panelToggles.forEach((toggle, i) => {
-    toggle.addEventListener("click", () => {
-        const panel = panels[i];
-        panel.style.display = panel.style.display === "block" ? "none" : "block";
+    $("#complete-btn").addEventListener("click", () => {
+        state.completed = true;
+        $("#complete-btn").innerText = "Completed ✔";
     });
+
+    /* ============================
+       J8 — CHART (STATIC DEMO)
+       ============================ */
+
+    function drawChart() {
+        const canvas = $("#load-chart");
+        const ctx = canvas.getContext("2d");
+
+        canvas.width = canvas.clientWidth;
+        canvas.height = 200;
+
+        ctx.fillStyle = "#4fc3f7";
+        ctx.fillRect(10, 50, 40, 120);
+        ctx.fillRect(70, 30, 40, 140);
+        ctx.fillRect(130, 80, 40, 90);
+        ctx.fillRect(190, 60, 40, 110);
+    }
+
+    window.addEventListener("resize", drawChart);
+
+    /* ============================
+       J9 — INITIALISE
+       ============================ */
+
+    $("#apply-settings").addEventListener("click", applySettings);
+
+    drawChart();
+
 });
+</script>
 
-/* ============================
-   J7 — COMPLETION BUTTON
-   ============================ */
-
-$("#complete-btn").addEventListener("click", () => {
-    state.completed = true;
-    $("#complete-btn").innerText = "Completed ✔";
-});
-
-/* ============================
-   J8 — CHART (STATIC DEMO)
-   ============================ */
-
-function drawChart() {
-    const canvas = $("#load-chart");
-    const ctx = canvas.getContext("2d");
-
-    canvas.width = canvas.clientWidth;
-    canvas.height = 200;
-
-    ctx.fillStyle = "#4fc3f7";
-    ctx.fillRect(10, 50, 40, 120);
-    ctx.fillRect(70, 30, 40, 140);
-    ctx.fillRect(130, 80, 40, 90);
-    ctx.fillRect(190, 60, 40, 110);
-}
-
-window.addEventListener("resize", drawChart);
-
-/* ============================
-   J9 — INITIALISE
-   ============================ */
-
-$("#apply-settings").addEventListener("click", applySettings);
-
-drawChart();
-
-    </script>
 
 </body>
 </html>

@@ -1550,3 +1550,58 @@ $$(".footer-link").forEach(link => {
     link.setAttribute("target", "_blank");
     link.setAttribute("rel", "noopener");
 });
+/* ============================
+   J9 — MYWHOOSH WORKOUT LIBRARY
+   ============================ */
+
+/* Example MyWhoosh workout library */
+const myWhooshLibrary = {
+    endurance: [
+        { title: "Endurance Builder 60", duration: "60 min", link: "https://mywhoosh.com/endurance60" },
+        { title: "Endurance Builder 90", duration: "90 min", link: "https://mywhoosh.com/endurance90" }
+    ],
+    sweetspot: [
+        { title: "Sweet Spot 2x20", duration: "60 min", link: "https://mywhoosh.com/ss2x20" },
+        { title: "Sweet Spot 3x15", duration: "75 min", link: "https://mywhoosh.com/ss3x15" }
+    ],
+    vo2: [
+        { title: "VO2 Max 30/30s", duration: "45 min", link: "https://mywhoosh.com/vo23030" },
+        { title: "VO2 Max 3min Intervals", duration: "60 min", link: "https://mywhoosh.com/vo23min" }
+    ],
+    climbing: [
+        { title: "Hill Repeats 5x5", duration: "60 min", link: "https://mywhoosh.com/hill5x5" }
+    ],
+    recovery: [
+        { title: "Recovery Spin 30", duration: "30 min", link: "https://mywhoosh.com/recovery30" }
+    ],
+    rest: [
+        { title: "Rest Day Guidance", duration: "—", link: "https://mywhoosh.com/rest" }
+    ]
+};
+
+/* Pick a MyWhoosh workout based on type */
+function pickMyWhooshWorkout(type) {
+    const key = workoutTypeToIcon(type); // maps to endurance, sweetspot, vo2, etc.
+    const list = myWhooshLibrary[key];
+
+    if (!list || list.length === 0) {
+        return { title: type, duration: "—", link: "#" };
+    }
+
+    // Choose the longest workout in aggressive mode
+    return list[list.length - 1];
+}
+
+/* Override generateTodaysWorkout() again to include MyWhoosh mapping */
+const originalGenerate2 = generateTodaysWorkout;
+generateTodaysWorkout = function() {
+    let w = originalGenerate2();
+
+    const mw = pickMyWhooshWorkout(w.title);
+
+    w.title = mw.title;
+    w.duration = mw.duration;
+    w.link = mw.link;
+
+    return w;
+};

@@ -969,3 +969,52 @@ function render() {
 document.addEventListener("DOMContentLoaded", () => {
     loadInitialState();
 });
+/* ============================
+   J2 — SIDEBAR TOGGLE LOGIC
+   ============================ */
+
+const sidebar = $(".sidebar");
+const sidebarToggle = $(".sidebar-toggle");
+
+/* Toggle sidebar open/close */
+function toggleSidebar(forceState = null) {
+    const isCollapsed = sidebar.dataset.collapsed === "true";
+    const newState = forceState !== null ? !forceState : isCollapsed;
+
+    sidebar.dataset.collapsed = newState ? "false" : "true";
+    sidebarToggle.setAttribute("aria-expanded", newState ? "true" : "false");
+}
+
+/* Close sidebar when tapping outside (mobile only) */
+function handleTapOutside(e) {
+    const isDesktop = window.matchMedia("(min-width: 900px)").matches;
+    if (isDesktop) return;
+
+    const isOpen = sidebar.dataset.collapsed === "false";
+    if (!isOpen) return;
+
+    if (!sidebar.contains(e.target) && e.target !== sidebarToggle) {
+        toggleSidebar(false);
+    }
+}
+
+/* Desktop override — sidebar always open */
+function handleDesktopMode() {
+    const isDesktop = window.matchMedia("(min-width: 900px)").matches;
+
+    if (isDesktop) {
+        sidebar.dataset.collapsed = "false";
+        sidebarToggle.setAttribute("aria-expanded", "true");
+    } else {
+        sidebar.dataset.collapsed = "true";
+        sidebarToggle.setAttribute("aria-expanded", "false");
+    }
+}
+
+/* Event listeners */
+sidebarToggle.addEventListener("click", () => toggleSidebar());
+document.addEventListener("click", handleTapOutside);
+window.addEventListener("resize", handleDesktopMode);
+
+/* Initialise sidebar state */
+handleDesktopMode();

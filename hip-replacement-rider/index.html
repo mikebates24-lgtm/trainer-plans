@@ -1380,3 +1380,173 @@ render = function() {
     applyAggressiveLogic();
     originalRender();
 };
+/* ============================
+   J8 — ENHANCEMENTS & ADAPTATION
+   ============================ */
+
+/* ----------------------------
+   LOCALSTORAGE PERSISTENCE
+   ---------------------------- */
+
+function saveState() {
+    localStorage.setItem("trainingState", JSON.stringify(state));
+}
+
+function loadInitialState() {
+    const saved = localStorage.getItem("trainingState");
+    if (saved) {
+        const parsed = JSON.parse(saved);
+
+        // Merge saved values into state
+        Object.assign(state, parsed);
+
+        // Restore equipment checkboxes
+        $("#eq-indoor").checked = state.equipment.indoor;
+        $("#eq-outdoor").checked = state.equipment.outdoor;
+        $("#eq-bands").checked = state.equipment.bands;
+
+        // Restore selects
+        $("#age").value = state.age;
+        $("#experience").value = state.experience;
+        $("#pain").value = state.pain;
+        $("#weeks").value = state.weeks;
+        $("#yesterday").value = state.yesterday;
+    }
+
+    updateSetupSummary();
+}
+
+
+/* ----------------------------
+   PAIN-BASED INTENSITY REDUCTION
+   ---------------------------- */
+
+function adjustForPain(workout) {
+    if (state.pain === "none") return workout;
+
+    if (state.pain === "mild") {
+        workout.intensity = "Moderate";
+        workout.notes += " Reduce intensity slightly due to mild pain.";
+    }
+
+    if (state.pain === "moderate") {
+        workout.intensity = "Low";
+        workout.notes += " Keep effort easy today due to moderate pain.";
+        workout.duration = "30–45 min";
+    }
+
+    if (state.pain === "severe") {
+        workout.title = "Recovery Spin";
+        workout.duration = "20–30 min";
+        workout.intensity = "Very Low";
+        workout.notes = "Severe pain detected. Keep cadence light and avoid any load.";
+        workout.icon = "recovery";
+    }
+
+    return workout;
+}
+
+
+/* ----------------------------
+   YESTERDAY-BASED ADAPTATION
+   ---------------------------- */
+
+function adjustForYesterday(workout) {
+    if (state.yesterday === "hard") {
+        workout.notes += " Yesterday was a hard day — keep the first half conservative.";
+    }
+
+    if (state.yesterday === "long") {
+        workout.duration = workout.duration.replace("90–150", "75–120");
+        workout.notes += " Reduce volume slightly after yesterday’s long ride.";
+    }
+
+    if (state.yesterday === "rest") {
+        workout.notes += " You’re fresh — feel free to push the quality today.";
+    }
+
+    return workout;
+}
+
+
+/* ----------------------------
+   EQUIPMENT FILTERING
+   ---------------------------- */
+
+function adjustForEquipment(workout) {
+    const eq = state.equipment;
+
+    if (!eq.indoor && workout.title.includes("VO2")) {
+        workout.notes += " No indoor trainer detected — replace VO2 with outdoor hill repeats.";
+        workout.title = "Outdoor Hill Repeats";
+        workout.icon = "climbing";
+    }
+
+    if (!eq.outdoor && workout.title.includes("Climbing")) {
+        workout.notes += " No outdoor bike selected — replace climbing with indoor sustained power.";
+        workout.title = "Sustained Power Intervals";
+        workout.icon = "sweetspot";
+    }
+
+    return workout;
+}
+
+
+/* ----------------------------
+   FATIGUE ADAPTATION
+   ---------------------------- */
+
+function adjustForFatigue(workout) {
+    const fatigue = workout.intensity.toLowerCase();
+
+    if (fatigue === "high") {
+        workout.notes += " Expect significant fatigue — warm up thoroughly.";
+    }
+
+    if (fatigue === "moderate") {
+        workout.notes += " Manage your pacing — avoid early surges.";
+    }
+
+    if (fatigue === "low") {
+        workout.notes += " Keep it smooth and steady.";
+    }
+
+    return workout;
+}
+
+
+/* ----------------------------
+   MASTER ADAPTATION PIPELINE
+   ---------------------------- */
+
+function adaptWorkout(workout) {
+    workout = adjustForPain(workout);
+    workout = adjustForYesterday(workout);
+    workout = adjustForEquipment(workout);
+    workout = adjustForFatigue(workout);
+    return workout;
+}
+
+
+/* Override generateTodaysWorkout() from J7 */
+const originalGenerate = generateTodaysWorkout;
+generateTodaysWorkout = function() {
+    let w = originalGenerate();
+    return adaptWorkout(w);
+};
+
+
+/* ----------------------------
+   UX ENHANCEMENTS
+   ---------------------------- */
+
+/* Smooth scroll to top */
+function scrollToTop() {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+}
+
+/* Footer links open safely */
+$$(".footer-link").forEach(link => {
+    link.setAttribute("target", "_blank");
+    link.setAttribute("rel", "noopener");
+});

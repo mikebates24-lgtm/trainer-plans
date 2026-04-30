@@ -607,3 +607,89 @@ body {
     font-size: 15px;
     color: var(--text-mid);
 }
+/* ============================
+   WEEKLY STRIP (SCROLLABLE)
+   ============================ */
+
+.weekly-strip {
+    display: flex;
+    gap: 16px;
+    overflow-x: auto;
+    padding: 16px 4px;
+    scroll-snap-type: x mandatory;
+}
+
+.weekly-strip::-webkit-scrollbar {
+    height: 6px;
+}
+
+.weekly-strip::-webkit-scrollbar-thumb {
+    background: var(--border-light);
+    border-radius: 4px;
+}
+
+/* Day cell */
+.day-cell {
+    min-width: 110px;
+    background: var(--bg-card);
+    border: 1px solid var(--border-light);
+    border-radius: 12px;
+    padding: 12px;
+    box-sizing: border-box;
+    scroll-snap-align: start;
+
+    /* subtle raised effect */
+    box-shadow: 0 2px 6px var(--shadow);
+
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.day-name {
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--text);
+    text-align: center;
+}
+
+/* Content area inside each day */
+.day-content {
+    font-size: 14px;
+    color: var(--text-mid);
+    min-height: 40px;
+    text-align: center;
+}
+
+/* ============================
+   FATIGUE COLOUR STATES
+   (JS will toggle these classes)
+   ============================ */
+
+.day-cell.low {
+    border-color: #4caf50;
+}
+
+.day-cell.moderate {
+    border-color: #ffb300;
+}
+
+.day-cell.high {
+    border-color: #e53935;
+}
+
+/* ============================
+   DESKTOP LAYOUT
+   ============================ */
+
+@media (min-width: 900px) {
+    .weekly-strip {
+        justify-content: space-between;
+        overflow-x: visible;
+    }
+
+    .day-cell {
+        flex: 1;
+        min-width: 0;
+    }
+}

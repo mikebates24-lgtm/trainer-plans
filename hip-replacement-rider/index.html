@@ -544,33 +544,7 @@ function pickWorkout(category) {
         state.equipment.bands = $("#eq-bands").checked;
 
         updateSummary();
-        updateToday();
-        updateWeek();
-        updateEquipmentNotes();
-        updateTrainingNotes();
-    }
-
-    function updateSummary() {
-        $("#setup-summary").innerHTML = `
-            <strong>Age:</strong> ${state.age || "-"}<br>
-            <strong>Experience:</strong> ${state.experience}<br>
-            <strong>Pain:</strong> ${state.pain}<br>
-            <strong>Weeks:</strong> ${state.weeks || "-"}<br>
-            <strong>Yesterday:</strong> ${state.yesterday}<br>
-            <strong>Equipment:</strong>
-            ${[
-                state.equipment.indoor ? "Indoor trainer" : null,
-                state.equipment.outdoor ? "Outdoor bike" : null,
-                state.equipment.bands ? "Bands" : null
-            ].filter(Boolean).join(", ") || "None"}
-        `;
-    }
-
-   /* ============================
-   J3 — TODAY’S RECOMMENDATION
-   ============================ */
-
-function updateToday() {
+       function updateToday() {
     const card = $("#today-card");
 
     // Determine category based on state
@@ -580,16 +554,50 @@ function updateToday() {
     if (state.pain === "severe") category = "rest";
     if (state.yesterday === "hard") category = "recovery";
 
-    // Pick a workout
-    const w = pickWorkout(category);
+    // Get workouts for this category
+    const list = workouts[category];
+
+    // If it's a rest day, show only the rest card
+    if (category === "rest") {
+        const w = list[0];
+        card.innerHTML = `
+            <h3>Rest Day</h3>
+            <div class="choice-card primary">
+                <strong>${w.name}</strong><br>
+                <span>${w.duration}</span>
+            </div>
+        `;
+        return;
+    }
+
+    // Shuffle and pick 3
+    const shuffled = [...list].sort(() => Math.random() - 0.5);
+    const main = shuffled[0];
+    const alt1 = shuffled[1];
+    const alt2 = shuffled[2];
 
     // Render
     card.innerHTML = `
-        <h3>${w.name}</h3>
-        <p><strong>Category:</strong> ${w.folder}</p>
-        <p><strong>Duration:</strong> ${w.duration}</p>
+        <h3>Recommended</h3>
+        <div class="choice-card primary">
+            <strong>${main.name}</strong><br>
+            <span>${main.folder}</span><br>
+            <span>${main.duration}</span>
+        </div>
+
+        <h4>Alternatives</h4>
+        <div class="choice-card">
+            <strong>${alt1.name}</strong><br>
+            <span>${alt1.duration}</span>
+        </div>
+
+        <div class="choice-card">
+            <strong>${alt2.name}</strong><br>
+            <span>${alt2.duration}</span>
+        </div>
     `;
 }
+
 
     /* ============================
        J4 — WEEKLY PLAN

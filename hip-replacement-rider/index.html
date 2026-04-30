@@ -1651,3 +1651,51 @@ createWorkoutCard = function(workout) {
 
     return originalCreateCard(workout);
 };
+/* ============================
+   J11 — UI POLISH & MICRO-INTERACTIONS
+   ============================ */
+
+/* Card hover lift */
+document.addEventListener("mouseover", e => {
+    if (e.target.closest(".workout-card")) {
+        e.target.closest(".workout-card").style.transform = "translateY(-3px)";
+        e.target.closest(".workout-card").style.transition = "0.2s";
+    }
+});
+document.addEventListener("mouseout", e => {
+    if (e.target.closest(".workout-card")) {
+        e.target.closest(".workout-card").style.transform = "translateY(0)";
+    }
+});
+
+/* Button ripple effect */
+document.addEventListener("click", e => {
+    const btn = e.target.closest("button");
+    if (!btn) return;
+
+    const ripple = document.createElement("span");
+    ripple.className = "ripple";
+    ripple.style.left = `${e.offsetX}px`;
+    ripple.style.top = `${e.offsetY}px`;
+    btn.appendChild(ripple);
+
+    setTimeout(() => ripple.remove(), 600);
+});
+
+/* Fade-in animation for workout cards */
+const originalPopulateWorkouts = populateWorkouts;
+populateWorkouts = function() {
+    originalPopulateWorkouts();
+    $$(".workout-card").forEach(card => {
+        card.style.opacity = "0";
+        setTimeout(() => {
+            card.style.transition = "opacity 0.4s";
+            card.style.opacity = "1";
+        }, 50);
+    });
+};
+
+/* Animated fatigue colours */
+$$(".day-cell").forEach(cell => {
+    cell.style.transition = "border-color 0.4s, box-shadow 0.4s";
+});

@@ -310,156 +310,83 @@ input[type="checkbox"] {
 }
 
     </style>
-</head>
+/* ============================
+   J2 — APPLY SETTINGS + SUMMARY
+   ============================ */
 
-<body>
+function applySettings() {
+    state.age = $("#age").value;
+    state.experience = $("#experience").value;
+    state.pain = $("#pain").value;
+    state.weeks = $("#weeks").value;
+    state.yesterday = $("#yesterday").value;
 
-  <!-- ============================
-     APP WRAPPER
-     ============================ -->
-<div class="app">
+    state.equipment.indoor = $("#eq-indoor").checked;
+    state.equipment.outdoor = $("#eq-outdoor").checked;
+    state.equipment.bands = $("#eq-bands").checked;
 
-    <!-- ============================
-         SIDEBAR
-         ============================ -->
-    <aside class="sidebar">
-
-        <h2>Setup</h2>
-
-        <div class="setup-panel">
-            <label>Age</label>
-            <input id="age" type="number" min="10" max="90">
-
-            <label>Experience</label>
-            <select id="experience">
-                <option value="beginner">Beginner</option>
-                <option value="intermediate">Intermediate</option>
-                <option value="advanced">Advanced</option>
-            </select>
-
-            <label>Pain Level</label>
-            <select id="pain">
-                <option value="none">None</option>
-                <option value="mild">Mild</option>
-                <option value="moderate">Moderate</option>
-                <option value="severe">Severe</option>
-            </select>
-
-            <label>Weeks</label>
-            <input id="weeks" type="number" min="1" max="20">
-
-            <label>Yesterday’s Workout</label>
-            <select id="yesterday">
-                <option value="none">None</option>
-                <option value="easy">Easy</option>
-                <option value="moderate">Moderate</option>
-                <option value="hard">Hard</option>
-            </select>
-
-        <label>Equipment</label>
-
-<div class="option-box">
-    <input id="eq-indoor" type="checkbox">
-    <span>Indoor trainer</span>
-</div>
-
-<div class="option-box">
-    <input id="eq-outdoor" type="checkbox">
-    <span>Outdoor bike</span>
-</div>
-
-<div class="option-box">
-    <input id="eq-bands" type="checkbox">
-    <span>Resistance bands</span>
-</div>
+    updateSummary();
+}   // ← correctly closes applySettings()
 
 
+/* ============================
+   J3 — TODAY’S RECOMMENDATION
+   ============================ */
 
-<button id="apply-settings">Apply Settings</button>
+function updateToday() {
+    const card = $("#today-card");
+    if (!card) return;
 
+    // Determine category based on state
+    let category = "zone2";
+
+    if (state.pain === "moderate") category = "recovery";
+    if (state.pain === "severe") category = "rest";
+    if (state.yesterday === "hard") category = "recovery";
+
+    const list = workouts[category];
+
+    // Rest day
+    if (category === "rest") {
+        const w = list[0];
+        card.innerHTML = `
+            <h3>Rest Day</h3>
+            <div class="choice-card primary">
+                <strong>${w.name}</strong><br>
+                <span>${w.duration}</span>
+            </div>
+        `;
+        return;
+    }
+
+    // Shuffle and pick 3
+    const shuffled = [...list].sort(() => Math.random() - 0.5);
+    const main = shuffled[0];
+    const alt1 = shuffled[1];
+    const alt2 = shuffled[2];
+
+    // Render
+    card.innerHTML = `
+        <h3>Recommended</h3>
+        <div class="choice-card primary">
+            <strong>${main.name}</strong><br>
+            <span>${main.folder}</span><br>
+            <span>${main.duration}</span>
         </div>
 
-        <h2>Summary</h2>
-        <div id="setup-summary" class="setup-panel">
-            <!-- Filled dynamically -->
+        <h4>Alternatives</h4>
+        <div class="choice-card">
+            <strong>${alt1.name}</strong><br>
+            <span>${alt1.duration}</span>
         </div>
 
-    </aside>
-
-    <!-- ============================
-         MAIN CONTENT
-         ============================ -->
-    <main class="main">
-
-        <!-- ============================
-             TODAY’S RECOMMENDATION
-             ============================ -->
-        <section id="today-section">
-            <h2>Today’s Recommendation</h2>
-            <div id="today-card" class="workout-card">
-                <!-- Filled dynamically -->
-            </div>
-        </section>
-
-        <!-- ============================
-             WEEKLY PLAN
-             ============================ -->
-        <section id="week-section">
-            <h2>This Week</h2>
-            <div id="week-cards">
-                <!-- Cards inserted dynamically -->
-            </div>
-        </section>
-
-        <!-- ============================
-             ACCORDION PANELS
-             ============================ -->
-        <section id="accordion-section">
-
-            <div class="panel-toggle">Equipment Notes</div>
-            <div class="panel-content" id="panel-equipment">
-                <!-- Filled dynamically -->
-            </div>
-
-            <div class="panel-toggle">Training Notes</div>
-            <div class="panel-content" id="panel-training">
-                <!-- Filled dynamically -->
-            </div>
-
-            <div class="panel-toggle">MyWhoosh Workouts</div>
-            <div class="panel-content" id="panel-whoosh">
-                <a class="whoosh-link" href="https://www.mywhoosh.com" target="_blank">
-                    Open MyWhoosh
-                </a>
-            </div>
-
-        </section>
-
-        <!-- ============================
-             CHART
-             ============================ -->
-        <section class="chart-container">
-            <h2>Training Load</h2>
-            <canvas id="load-chart"></canvas>
-        </section>
-
-        <!-- ============================
-             COMPLETION BUTTON
-             ============================ -->
-        <div class="complete-btn" id="complete-btn">
-            Mark Today as Completed
+        <div class="choice-card">
+            <strong>${alt2.name}</strong><br>
+            <span>${alt2.duration}</span>
         </div>
+    `;
+}
 
-    </main>
-
-</div>
-
-
-    <!-- ============================
-         APPLICATION SCRIPT
-         ============================ -->
-   <script>
-document.addEventListener("DOMContentLoaded", () => {
 
    /* ============================
    J1 — DOM HELPERS + GLOBAL STATE

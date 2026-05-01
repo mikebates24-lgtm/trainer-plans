@@ -461,26 +461,28 @@ input[type="checkbox"] {
    <script>
 document.addEventListener("DOMContentLoaded", () => {
 
-    /* ============================
-       J1 — DOM HELPERS + GLOBAL STATE
-       ============================ */
+   /* ============================
+   J1 — DOM HELPERS + GLOBAL STATE
+   ============================ */
 
-    const $ = (sel) => document.querySelector(sel);
-    const $$ = (sel) => document.querySelectorAll(sel);
+const $ = (sel) => document.querySelector(sel);
+const $$ = (sel) => document.querySelectorAll(sel);
 
-    const state = {
-        age: null,
-        experience: null,
-        pain: null,
-        weeks: null,
-        yesterday: null,
-        equipment: {
-            indoor: false,
-            outdoor: false,
-            bands: false
-        },
-        completed: false
-    };
+const state = {
+    age: null,
+    experience: null,
+    pain: null,
+    weeks: null,
+    yesterday: null,
+
+    equipment: {
+        indoor: false,
+        outdoor: false,
+        bands: false
+    },
+
+    completed: false
+};
 
 /* ============================
    WORKOUT LOOKUP TABLE

@@ -647,21 +647,24 @@ function filterByEquipment(workout) {
 
 
 /* ============================
-   J6 — TRAINING NOTES (PLACEHOLDER)
+   J6 — TRAINING NOTES (SAFE)
    ============================ */
 
 function updateNotes() {
     const notes = $("#notes");
+    if (!notes) return;   // avoid crash if element missing
     notes.textContent = "Training notes will appear here.";
 }
 
 
 /* ============================
-   J7 — SUMMARY PANEL
+   J7 — SUMMARY PANEL (SAFE)
    ============================ */
 
 function updateSummary() {
     const summary = $("#summary-panel");
+    if (!summary) return;   // avoid crash if element missing
+
     summary.innerHTML = `
         <strong>Age:</strong> ${state.age}<br>
         <strong>Experience:</strong> ${state.experience}<br>
@@ -669,8 +672,8 @@ function updateSummary() {
         <strong>Weeks Post‑Op:</strong> ${state.weeks}<br>
         <strong>Yesterday:</strong> ${state.yesterday}<br>
         <strong>Equipment:</strong>
-            ${state.equipment.indoor ? "Indoor Trainer" : ""}
-            ${state.equipment.outdoor ? "Outdoor Bike" : ""}
+            ${state.equipment.indoor ? "Indoor Trainer " : ""}
+            ${state.equipment.outdoor ? "Outdoor Bike " : ""}
             ${state.equipment.bands ? "Bands" : ""}
     `;
 }
@@ -682,7 +685,7 @@ function updateSummary() {
 
 function drawChart() {
     const canvas = $("#load-chart");
-    if (!canvas) return;
+    if (!canvas) return;   // avoid crash if element missing
 
     const ctx = canvas.getContext("2d");
 
@@ -700,16 +703,20 @@ window.addEventListener("resize", drawChart);
 
 
 /* ============================
-   J9 — INITIALISE
+   J9 — INITIALISE (CRITICAL)
    ============================ */
 
-$("#apply-settings").addEventListener("click", () => {
-    applySettings();
-    updateToday();
-    updateWeek();
-    updateNotes();
-});
+const applyBtn = $("#apply-settings");
+if (applyBtn) {
+    applyBtn.addEventListener("click", () => {
+        applySettings();
+        updateToday();
+        updateWeek();
+        updateNotes();
+    });
+}
 
+// Run once on load
 drawChart();
 updateToday();
 updateWeek();
@@ -717,3 +724,4 @@ updateNotes();
 
 });   // ← CLOSES DOMContentLoaded
 </script>
+

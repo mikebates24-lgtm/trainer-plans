@@ -628,3 +628,92 @@ function updateWeek() {
         container.appendChild(div);
     });
 }
+/* ============================
+   J5 — EQUIPMENT FILTERING
+   ============================ */
+
+function filterByEquipment(workout) {
+    // If user has no indoor trainer, remove indoor-only workouts
+    if (!state.equipment.indoor && workout.folder === "Indoor") return false;
+
+    // If user has no outdoor bike, remove outdoor-only workouts
+    if (!state.equipment.outdoor && workout.folder === "Outdoor") return false;
+
+    // If user has no bands, remove strength/band workouts
+    if (!state.equipment.bands && workout.folder === "Strength") return false;
+
+    return true;
+}
+
+
+/* ============================
+   J6 — TRAINING NOTES (PLACEHOLDER)
+   ============================ */
+
+function updateNotes() {
+    const notes = $("#notes");
+    notes.textContent = "Training notes will appear here.";
+}
+
+
+/* ============================
+   J7 — SUMMARY PANEL
+   ============================ */
+
+function updateSummary() {
+    const summary = $("#summary-panel");
+    summary.innerHTML = `
+        <strong>Age:</strong> ${state.age}<br>
+        <strong>Experience:</strong> ${state.experience}<br>
+        <strong>Pain:</strong> ${state.pain}<br>
+        <strong>Weeks Post‑Op:</strong> ${state.weeks}<br>
+        <strong>Yesterday:</strong> ${state.yesterday}<br>
+        <strong>Equipment:</strong>
+            ${state.equipment.indoor ? "Indoor Trainer" : ""}
+            ${state.equipment.outdoor ? "Outdoor Bike" : ""}
+            ${state.equipment.bands ? "Bands" : ""}
+    `;
+}
+
+
+/* ============================
+   J8 — CHART (STATIC DEMO)
+   ============================ */
+
+function drawChart() {
+    const canvas = $("#load-chart");
+    if (!canvas) return;
+
+    const ctx = canvas.getContext("2d");
+
+    canvas.width = canvas.clientWidth;
+    canvas.height = 200;
+
+    ctx.fillStyle = "#4fc3f7";
+    ctx.fillRect(10, 50, 40, 120);
+    ctx.fillRect(70, 30, 40, 140);
+    ctx.fillRect(130, 80, 40, 90);
+    ctx.fillRect(190, 60, 40, 110);
+}
+
+window.addEventListener("resize", drawChart);
+
+
+/* ============================
+   J9 — INITIALISE
+   ============================ */
+
+$("#apply-settings").addEventListener("click", () => {
+    applySettings();
+    updateToday();
+    updateWeek();
+    updateNotes();
+});
+
+drawChart();
+updateToday();
+updateWeek();
+updateNotes();
+
+});   // ← CLOSES DOMContentLoaded
+</script>

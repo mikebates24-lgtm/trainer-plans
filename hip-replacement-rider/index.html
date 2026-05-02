@@ -313,3 +313,121 @@ document.addEventListener("DOMContentLoaded", () => {
 
         updateSummary();
     }
+    /* ============================
+       J3 — TODAY’S RECOMMENDATION
+       ============================ */
+
+    function updateToday() {
+        const card = $("#today-card");
+        if (!card) return;
+
+        let category = "zone2";
+
+        if (state.pain === "moderate") category = "recovery";
+        if (state.pain === "severe") category = "rest";
+        if (state.yesterday === "hard") category = "recovery";
+
+        const list = workouts[category];
+
+        if (category === "rest") {
+            const w = list[0];
+            card.innerHTML = `
+                <h3>Rest Day</h3>
+                <div class="workout-card">
+                    <strong>${w.name}</strong><br>
+                    <span>${w.duration}</span>
+                </div>
+            `;
+            return;
+        }
+
+        const shuffled = [...list].sort(() => Math.random() - 0.5);
+        const main = shuffled[0];
+        const alt1 = shuffled[1];
+        const alt2 = shuffled[2];
+
+        card.innerHTML = `
+            <h3>Recommended</h3>
+            <div class="workout-card">
+                <strong>${main.name}</strong><br>
+                <span>${main.folder}</span><br>
+                <span>${main.duration}</span>
+            </div>
+
+            <h4>Alternatives</h4>
+            <div class="workout-card">
+                <strong>${alt1.name}</strong><br>
+                <span>${alt1.duration}</span>
+            </div>
+
+            <div class="workout-card">
+                <strong>${alt2.name}</strong><br>
+                <span>${alt2.duration}</span>
+            </div>
+        `;
+    }
+
+    /* ============================
+       J4 — WEEKLY PLAN
+       ============================ */
+
+    function updateWeek() {
+        const container = $("#week-cards");
+        if (!container) return;
+
+        container.innerHTML = "";
+
+        const days = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"];
+
+        days.forEach((day) => {
+            const div = document.createElement("div");
+            div.className = "workout-card";
+            div.innerHTML = `
+                <strong>${day}</strong><br>
+                <span>Workout: TBD</span>
+            `;
+            container.appendChild(div);
+        });
+    }
+
+    /* ============================
+       J5 — EQUIPMENT FILTERING
+       ============================ */
+
+    function filterByEquipment(workout) {
+        if (!state.equipment.indoor && workout.folder === "Indoor") return false;
+        if (!state.equipment.outdoor && workout.folder === "Outdoor") return false;
+        if (!state.equipment.bands && workout.folder === "Strength") return false;
+        return true;
+    }
+
+    /* ============================
+       J6 — TRAINING NOTES
+       ============================ */
+
+    function updateNotes() {
+        const notes = $("#panel-training");
+        if (!notes) return;
+        notes.textContent = "Training notes will appear here.";
+    }
+
+    /* ============================
+       J7 — SUMMARY PANEL
+       ============================ */
+
+    function updateSummary() {
+        const summary = $("#setup-summary");
+        if (!summary) return;
+
+        summary.innerHTML = `
+            <strong>Age:</strong> ${state.age}<br>
+            <strong>Experience:</strong> ${state.experience}<br>
+            <strong>Pain:</strong> ${state.pain}<br>
+            <strong>Weeks Post‑Op:</strong> ${state.weeks}<br>
+            <strong>Yesterday:</strong> ${state.yesterday}<br>
+            <strong>Equipment:</strong>
+                ${state.equipment.indoor ? "Indoor Trainer " : ""}
+                ${state.equipment.outdoor ? "Outdoor Bike " : ""}
+                ${state.equipment.bands ? "Bands" : ""}
+        `;
+    }

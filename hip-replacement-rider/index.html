@@ -3,561 +3,230 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Training App</title>
 
     <!-- ============================
          GLOBAL STYLESHEET
          ============================ -->
     <style>
-       /* ============================
-   GLOBAL VARIABLES + AUTO THEME
-   ============================ */
 
-:root {
-    --accent: #4fc3f7;
+    /* ============================
+       GLOBAL VARIABLES + AUTO THEME
+       ============================ */
 
-    --bg: #ffffff;
-    --bg-panel: #f4f6f8;
-    --bg-card: #ffffff;
-
-    --text: #222222;
-    --text-muted: #666666;
-
-    --border: #d0d7de;
-    --shadow: rgba(0, 0, 0, 0.06);
-
-    --radius: 10px;
-    --transition: 0.25s ease;
-    --font: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
-}
-
-/* Dark mode */
-@media (prefers-color-scheme: dark) {
     :root {
-        --bg: #0f1115;
-        --bg-panel: #1a1d23;
-        --bg-card: #1e2128;
+        --accent: #4fc3f7;
 
-        --text: #e6e6e6;
-        --text-muted: #9aa0a6;
+        --bg: #ffffff;
+        --bg-panel: #f4f6f8;
+        --bg-card: #ffffff;
 
-        --border: #2a2f36;
-        --shadow: rgba(0, 0, 0, 0.4);
-    }
-}
+        --text: #222222;
+        --text-muted: #666666;
 
-/* ============================
-   GLOBAL RESET + BASE
-   ============================ */
+        --border: #d0d7de;
+        --shadow: rgba(0, 0, 0, 0.06);
 
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
-
-body {
-    background: var(--bg);
-    color: var(--text);
-    font-family: var(--font);
-    line-height: 1.5;
-    padding: 0;
-    margin: 0;
-}
-
-/* ============================
-   LAYOUT: SIDEBAR + MAIN
-   ============================ */
-
-.app {
-    display: flex;
-    min-height: 100vh;
-}
-
-.sidebar {
-    width: 260px;
-    background: var(--bg-panel);
-    border-right: 1px solid var(--border);
-    padding: 20px;
-}
-
-.main {
-    flex: 1;
-    padding: 24px;
-}
-
-/* ============================
-   WORKOUT CARDS
-   ============================ */
-
-.workout-card {
-    background: var(--bg-card);
-    border: 1px solid var(--border);
-    border-radius: var(--radius);
-    padding: 20px;
-    margin-bottom: 16px;
-    box-shadow: 0 2px 4px var(--shadow);
-    transition: var(--transition);
-}
-
-.workout-card:hover {
-    border-color: var(--accent);
-}
-
-/* ============================
-   BUTTONS
-   ============================ */
-
-button,
-.btn {
-    background: var(--accent);
-    color: #fff;
-    border: none;
-    padding: 12px 18px;
-    border-radius: var(--radius);
-    cursor: pointer;
-    font-size: 1rem;
-    transition: var(--transition);
-}
-
-button:hover,
-.btn:hover {
-    opacity: 0.9;
-}
-
-/* ============================
-   SETUP PANEL
-   ============================ */
-
-.setup-panel {
-    background: var(--bg-card);
-    border: 1px solid var(--border);
-    border-radius: var(--radius);
-    padding: 20px;
-    margin-bottom: 20px;
-}
-
-/* ============================
-   ACCORDION PANELS
-   ============================ */
-
-.panel-toggle {
-    cursor: pointer;
-    padding: 12px;
-    background: var(--bg-panel);
-    border-radius: var(--radius);
-    margin-bottom: 8px;
-    border: 1px solid var(--border);
-}
-
-.panel-content {
-    display: none;
-    padding: 12px;
-    border-left: 3px solid var(--accent);
-    margin-bottom: 16px;
-}
-
-/* ============================
-   MYWHOOSH LINK
-   ============================ */
-
-.whoosh-link {
-    display: inline-block;
-    padding: 10px 14px;
-    border-radius: var(--radius);
-    border: 1px solid var(--border);
-    color: var(--text-muted);
-    text-decoration: none;
-    transition: var(--transition);
-}
-
-.whoosh-link:hover {
-    border-color: var(--accent);
-    color: var(--accent);
-}
-
-/* ============================
-   CHART CONTAINER
-   ============================ */
-
-.chart-container {
-    background: var(--bg-card);
-    border: 1px solid var(--border);
-    border-radius: var(--radius);
-    padding: 20px;
-    margin-top: 20px;
-}
-
-/* ============================
-   COMPLETION BUTTON
-   ============================ */
-
-.complete-btn {
-    background: var(--accent);
-    color: #fff;
-    padding: 14px;
-    border-radius: var(--radius);
-    text-align: center;
-    cursor: pointer;
-    margin-top: 20px;
-}
-
-/* ============================
-   RESPONSIVE BREAKPOINTS
-   ============================ */
-
-@media (max-width: 900px) {
-    .app {
-        flex-direction: column;
+        --radius: 10px;
+        --transition: 0.25s ease;
+        --font: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
     }
 
-    .sidebar {
-        width: 100%;
-        border-right: none;
-        border-bottom: 1px solid var(--border);
-    }
-}
+    @media (prefers-color-scheme: dark) {
+        :root {
+            --bg: #0f1115;
+            --bg-panel: #1a1d23;
+            --bg-card: #1e2128;
 
-@media (max-width: 600px) {
-    .main {
-        padding: 16px;
-    }
+            --text: #e6e6e6;
+            --text-muted: #9aa0a6;
 
-    .workout-card {
-        padding: 16px;
-    }
-}
-
-/* ============================
-   FOLDABLE INNER-DISPLAY OPTIMISATION
-   ============================ */
-
-@media (max-width: 700px) and (orientation: portrait) {
-    .sidebar {
-        padding: 16px;
-    }
-
-    .main {
-        padding: 16px;
-    }
-
-    .workout-card {
-        padding: 18px;
-    }
-}
-        /* ============================
-   GLOWING BLUE INPUT FIELDS
-   ============================ */
-
-input[type="number"],
-select {
-    width: 100%;
-    padding: 10px 12px;
-    margin: 6px 0 14px 0;
-    background: var(--bg-card);
-    color: var(--text);
-    border: 1px solid rgba(79, 195, 247, 0.4) !important;
-    border-radius: var(--radius);
-    box-shadow:
-        0 0 6px rgba(79, 195, 247, 0.4),
-        0 0 12px rgba(79, 195, 247, 0.25) !important;
-    transition: 0.25s ease;
-    font-size: 1rem;
-}
-
-input[type="number"]:focus,
-select:focus {
-    outline: none;
-    border-color: var(--accent) !important;
-    box-shadow:
-        0 0 10px rgba(79, 195, 247, 0.6),
-        0 0 20px rgba(79, 195, 247, 0.4) !important;
-}
-
-/* Checkboxes */
-input[type="checkbox"] {
-    accent-color: var(--accent);
-    transform: scale(1.2);
-    margin-right: 6px;
-}
-
-/* ============================
-   GLOWING BLUE UI ENHANCEMENTS
-   ============================ */
-
-.workout-card,
-.setup-panel,
-.panel-toggle,
-.panel-content,
-.chart-container,
-.whoosh-link,
-.complete-btn {
-    border: 1px solid rgba(79, 195, 247, 0.4) !important;
-    box-shadow:
-        0 0 6px rgba(79, 195, 247, 0.4),
-        0 0 12px rgba(79, 195, 247, 0.25) !important;
-    transition: 0.25s ease;
-}
-
-.workout-card:hover,
-.setup-panel:hover,
-.panel-toggle:hover,
-.whoosh-link:hover,
-.complete-btn:hover {
-    box-shadow:
-        0 0 10px rgba(79, 195, 247, 0.6),
-        0 0 20px rgba(79, 195, 247, 0.4) !important;
-    border-color: var(--accent) !important;
-}
-
-</style>
-        
-<script>
-document.addEventListener("DOMContentLoaded", () => {
-    
-    /* ============================
-       J1 — DOM HELPERS + GLOBAL STATE
-       ============================ */
-
-    const $ = (sel) => document.querySelector(sel);
-    const $$ = (sel) => document.querySelectorAll(sel);
-
-    const state = {
-        age: null,
-        experience: null,
-        pain: null,
-        weeks: null,
-        yesterday: null,
-
-        equipment: {
-            indoor: false,
-            outdoor: false,
-            bands: false
-        },
-
-        completed: false
-    };
-
-    /* ============================
-       WORKOUT LOOKUP TABLE
-       ============================ */
-
-    const workouts = {
-        zone2: [
-            { name: "Aerobic 12’s #1", folder: "Endurance", duration: "45–60 min" },
-            { name: "Aerobic 12’s #2", folder: "Endurance", duration: "45–60 min" },
-            { name: "20sec + Endurance #1", folder: "Endurance", duration: "45–60 min" }
-        ],
-        recovery: [
-            { name: "Recovery Spin 20", folder: "Recovery", duration: "20 min" },
-            { name: "Recovery Ride 30", folder: "Recovery", duration: "30 min" },
-            { name: "Aerobic 12’s #1", folder: "Recovery", duration: "30–40 min" }
-        ],
-        hard: [
-            { name: "AC + Sweetspot +2", folder: "Hard", duration: "50–60 min" },
-            { name: "Anaerobic Capacity into Sweetspot #2", folder: "Hard", duration: "50–60 min" },
-            { name: "Sweet Spot Over‑Unders #1", folder: "Hard", duration: "45–55 min" }
-        ],
-        vo2: [
-            { name: "40/20 Efforts", folder: "VO2 Max", duration: "30–40 min" },
-            { name: "16min 30/30’s #1", folder: "VO2 Max", duration: "30–40 min" },
-            { name: "40/20’s #2", folder: "VO2 Max", duration: "30–40 min" }
-        ],
-        sweetspot: [
-            { name: "Sweet Spot 1", folder: "Sweet Spot", duration: "40–50 min" },
-            { name: "Sweet Spot 2", folder: "Sweet Spot", duration: "40–50 min" },
-            { name: "Sweet Spot Over‑Unders #2", folder: "Sweet Spot", duration: "45–55 min" }
-        ],
-        rest: [
-            { name: "Rest Day — Full Recovery", folder: "Rest", duration: "Full rest" }
-        ]
-    };
-
-    function pickWorkout(category) {
-        const list = workouts[category];
-        return list[Math.floor(Math.random() * list.length)];
-    }
-
-    /* ============================
-       J2 — APPLY SETTINGS + SUMMARY
-       ============================ */
-
-    function applySettings() {
-        state.age = $("#age").value;
-        state.experience = $("#experience").value;
-        state.pain = $("#pain").value;
-        state.weeks = $("#weeks").value;
-        state.yesterday = $("#yesterday").value;
-
-        state.equipment.indoor = $("#eq-indoor").checked;
-        state.equipment.outdoor = $("#eq-outdoor").checked;
-        state.equipment.bands = $("#eq-bands").checked;
-
-        updateSummary();
-    }
-
-    /* ============================
-       J3 — TODAY’S RECOMMENDATION
-       ============================ */
-
-    function updateToday() {
-        const card = $("#today-card");
-        if (!card) return;
-
-        let category = "zone2";
-
-        if (state.pain === "moderate") category = "recovery";
-        if (state.pain === "severe") category = "rest";
-        if (state.yesterday === "hard") category = "recovery";
-
-        const list = workouts[category];
-
-        if (category === "rest") {
-            const w = list[0];
-            card.innerHTML = `
-                <h3>Rest Day</h3>
-                <div class="choice-card primary">
-                    <strong>${w.name}</strong><br>
-                    <span>${w.duration}</span>
-                </div>
-            `;
-            return;
+            --border: #2a2f36;
+            --shadow: rgba(0, 0, 0, 0.4);
         }
-
-        const shuffled = [...list].sort(() => Math.random() - 0.5);
-        const main = shuffled[0];
-        const alt1 = shuffled[1];
-        const alt2 = shuffled[2];
-
-        card.innerHTML = `
-            <h3>Recommended</h3>
-            <div class="choice-card primary">
-                <strong>${main.name}</strong><br>
-                <span>${main.folder}</span><br>
-                <span>${main.duration}</span>
-            </div>
-
-            <h4>Alternatives</h4>
-            <div class="choice-card">
-                <strong>${alt1.name}</strong><br>
-                <span>${alt1.duration}</span>
-            </div>
-
-            <div class="choice-card">
-                <strong>${alt2.name}</strong><br>
-                <span>${alt2.duration}</span>
-            </div>
-        `;
     }
 
     /* ============================
-       J4 — WEEKLY PLAN
+       GLOBAL RESET + BASE
        ============================ */
 
-    function updateWeek() {
-        const container = $("#week-cards");
-        if (!container) return;
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
 
-        container.innerHTML = "";
-
-        const days = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"];
-
-        days.forEach((day) => {
-            const div = document.createElement("div");
-            div.className = "workout-card";
-            div.innerHTML = `
-                <strong>${day}</strong><br>
-                <span>Workout: TBD</span>
-            `;
-            container.appendChild(div);
-        });
+    body {
+        background: var(--bg);
+        color: var(--text);
+        font-family: var(--font);
+        line-height: 1.5;
     }
 
     /* ============================
-       J5 — EQUIPMENT FILTERING
+       LAYOUT: SIDEBAR + MAIN
        ============================ */
 
-    function filterByEquipment(workout) {
-        if (!state.equipment.indoor && workout.folder === "Indoor") return false;
-        if (!state.equipment.outdoor && workout.folder === "Outdoor") return false;
-        if (!state.equipment.bands && workout.folder === "Strength") return false;
-        return true;
+    .app {
+        display: flex;
+        min-height: 100vh;
+    }
+
+    .sidebar {
+        width: 260px;
+        background: var(--bg-panel);
+        border-right: 1px solid var(--border);
+        padding: 20px;
+    }
+
+    .main {
+        flex: 1;
+        padding: 24px;
     }
 
     /* ============================
-       J6 — TRAINING NOTES
+       WORKOUT CARDS
        ============================ */
 
-    function updateNotes() {
-        const notes = $("#panel-training");
-        if (!notes) return;
-        notes.textContent = "Training notes will appear here.";
+    .workout-card {
+        background: var(--bg-card);
+        border: 1px solid var(--border);
+        border-radius: var(--radius);
+        padding: 20px;
+        margin-bottom: 16px;
+        box-shadow: 0 2px 4px var(--shadow);
+        transition: var(--transition);
+    }
+
+    .workout-card:hover {
+        border-color: var(--accent);
     }
 
     /* ============================
-       J7 — SUMMARY PANEL
+       BUTTONS
        ============================ */
 
-    function updateSummary() {
-        const summary = $("#setup-summary");
-        if (!summary) return;
+    button,
+    .btn {
+        background: var(--accent);
+        color: #fff;
+        border: none;
+        padding: 12px 18px;
+        border-radius: var(--radius);
+        cursor: pointer;
+        font-size: 1rem;
+        transition: var(--transition);
+    }
 
-        summary.innerHTML = `
-            <strong>Age:</strong> ${state.age}<br>
-            <strong>Experience:</strong> ${state.experience}<br>
-            <strong>Pain:</strong> ${state.pain}<br>
-            <strong>Weeks Post‑Op:</strong> ${state.weeks}<br>
-            <strong>Yesterday:</strong> ${state.yesterday}<br>
-            <strong>Equipment:</strong>
-                ${state.equipment.indoor ? "Indoor Trainer " : ""}
-                ${state.equipment.outdoor ? "Outdoor Bike " : ""}
-                ${state.equipment.bands ? "Bands" : ""}
-        `;
+    button:hover,
+    .btn:hover {
+        opacity: 0.9;
     }
 
     /* ============================
-       J8 — CHART
+       SETUP PANEL
        ============================ */
 
-    function drawChart() {
-        const canvas = $("#load-chart");
-        if (!canvas) return;
-
-        const ctx = canvas.getContext("2d");
-
-        canvas.width = canvas.clientWidth;
-        canvas.height = 200;
-
-        ctx.fillStyle = "#4fc3f7";
-        ctx.fillRect(10, 50, 40, 120);
-        ctx.fillRect(70, 30, 40, 140);
-        ctx.fillRect(130, 80, 40, 90);
-        ctx.fillRect(190, 60, 40, 110);
+    .setup-panel {
+        background: var(--bg-card);
+        border: 1px solid var(--border);
+        border-radius: var(--radius);
+        padding: 20px;
+        margin-bottom: 20px;
     }
-
-    window.addEventListener("resize", drawChart);
 
     /* ============================
-       J9 — INITIALISE
+       ACCORDION PANELS
        ============================ */
 
-    const applyBtn = $("#apply-settings");
-    if (applyBtn) {
-        applyBtn.addEventListener("click", () => {
-            applySettings();
-            updateToday();
-            updateWeek();
-            updateNotes();
-            updateSummary();
-        });
+    .panel-toggle {
+        cursor: pointer;
+        padding: 12px;
+        background: var(--bg-panel);
+        border-radius: var(--radius);
+        margin-bottom: 8px;
+        border: 1px solid var(--border);
     }
 
-    // Run once on load
-    drawChart();
-    updateToday();
-    updateWeek();
-    updateNotes();
-    updateSummary();
+    .panel-content {
+        display: none;
+        padding: 12px;
+        border-left: 3px solid var(--accent);
+        margin-bottom: 16px;
+    }
 
-}); // END DOMContentLoaded
-</script>
+    /* ============================
+       MYWHOOSH LINK
+       ============================ */
 
+    .whoosh-link {
+        display: inline-block;
+        padding: 10px 14px;
+        border-radius: var(--radius);
+        border: 1px solid var(--border);
+        color: var(--text-muted);
+        text-decoration: none;
+        transition: var(--transition);
+    }
+
+    .whoosh-link:hover {
+        border-color: var(--accent);
+        color: var(--accent);
+    }
+
+    /* ============================
+       CHART CONTAINER
+       ============================ */
+
+    .chart-container {
+        background: var(--bg-card);
+        border: 1px solid var(--border);
+        border-radius: var(--radius);
+        padding: 20px;
+        margin-top: 20px;
+    }
+
+    /* ============================
+       COMPLETION BUTTON
+       ============================ */
+
+    .complete-btn {
+        background: var(--accent);
+        color: #fff;
+        padding: 14px;
+        border-radius: var(--radius);
+        text-align: center;
+        cursor: pointer;
+        margin-top: 20px;
+    }
+
+    /* ============================
+       GLOWING BLUE UI ENHANCEMENTS
+       ============================ */
+
+    .workout-card,
+    .setup-panel,
+    .panel-toggle,
+    .panel-content,
+    .chart-container,
+    .whoosh-link,
+    .complete-btn {
+        border: 1px solid rgba(79, 195, 247, 0.4) !important;
+        box-shadow:
+            0 0 6px rgba(79, 195, 247, 0.4),
+            0 0 12px rgba(79, 195, 247, 0.25) !important;
+        transition: 0.25s ease;
+    }
+
+    .workout-card:hover,
+    .setup-panel:hover,
+    .panel-toggle:hover,
+    .whoosh-link:hover,
+    .complete-btn:hover {
+        box-shadow:
+            0 0 10px rgba(79, 195, 247, 0.6),
+            0 0 20px rgba(79, 195, 247, 0.4) !important;
+        border-color: var(--accent) !important;
+    }
+
+    </style>

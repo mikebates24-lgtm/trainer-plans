@@ -431,3 +431,52 @@ document.addEventListener("DOMContentLoaded", () => {
                 ${state.equipment.bands ? "Bands" : ""}
         `;
     }
+    /* ============================
+       J8 — CHART
+       ============================ */
+
+    function drawChart() {
+        const canvas = $("#load-chart");
+        if (!canvas) return;
+
+        const ctx = canvas.getContext("2d");
+
+        canvas.width = canvas.clientWidth;
+        canvas.height = 200;
+
+        ctx.fillStyle = "#4fc3f7";
+        ctx.fillRect(10, 50, 40, 120);
+        ctx.fillRect(70, 30, 40, 140);
+        ctx.fillRect(130, 80, 40, 90);
+        ctx.fillRect(190, 60, 40, 110);
+    }
+
+    window.addEventListener("resize", drawChart);
+
+    /* ============================
+       J9 — INITIALISE
+       ============================ */
+
+    const applyBtn = $("#apply-settings");
+    if (applyBtn) {
+        applyBtn.addEventListener("click", () => {
+            applySettings();
+            updateToday();
+            updateWeek();
+            updateNotes();
+            updateSummary();
+        });
+    }
+
+    // Run once on load
+    drawChart();
+    updateToday();
+    updateWeek();
+    updateNotes();
+    updateSummary();
+
+}); // END DOMContentLoaded
+</script>
+
+</body>
+</html>

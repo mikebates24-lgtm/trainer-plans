@@ -230,3 +230,86 @@
     }
 
     </style>
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+
+    /* ============================
+       J1 — DOM HELPERS + GLOBAL STATE
+       ============================ */
+
+    const $ = (sel) => document.querySelector(sel);
+    const $$ = (sel) => document.querySelectorAll(sel);
+
+    const state = {
+        age: null,
+        experience: null,
+        pain: null,
+        weeks: null,
+        yesterday: null,
+
+        equipment: {
+            indoor: false,
+            outdoor: false,
+            bands: false
+        },
+
+        completed: false
+    };
+
+    /* ============================
+       WORKOUT LOOKUP TABLE
+       ============================ */
+
+    const workouts = {
+        zone2: [
+            { name: "Aerobic 12’s #1", folder: "Endurance", duration: "45–60 min" },
+            { name: "Aerobic 12’s #2", folder: "Endurance", duration: "45–60 min" },
+            { name: "20sec + Endurance #1", folder: "Endurance", duration: "45–60 min" }
+        ],
+        recovery: [
+            { name: "Recovery Spin 20", folder: "Recovery", duration: "20 min" },
+            { name: "Recovery Ride 30", folder: "Recovery", duration: "30 min" },
+            { name: "Aerobic 12’s #1", folder: "Recovery", duration: "30–40 min" }
+        ],
+        hard: [
+            { name: "AC + Sweetspot +2", folder: "Hard", duration: "50–60 min" },
+            { name: "Anaerobic Capacity into Sweetspot #2", folder: "Hard", duration: "50–60 min" },
+            { name: "Sweet Spot Over‑Unders #1", folder: "Hard", duration: "45–55 min" }
+        ],
+        vo2: [
+            { name: "40/20 Efforts", folder: "VO2 Max", duration: "30–40 min" },
+            { name: "16min 30/30’s #1", folder: "VO2 Max", duration: "30–40 min" },
+            { name: "40/20’s #2", folder: "VO2 Max", duration: "30–40 min" }
+        ],
+        sweetspot: [
+            { name: "Sweet Spot 1", folder: "Sweet Spot", duration: "40–50 min" },
+            { name: "Sweet Spot 2", folder: "Sweet Spot", duration: "40–50 min" },
+            { name: "Sweet Spot Over‑Unders #2", folder: "Sweet Spot", duration: "45–55 min" }
+        ],
+        rest: [
+            { name: "Rest Day — Full Recovery", folder: "Rest", duration: "Full rest" }
+        ]
+    };
+
+    function pickWorkout(category) {
+        const list = workouts[category];
+        return list[Math.floor(Math.random() * list.length)];
+    }
+
+    /* ============================
+       J2 — APPLY SETTINGS + SUMMARY
+       ============================ */
+
+    function applySettings() {
+        state.age = $("#age").value;
+        state.experience = $("#experience").value;
+        state.pain = $("#pain").value;
+        state.weeks = $("#weeks").value;
+        state.yesterday = $("#yesterday").value;
+
+        state.equipment.indoor = $("#eq-indoor").checked;
+        state.equipment.outdoor = $("#eq-outdoor").checked;
+        state.equipment.bands = $("#eq-bands").checked;
+
+        updateSummary();
+    }

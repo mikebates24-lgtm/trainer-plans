@@ -230,6 +230,85 @@
     }
 
     </style>
+</head>
+<body>
+
+<div class="app">
+
+    <!-- ============================
+         SIDEBAR
+         ============================ -->
+    <div class="sidebar">
+
+        <h2>Setup</h2>
+
+        <div class="setup-panel">
+            <label>Age</label>
+            <input id="age" type="number" min="10" max="100">
+
+            <label>Experience</label>
+            <select id="experience">
+                <option value="beginner">Beginner</option>
+                <option value="intermediate">Intermediate</option>
+                <option value="advanced">Advanced</option>
+            </select>
+
+            <label>Pain Level</label>
+            <select id="pain">
+                <option value="none">None</option>
+                <option value="moderate">Moderate</option>
+                <option value="severe">Severe</option>
+            </select>
+
+            <label>Weeks Post‑Op</label>
+            <input id="weeks" type="number" min="0" max="52">
+
+            <label>Yesterday</label>
+            <select id="yesterday">
+                <option value="easy">Easy</option>
+                <option value="moderate">Moderate</option>
+                <option value="hard">Hard</option>
+            </select>
+
+            <h3>Equipment</h3>
+            <label><input id="eq-indoor" type="checkbox"> Indoor Trainer</label><br>
+            <label><input id="eq-outdoor" type="checkbox"> Outdoor Bike</label><br>
+            <label><input id="eq-bands" type="checkbox"> Resistance Bands</label><br>
+
+            <button id="apply-settings">Apply Settings</button>
+        </div>
+
+        <h3>Setup Summary</h3>
+        <div id="setup-summary" class="setup-panel">
+            No settings applied yet.
+        </div>
+
+    </div>
+
+    <!-- ============================
+         MAIN CONTENT
+         ============================ -->
+    <div class="main">
+
+        <h2>Today’s Recommendation</h2>
+        <div id="today-card"></div>
+
+        <h2>This Week</h2>
+        <div id="week-cards"></div>
+
+        <h2>Training Notes</h2>
+        <div id="panel-training" class="setup-panel"></div>
+
+        <h2>Training Load</h2>
+        <div class="chart-container">
+            <canvas id="load-chart"></canvas>
+        </div>
+
+    </div>
+
+</div>
+
+    
 <script>
 document.addEventListener("DOMContentLoaded", () => {
 

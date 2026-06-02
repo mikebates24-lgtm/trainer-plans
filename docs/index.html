@@ -1,1 +1,341 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Nello Training Planner V22d</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root{
+      --bg:#f7f6f2;--surface:#fbfaf7;--surface2:#f2f6f7;--border:#d8d5ce;--text:#28251d;--muted:#68655d;
+      --primary:#7ea3ad;--primary-dark:#5f8791;--ok:#d8ebee;--shadow:0 10px 30px rgba(25,30,35,.08);--radius:20px;
+    }
+    *{box-sizing:border-box} body{margin:0;font-family:Inter,sans-serif;background:var(--bg);color:var(--text)}
+    .wrap{max-width:1120px;margin:0 auto;padding:24px}
+    .badge{display:inline-flex;gap:8px;align-items:center;background:#dce7ea;border-radius:999px;padding:8px 12px;font-size:13px;color:#45616a}
+    h1{font-size:40px;line-height:1.05;margin:16px 0 12px}
+    p{color:var(--muted);margin:0 0 12px}
+    .grid{display:grid;grid-template-columns:1.15fr 1fr;gap:16px}
+    .card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:18px;box-shadow:var(--shadow)}
+    .card h2{margin:0 0 14px;font-size:18px}
+    .row{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+    .field{display:grid;gap:8px;margin-bottom:14px}
+    label{font-size:14px;font-weight:600}
+    input,select,button{font:inherit}
+    input,select{width:100%;padding:14px 15px;border:1px solid var(--border);border-radius:14px;background:white}
+    .filebox{padding:14px 15px;border:1px dashed var(--border);border-radius:14px;background:white;min-height:54px;display:flex;align-items:center}
+    .notice{background:var(--ok);border-radius:16px;padding:15px;color:#39646d;margin-top:6px}
+    .btn{border:0;border-radius:14px;padding:15px 18px;font-weight:700;cursor:pointer}
+    .btn.primary{background:var(--primary);color:white}.btn.primary:hover{background:var(--primary-dark)}
+    .result{margin-top:12px;padding:14px 16px;border-radius:16px;background:#eef7ea;border:1px solid #cfe0c9;color:#355534}
+    .panel{display:grid;gap:12px}
+    .metrics{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+    .mini{border:1px solid var(--border);border-radius:16px;padding:14px;background:white}
+    .mini strong{display:block;font-size:13px;color:var(--muted);margin-bottom:6px}
+    @media (max-width: 900px){.grid,.row,.metrics{grid-template-columns:1fr} h1{font-size:32px}}
+  .weekPlan{margin-top:16px}.weekGrid{display:grid;grid-template-columns:repeat(7,1fr);gap:10px}.dayCard{border:1px solid var(--border);border-radius:16px;padding:12px;background:white;min-height:148px}.dayCard strong{display:block;font-size:14px;margin-bottom:8px}.dayCard span{display:block;color:var(--muted);font-size:13px;line-height:1.45}.controls{margin-top:14px;display:grid;grid-template-columns:1fr 1fr;gap:14px}@media (max-width:900px){.weekGrid,.controls{grid-template-columns:1fr}}.logSection{margin-top:16px}.logList{display:grid;gap:10px}.logItem{border:1px solid var(--border);border-radius:16px;padding:14px;background:white}.logItem strong{display:block;margin-bottom:6px}.logMeta{color:var(--muted);font-size:13px;line-height:1.45}.ftpBox{margin-top:14px;padding:14px 16px;border:1px solid var(--border);border-radius:16px;background:#f7faf4}.ftpBox strong{display:block;margin-bottom:6px}.ftpHint{color:var(--muted);font-size:14px;line-height:1.45}.library{margin-top:16px}.libControls{display:grid;grid-template-columns:2fr 1fr;gap:12px;margin-bottom:12px}.libList{display:grid;gap:10px;max-height:320px;overflow:auto;padding-right:4px}.libItem{border:1px solid var(--border);border-radius:16px;padding:12px 14px;background:white;text-align:left}.libItem strong{display:block;margin-bottom:4px}.libMeta{color:var(--muted);font-size:13px;line-height:1.4}@media(max-width:900px){.libControls{grid-template-columns:1fr}}</style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="badge">V22d · 2 Jun 2026 · Correct weekly structure</div>
+    <h1>Nello Training Planner</h1>
+    <p>This clean build keeps the working browser workflow, weekly planner, and training log, and now adds a conservative FTP suggestion based on the latest recorded workout.</p>
 
+    <div class="grid">
+      <section class="card">
+        <h2>Ride import and confirmation</h2>
+        <div class="row">
+          <div class="field">
+            <label for="ftp">Baseline FTP</label>
+            <input id="ftp" type="number" value="240" />
+          </div>
+          <div class="field">
+            <label for="event">Goal event</label>
+            <input id="event" type="text" value="Nello" />
+          </div>
+        </div>
+
+        <div class="field">
+          <label for="fitFile">Choose FIT file</label>
+          <input id="fitFile" type="file" accept=".fit" />
+        </div>
+
+        <div class="field">
+          <label>Chosen file</label>
+          <div class="filebox" id="chosenFile">No file detected yet.</div>
+        </div>
+
+        <div class="row">
+          <div class="field">
+            <label for="guess">Detected workout guess</label>
+            <input id="guess" type="text" value="No guess yet" readonly />
+          </div>
+          <div class="field">
+            <label for="confirmWorkout">Confirm or correct workout</label>
+            <select id="confirmWorkout">
+              <option>Endurance</option>
+              <option>Tempo</option>
+              <option>Sweet spot</option>
+              <option>Threshold</option>
+              <option>VO2 max</option>
+              <option>Recovery</option>
+              <option>Group ride</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="notice" id="statusBox">Set FTP to match MyWhoosh and then choose today’s ride.</div>
+
+        <div class="panel">
+          <button class="btn primary" id="recordBtn" type="button">Record confirmed workout</button>
+          <div id="recordResult"></div>
+        </div>
+      </section>
+
+      <section class="card">
+        <h2>Post-import analysis</h2>
+        <div class="ftpBox" id="ftpBox">
+          <strong>Suggested FTP</strong>
+          <div id="ftpSuggestion">240 W</div>
+          <div class="ftpHint" id="ftpHint">No workout recorded yet, so the app is holding your current FTP.</div>
+        </div>
+        <div class="metrics">
+          <div class="mini"><strong>Ride evidence</strong><span id="rideEvidence">None yet</span></div>
+          <div class="mini"><strong>Session match</strong><span id="sessionMatch">Pending</span></div>
+          <div class="mini"><strong>FTP source</strong><span id="ftpSource">Manual profile value</span></div>
+          <div class="mini"><strong>Next action</strong><span id="nextAction">Choose a FIT file first.</span></div>
+        </div>
+      
+      <section class="card library">
+        <h2>Workout library</h2>
+        <div class="libControls">
+          <div class="field">
+            <label for="libSearch">Search name or tag</label>
+            <input id="libSearch" type="text" placeholder="e.g. Endurance 60, Tempo, VO2" />
+          </div>
+          <div class="field">
+            <label for="libType">Type</label>
+            <select id="libType">
+              <option value="all" selected>All types</option>
+              <option value="Endurance">Endurance</option>
+              <option value="Tempo">Tempo</option>
+              <option value="Sweet spot">Sweet spot</option>
+              <option value="Threshold">Threshold</option>
+              <option value="VO2 max">VO2 max</option>
+              <option value="Recovery">Recovery</option>
+              <option value="Group ride">Group ride</option>
+            </select>
+          </div>
+        </div>
+        <div class="notice" id="libNote">This is a small example library so you can quickly copy a session name into MyWhoosh.</div>
+        <div class="libList" id="libList"></div>
+      </section>
+
+      <section class="card weekPlan">
+        <h2>Weekly planner</h2>
+        <div class="controls">
+          <div class="field">
+            <label for="hours">Weekly hours available</label>
+            <input id="hours" type="number" step="0.5" value="7.5" />
+          </div>
+          <div class="field">
+            <label for="planStyle">Planning style</label>
+            <select id="planStyle">
+              <option selected>Conservative</option>
+              <option>Balanced</option>
+            </select>
+          </div>
+        </div>
+        <div class="notice" id="planNote">Fixed rides stay on Tuesday and Thursday, with Tuesday treated as the longer group ride.</div>
+        <div class="weekGrid" id="weekGrid"></div>
+      
+      <section class="card logSection">
+        <h2>Training log</h2>
+        <p id="logNote">Recorded rides will appear here in newest-first order.</p>
+        <div class="logList" id="logList"></div>
+      </section>
+    </div>
+  </div>
+
+  <script>
+    const state = { file:null, saved:[] };
+    const $ = id => document.getElementById(id);
+
+    const library = [
+      {name:'Endurance 60 min · Flat', type:'Endurance', notes:'Steady Z2 with short cadence changes.'},
+      {name:'Endurance 90 min · Rolling', type:'Endurance', notes:'Longer aerobic ride with a few short ramps.'},
+      {name:'Tempo 2x15', type:'Tempo', notes:'Two blocks of tempo (Z3) with easy recoveries.'},
+      {name:'Sweet spot 3x10', type:'Sweet spot', notes:'Three 10-minute efforts around sweet-spot power.'},
+      {name:'Threshold 3x8', type:'Threshold', notes:'Three near-FTP efforts with full recoveries.'},
+      {name:'VO2 5x3', type:'VO2 max', notes:'Short, hard repeats with generous rest.'},
+      {name:'Easy recovery 45', type:'Recovery', notes:'Very easy spin with relaxed cadence.'},
+      {name:'Group ride · Social', type:'Group ride', notes:'Chattier ride, mostly endurance with a few surges.'},
+      {name:'Group ride · Racey', type:'Group ride', notes:'Livelier group ride, expect tempo and above.'}
+    ];
+
+    function renderLibrary(){
+      const search = document.getElementById('libSearch');
+      const typeSel = document.getElementById('libType');
+      const list = document.getElementById('libList');
+      const note = document.getElementById('libNote');
+      if(!search || !typeSel || !list || !note) return;
+      const q = (search.value || '').toLowerCase();
+      const type = typeSel.value || 'all';
+      const filtered = library.filter(item => {
+        const matchesType = type === 'all' || item.type === type;
+        const matchesText = !q || item.name.toLowerCase().includes(q) || item.notes.toLowerCase().includes(q);
+        return matchesType && matchesText;
+      });
+      if(!filtered.length){
+        list.innerHTML = '<div class="libItem"><strong>No workouts found</strong><div class="libMeta">Try a broader search or a different type filter.</div></div>';
+        note.textContent = 'No matches for the current filters. This list is just a small example library.';
+        return;
+      }
+      note.textContent = `${filtered.length} workout${filtered.length === 1 ? '' : 's'} match your filters. Click to copy a name.`;
+      list.innerHTML = filtered.map(item => `
+        <button type="button" class="libItem" data-name="${item.name}">
+          <strong>${item.name}</strong>
+          <div class="libMeta">${item.type}</div>
+          <div class="libMeta">${item.notes}</div>
+        </button>`).join('');
+      list.querySelectorAll('button[data-name]').forEach(btn => {
+        btn.addEventListener('click', () => {
+          const name = btn.getAttribute('data-name');
+          if(navigator.clipboard && navigator.clipboard.writeText){
+            navigator.clipboard.writeText(name).catch(()=>{});
+          }
+          note.textContent = `Copied "${name}" to your clipboard so you can paste it into MyWhoosh.`;
+        });
+      });
+    }
+
+    function updateFtpSuggestion(){
+      const current = parseInt($('ftp').value || '240', 10);
+      if(!state.saved.length){
+        $('ftpSuggestion').textContent = current + ' W';
+        $('ftpHint').textContent = 'No workout recorded yet, so the app is holding your current FTP.';
+        return;
+      }
+      const latest = state.saved[0];
+      let suggested = current;
+      let hint = 'Hold current FTP pending more evidence.';
+      if(latest.workout === 'Threshold' || latest.workout === 'VO2 max'){
+        suggested = current + 2;
+        hint = 'Conservative increase of 2 W after a harder session was completed.';
+      } else if(latest.workout === 'Recovery'){
+        suggested = current;
+        hint = 'Recovery rides do not change FTP in this conservative model.';
+      } else if(latest.workout === 'Group ride'){
+        suggested = current;
+        hint = 'Group rides can be variable, so the app is holding FTP until there is clearer evidence.';
+      } else {
+        suggested = current;
+        hint = 'Endurance and steady rides support holding FTP unless harder evidence appears.';
+      }
+      $('ftpSuggestion').textContent = suggested + ' W';
+      $('ftpHint').textContent = hint;
+    }
+
+    function renderLog(){
+      const list = $('logList');
+      const note = $('logNote');
+      if(!state.saved.length){
+        list.innerHTML = '<div class="logItem"><strong>No rides recorded yet</strong><div class="logMeta">Choose a FIT file and record a workout to start your visible training log.</div></div>';
+        note.textContent = 'Recorded rides will appear here in newest-first order.';
+        updateFtpSuggestion();
+        return;
+      }
+      note.textContent = `${state.saved.length} recorded ride${state.saved.length === 1 ? '' : 's'} in this browser session.`;
+      list.innerHTML = state.saved.map(item => `<div class="logItem"><strong>${item.workout}</strong><div class="logMeta">${item.date} · FTP ${item.ftp} W</div><div class="logMeta">File: ${item.file}</div></div>`).join('');
+      updateFtpSuggestion();
+    }
+
+    function guessWorkout(name){
+      const n = (name || '').toLowerCase();
+      if(n.includes('recovery')) return 'Recovery';
+      if(n.includes('tempo')) return 'Tempo';
+      if(n.includes('sweet')) return 'Sweet spot';
+      if(n.includes('threshold')) return 'Threshold';
+      if(n.includes('vo2')) return 'VO2 max';
+      if(n.includes('group')) return 'Group ride';
+      return 'Endurance';
+    }
+
+    $('fitFile').addEventListener('change', e => {
+      const file = e.target.files && e.target.files[0];
+      if(!file){
+        state.file = null;
+        $('chosenFile').textContent = 'No file detected yet.';
+        $('guess').value = 'No guess yet';
+        $('statusBox').textContent = 'No file was detected after the chooser closed.';
+        $('rideEvidence').textContent = 'None yet';
+        $('sessionMatch').textContent = 'Pending';
+        $('nextAction').textContent = 'Choose a FIT file first.';
+        return;
+      }
+      state.file = file;
+      const guess = guessWorkout(file.name);
+      $('chosenFile').textContent = file.name + ' · ' + (file.size / 1024).toFixed(1) + ' KB';
+      $('guess').value = guess;
+      $('confirmWorkout').value = guess;
+      $('statusBox').textContent = 'File accepted successfully. Confirm the workout and then press Record confirmed workout.';
+      $('rideEvidence').textContent = 'File detected';
+      $('sessionMatch').textContent = 'Ready for confirmation';
+      $('nextAction').textContent = 'Press Record confirmed workout.';
+      $('recordResult').innerHTML = '';
+    });
+
+    function buildWeek(){
+      const hours = parseFloat($('hours').value || '7.5');
+      const style = $('planStyle').value;
+      const longTue = style === 'Conservative' ? 1.75 : 2.0;
+      const thuGroup = style === 'Conservative' ? 1.25 : 1.5;
+      const satLong = style === 'Conservative' ? Math.max(2.5, Math.min(3.5, hours * 0.35)) : Math.max(2.75, Math.min(4.0, hours * 0.38));
+      let remaining = Math.max(0, hours - longTue - thuGroup - satLong);
+      const mon = Math.min(1.0, remaining > 0 ? 0.75 : 0); remaining = Math.max(0, remaining - mon);
+      const wed = Math.min(0.75, remaining > 0 ? 0.5 : 0); remaining = Math.max(0, remaining - wed);
+      const fri = Math.min(0.75, remaining > 0 ? 0.5 : 0); remaining = Math.max(0, remaining - fri);
+      const sun = Math.max(0, remaining);
+      const plan = [
+        ['Mon', mon, 'Recovery spin or easy endurance'],
+        ['Tue', longTue, 'Fixed group ride, longer aerobic/tempo day'],
+        ['Wed', wed, 'Rest or short recovery'],
+        ['Thu', thuGroup, 'Fixed group ride, steady endurance'],
+        ['Fri', fri, 'Optional easy spin or rest'],
+        ['Sat', satLong, 'Preferred long ride for Nello preparation'],
+        ['Sun', sun, sun > 0 ? 'Easy endurance or skills ride' : 'Rest']
+      ];
+      $('weekGrid').innerHTML = plan.map(([day,hrs,text]) => `<div class="dayCard"><strong>${day}</strong><span>${hrs.toFixed(1)} h</span><span>${text}</span></div>`).join('');
+      $('planNote').textContent = `Weekly planner built for ${hours.toFixed(1)} h with a ${style.toLowerCase()} approach. Tuesday and Thursday stay fixed, and Saturday remains the main long ride.`;
+    }
+
+    $('recordBtn').addEventListener('click', () => {
+      if(!state.file){
+        $('statusBox').textContent = 'Choose a FIT file first so there is a ride to record.';
+        $('recordResult').innerHTML = '';
+        return;
+      }
+      const workout = $('confirmWorkout').value;
+      const ftp = $('ftp').value || '240';
+      const stamp = new Date().toLocaleString();
+      state.saved.unshift({workout, ftp, file: state.file.name, date: stamp});
+      $('recordResult').innerHTML = '<div class="result">Recorded successfully: <strong>' + workout + '</strong> from ' + state.file.name + ' at FTP ' + ftp + ' W. Saved at ' + stamp + '.</div>';
+      $('statusBox').textContent = 'Workout recorded successfully.';
+      $('rideEvidence').textContent = 'Recorded from chosen FIT file';
+      $('sessionMatch').textContent = workout;
+      $('nextAction').textContent = 'Recording complete.';
+      renderLog();
+    });
+
+    $('hours').addEventListener('input', buildWeek);
+    $('planStyle').addEventListener('change', buildWeek);
+    document.getElementById('libSearch').addEventListener('input', renderLibrary);
+    document.getElementById('libType').addEventListener('change', renderLibrary);
+    buildWeek();
+    renderLog();
+    renderLibrary();
+  </script>
+</body>
+</html>

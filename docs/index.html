@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Nello Training Planner V25</title>
+  <title>Nello Training Planner V25a</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
@@ -88,7 +88,7 @@
 </head>
 <body>
 <div class="wrap">
-  <div class="badge">V25 &middot; 3 Jun 2026 &middot; Robust error handling</div>
+  <div class="badge">V25a &middot; 3 Jun 2026 &middot; Syntax error fix</div>
   <h1>Nello Training Planner</h1>
   <p class="sub">Browser-first training planner. Your training log is saved locally and persists between visits.</p>
 
@@ -140,7 +140,7 @@
       <h2>Coach feedback</h2>
       <div class="coachVoice">
         <div class="coachAvatar">&#127947;</div>
-        <div class="coachBubble" id="coachBubble">Record a workout and I'll give you personalised feedback on how it fits your Nello preparation.</div>
+        <div class="coachBubble" id="coachBubble">Record a workout and I\'ll give you personalised feedback on how it fits your Nello preparation.</div>
       </div>
       <div class="coachDetails" id="coachDetails">
         <div class="coachRow"><span class="coachLabel">Suggested FTP</span><span class="coachValue" id="ftpSuggestion">240 W</span></div>
@@ -281,7 +281,7 @@
     var msgs = {
       build:   '&#x1F7E2; <strong>Build phase</strong> &mdash; focus on aerobic base, sweet spot and threshold. Tuesday long rides are your most important sessions.',
       sharpen: '&#x1F7E1; <strong>Sharpen phase</strong> &mdash; two weeks to go. Reduce volume slightly, keep intensity. Threshold and VO2 on the turbo.',
-      taper:   '&#x1F534; <strong>Taper phase</strong> &mdash; final week. Go easy. Short openers only. Trust the training you've done.'
+      taper:   '&#x1F534; <strong>Taper phase</strong> &mdash; final week. Go easy. Short openers only. Trust the training you\'ve done.'
     };
     el('phaseBox').className = 'phaseBox phase-' + phase;
     el('phaseBox').innerHTML = msgs[phase];
@@ -297,7 +297,7 @@
     var note    = el('coachNote');
 
     if (!state.saved.length) {
-      bubble.textContent = "Record a workout and I'll give you personalised feedback on how it fits your Nello preparation.";
+      bubble.textContent = "Record a workout and I\'ll give you personalised feedback on how it fits your Nello preparation.";
       details.className = 'coachDetails';
       note.className = 'coachNote';
       el('ftpSuggestion').textContent = current + ' W';
@@ -311,35 +311,35 @@
 
     if (workout === 'Threshold' || workout === 'VO2 max') {
       suggested = current + 2;
-      ftpNote = "That was a hard effort — I've nudged your suggested FTP up by 2 W as a conservative signal. A few more sessions like that before we commit to a bigger jump.";
+      ftpNote = "That was a hard effort — I\'ve nudged your suggested FTP up by 2 W as a conservative signal. A few more sessions like that before we commit to a bigger jump.";
     } else if (workout === 'Recovery') {
-      ftpNote = "Recovery sessions don't move FTP — that's by design. These rides are doing important work even if it doesn't feel like it.";
+      ftpNote = "Recovery sessions don\'t move FTP — that\'s by design. These rides are doing important work even if it doesn\'t feel like it.";
     } else if (workout === 'Group ride') {
       ftpNote = "Group rides are hard to quantify for FTP because the effort varies so much. Holding steady for now — a structured turbo session will give us better evidence.";
     } else {
-      ftpNote = "Steady endurance work supports your FTP base but doesn't push it higher on its own. Keep stacking these and pair them with the harder turbo sessions.";
+      ftpNote = "Steady endurance work supports your FTP base but doesn\'t push it higher on its own. Keep stacking these and pair them with the harder turbo sessions.";
     }
 
     if (phase === 'build') {
-      if (workout === 'Threshold')  coachMsg = "Good work on the threshold session — this is exactly what we need in the build phase. You're developing the engine that will carry you through the Nello. Make sure you're recovering properly before Tuesday's group ride.";
-      else if (workout === 'VO2 max')  coachMsg = "VO2 work this early in the block is brave — it'll sharpen you up, but keep an eye on fatigue. If Tuesday's group ride feels sluggish, dial back Wednesday's turbo.";
-      else if (workout === 'Sweet spot') coachMsg = "Sweet spot is the bread and butter of this phase. You're building real sustainable power. Do this consistently over the next two weeks and you'll arrive at the Nello in great shape.";
-      else if (workout === 'Recovery')   coachMsg = "Smart choice taking a recovery session. Rest is where the adaptation happens — don't feel guilty about easy days. Come back fresh for the next structured session.";
-      else if (workout === 'Group ride') coachMsg = "The group ride is your most important session of the week. Make sure you're pushing on the harder efforts rather than just sitting in — you want to arrive at the Nello ready to race, not just ride.";
+      if (workout === 'Threshold')  coachMsg = "Good work on the threshold session — this is exactly what we need in the build phase. You're developing the engine that will carry you through the Nello. Make sure you\'re recovering properly before Tuesday's group ride.";
+      else if (workout === 'VO2 max')  coachMsg = "VO2 work this early in the block is brave — it\'ll sharpen you up, but keep an eye on fatigue. If Tuesday's group ride feels sluggish, dial back Wednesday's turbo.";
+      else if (workout === 'Sweet spot') coachMsg = "Sweet spot is the bread and butter of this phase. You're building real sustainable power. Do this consistently over the next two weeks and you\'ll arrive at the Nello in great shape.";
+      else if (workout === 'Recovery')   coachMsg = "Smart choice taking a recovery session. Rest is where the adaptation happens — don\'t feel guilty about easy days. Come back fresh for the next structured session.";
+      else if (workout === 'Group ride') coachMsg = "The group ride is your most important session of the week. Make sure you\'re pushing on the harder efforts rather than just sitting in — you want to arrive at the Nello ready to race, not just ride.";
       else coachMsg = "Solid endurance work — keep building the aerobic base. Tuesday's group ride should be your main focus this week.";
       nextRec = 'Next turbo: Sweet spot 2×15 or Threshold 2×10';
     } else if (phase === 'sharpen') {
       if (workout === 'Threshold')   coachMsg = "Excellent — threshold work in the sharpen phase is perfect timing. You're honing your race pace. Keep the volume manageable and make sure the quality is there.";
       else if (workout === 'VO2 max') coachMsg = "Good sharpener. Two weeks out this is exactly right — short, sharp, and fast. Don't overdo the volume; the goal now is to feel fast, not just fit.";
-      else if (workout === 'Sweet spot') coachMsg = "Sweet spot is fine here but we're shifting gears now. Your next turbo should step up to threshold or VO2 work to get you feeling sharp for race day.";
-      else if (workout === 'Recovery')   coachMsg = "Good instinct to recover — two weeks out you need to feel fresh as well as fit. Trust the build you've done and come back firing for the next quality session.";
+      else if (workout === 'Sweet spot') coachMsg = "Sweet spot is fine here but we\'re shifting gears now. Your next turbo should step up to threshold or VO2 work to get you feeling sharp for race day.";
+      else if (workout === 'Recovery')   coachMsg = "Good instinct to recover — two weeks out you need to feel fresh as well as fit. Trust the build you\'ve done and come back firing for the next quality session.";
       else if (workout === 'Group ride') coachMsg = "The group ride matters a lot right now — two weeks out this is close to race specificity. Push hard on the surges and practise sitting in a fast-moving group.";
       else coachMsg = "We're in the sharpen phase now — start nudging the intensity up on turbo days. Tuesday's long ride remains your anchor session.";
       nextRec = 'Next turbo: Threshold 3×8 or VO2 5×3';
     } else {
       if (workout === 'Recovery')   coachMsg = "Perfect. Final week is all about keeping the legs ticking over without digging a hole. You've done the work — trust it.";
       else if (workout === 'Threshold') coachMsg = "That's your last hard effort before race day — well done. From here, just easy spins and short openers. No more digging deep until the start line.";
-      else coachMsg = "We're in the taper now. Keep things light and easy. A few short openers on Saturday will have you feeling sharp on race day. Don't be tempted to do more — it won't help.";
+      else coachMsg = "We're in the taper now. Keep things light and easy. A few short openers on Saturday will have you feeling sharp on race day. Don't be tempted to do more — it won\'t help.";
       nextRec = 'Keep it easy: short openers only until race day';
     }
 

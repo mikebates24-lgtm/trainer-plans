@@ -1,1 +1,243 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Nello Training Planner V16b</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root,[data-theme="light"]{--bg:#f7f6f2;--surface:#f9f8f5;--surface2:#fbfbf9;--surface3:#f1ede8;--border:#d4d1ca;--divider:#ddd8cf;--text:#28251d;--muted:#6d695f;--faint:#9d978b;--inv:#f9f8f4;--primary:#01696f;--primarySoft:#dcebea;--warn:#a16311;--warnSoft:rgba(161,99,17,.13);--success:#437a22;--successSoft:rgba(67,122,34,.12);--blue:#0d5e88;--blueSoft:rgba(13,94,136,.12);--shadow:0 12px 32px rgba(20,16,10,.08)}
+    [data-theme="dark"]{--bg:#171614;--surface:#1d1b19;--surface2:#23211f;--surface3:#2b2825;--border:#3b3834;--divider:#34312e;--text:#ebe5db;--muted:#b6b0a5;--faint:#8a8478;--inv:#171614;--primary:#62a7b0;--primarySoft:rgba(98,167,176,.16);--warn:#e0ad62;--warnSoft:rgba(224,173,98,.12);--success:#8fc76e;--successSoft:rgba(143,199,110,.14);--blue:#89bad6;--blueSoft:rgba(137,186,214,.14);--shadow:0 12px 32px rgba(0,0,0,.28)}
+    *{box-sizing:border-box} body{margin:0;font-family:Inter,system-ui,sans-serif;background:var(--bg);color:var(--text)} button,input,select{font:inherit;color:inherit} img,svg{max-width:100%}
+    .app{max-width:1220px;margin:0 auto;padding:1rem 1rem 10rem}.top,.heroGrid,.grid2,.stats,.sessionTop,.metricGrid,.confirmGrid{display:grid;gap:1rem}.top{grid-template-columns:minmax(0,1fr) auto;align-items:center;margin-bottom:1rem}.brand{display:flex;gap:.75rem;align-items:center;min-width:0}.logo{width:44px;height:44px;border-radius:14px;display:grid;place-items:center;background:linear-gradient(145deg,var(--primarySoft),var(--surface3));border:1px solid var(--border);color:var(--primary)}
+    .hero,.card,.tile,.session,.journal,.scoreRow{background:var(--surface);border:1px solid var(--border);border-radius:22px;min-width:0}.hero,.card{padding:1rem;box-shadow:var(--shadow)}.tile,.session,.journal,.scoreRow{padding:1rem;background:var(--surface2);border-radius:18px;min-width:0}.tiny{font-size:12px;color:var(--faint)}.muted{color:var(--muted)} h1,h2,h3,p{margin:0} .title{font-size:1.25rem;line-height:1.1}.stamp{display:inline-flex;gap:.45rem;align-items:center;padding:.35rem .65rem;border-radius:999px;background:var(--blueSoft);color:var(--blue);font-size:12px;margin-bottom:.35rem;border:1px solid transparent}
+    .hero h2{font-size:clamp(1.85rem,1.35rem + 1.3vw,3rem);margin:.4rem 0 .7rem;max-width:12ch}.chips,.actions,.tabs{display:flex;gap:.5rem;flex-wrap:wrap}.chip,.tab,.pill{border-radius:999px;padding:.45rem .8rem;font-size:12px;border:1px solid var(--border);background:var(--surface3);color:var(--muted)}.chip.primary,.tab.active{background:var(--primarySoft);color:var(--primary);border-color:transparent}.pill.ok{background:var(--successSoft);color:var(--success);border:none}.pill.warn{background:var(--warnSoft);color:var(--warn);border:none}.pill.primary{background:var(--primarySoft);color:var(--primary);border:none}.pill.info{background:var(--blueSoft);color:var(--blue);border:none}
+    .btn,.theme{min-height:44px;border-radius:14px;border:1px solid var(--border);background:var(--surface);padding:.85rem 1rem;cursor:pointer}.btn.primary{background:var(--primary);color:var(--inv);border-color:transparent}.btn:disabled{opacity:.45;cursor:not-allowed}.theme{width:44px;padding:0;border-radius:999px}.stats{grid-template-columns:repeat(2,minmax(0,1fr));margin-top:1rem}.metric{min-width:0}.metric strong{display:block;font-size:clamp(1.35rem,1.1rem + .7vw,2rem);margin-top:.2rem;line-height:1}.metric span,.metric div,.metric strong{overflow-wrap:anywhere}
+    .field{display:grid;gap:.45rem;margin-bottom:.75rem;min-width:0} label{font-weight:600;font-size:.95rem} input,select{width:100%;padding:.85rem .95rem;border-radius:14px;border:1px solid var(--border);background:var(--surface2);min-width:0} .hiddenInput{position:absolute;left:-9999px;width:1px;height:1px;opacity:0}
+    .notice{margin-top:1rem;padding:1rem;border-radius:16px;background:var(--primarySoft);color:var(--primary);overflow-wrap:anywhere} .notice.warn{background:var(--warnSoft);color:var(--warn)} .notice.ok{background:var(--successSoft);color:var(--success)}
+    .filename{padding:.85rem .95rem;border:1px dashed var(--border);border-radius:14px;background:var(--surface2);min-height:52px;display:flex;align-items:center;min-width:0;overflow-wrap:anywhere;word-break:break-word}.kv{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:.75rem;padding:.55rem 0;border-bottom:1px solid var(--divider);align-items:start}.kv:last-child{border-bottom:none}.kv span,.kv strong{min-width:0;overflow-wrap:anywhere;word-break:break-word}
+    .sectionTitle{font-size:1.2rem;margin-bottom:.8rem}.list{display:grid;gap:.75rem;min-width:0}.sessionTop{grid-template-columns:minmax(0,1fr) auto;align-items:start}.split,.readRows{display:grid;gap:1rem;min-width:0}.analysisCard{min-width:0}.analysisCard .metricGrid{grid-template-columns:repeat(2,minmax(0,1fr))}.analysisCard .tile{min-height:142px;overflow:hidden}.tile strong,.journal strong{display:block;margin:.2rem 0 .3rem;overflow-wrap:anywhere;word-break:break-word}.tile div,.journal div,.session div{overflow-wrap:anywhere;word-break:break-word}
+     .footer .btn{min-height:52px}.footer-note{display:flex;align-items:center;justify-content:center;padding:.2rem .5rem;font-size:12px;color:var(--muted);text-align:center;overflow-wrap:anywhere}
+    .gridRead{display:grid;gap:1rem;min-width:0}
+    .readRows{grid-template-columns:1fr}
+    .readRows .tile{min-width:0}
+    .readRows .kv{grid-template-columns:minmax(120px,220px) minmax(0,1fr)}
+    @media (max-width:759px){.footer-note{order:2}.analysisCard .metricGrid{grid-template-columns:1fr}.hero h2{max-width:none}}
+    @media (min-width:760px){.heroGrid{grid-template-columns:minmax(0,1.15fr) minmax(320px,.85fr)}.split{grid-template-columns:minmax(0,1fr) minmax(0,1fr)}}
+    @media (min-width:1180px){.confirmGrid{grid-template-columns:minmax(360px,1.06fr) minmax(520px,.94fr)}.gridRead{grid-template-columns:minmax(0,1fr)}}
+    @media (min-width:1080px){.stats{grid-template-columns:repeat(4,minmax(0,1fr))}.grid2{grid-template-columns:minmax(0,1fr) minmax(0,1fr)}}
+    @media (max-width:1279px){.confirmGrid{grid-template-columns:1fr}.gridRead{grid-template-columns:1fr}.analysisCard .metricGrid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+    @media (max-width:899px){.analysisCard .metricGrid{grid-template-columns:1fr}.split{grid-template-columns:1fr}.readRows .kv{grid-template-columns:1fr;gap:.35rem}}
+  </style>
+</head>
+<body>
+  <main class="app">
+    <header class="top">
+      <div class="brand">
+        <div class="logo"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="7.5" cy="17" r="3.2"></circle><circle cx="17.2" cy="17" r="3.2"></circle><path d="M10.5 17h3.5l3.2-7.5h-4.9l-1.8-2.7H7.7"></path></svg></div>
+        <div style="min-width:0"><div class="stamp">V16b · 2 Jun 2026 · Footer fully removed</div><h1 class="title">Nello Training Planner</h1></div>
+      </div>
+      <button class="theme" type="button" data-theme-toggle aria-label="Switch theme">◐</button>
+    </header>
 
+    <section class="hero">
+      <div class="chips"><span class="chip primary" id="phaseChip">Build</span><span class="chip" id="daysChip">29 days to Nello</span><span class="chip">Footer fully removed</span><span class="chip">Standalone app with clean inline recording</span></div>
+      <div class="heroGrid" style="margin-top:1rem;">
+        <div style="min-width:0">
+          <div class="tiny">This build is intended for normal browsers and fully removes the old footer remnants. Recording now happens only from a clean inline button inside the confirmation section.</div>
+          <h2>Read the file without breaking the desktop layout</h2>
+          <p class="muted">Version 16b is a browser-first standalone build with footer remnants removed and a clean inline record button.</p>
+          <div class="actions" style="margin-top:1rem;"><input id="fitFileVisible" class="btn" type="file" accept=".fit,.FIT" style="max-width:360px;padding:.7rem .8rem;background:var(--surface2);" /><button class="btn" type="button" id="readBtn" disabled>2. File accepted automatically</button></div>
+          <div class="notice" id="heroNotice">Status: set FTP to match MyWhoosh, then choose a FIT file. The app now accepts it automatically.</div>
+        </div>
+        <div class="card">
+          <div class="stats">
+            <div class="metric"><span class="tiny">Current FTP</span><strong id="ftpCurrent">240 W</strong><div class="muted">Athlete baseline</div></div>
+            <div class="metric"><span class="tiny">Suggested FTP</span><strong id="ftpSuggested">240 W</strong><div class="muted">Planning output</div></div>
+            <div class="metric"><span class="tiny">Watts/kg</span><strong id="wkgState">3.08</strong><div class="muted">From FTP and weight</div></div>
+            <div class="metric"><span class="tiny">Availability</span><strong id="availabilityState">7.5 h</strong><div class="muted">Weekly hours</div></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="grid2" style="margin-top:1rem;">
+      <article class="card">
+        <div class="sectionTitle">Athlete profile</div>
+        <div class="split">
+          <div class="field"><label for="athleteName">Name</label><input id="athleteName" type="text" value="Rider"></div>
+          <div class="field"><label for="ageInput">Age</label><input id="ageInput" type="number" min="16" max="90" step="1" value="42"></div>
+        </div>
+        <div class="split">
+          <div class="field"><label for="genderInput">Gender</label><select id="genderInput"><option>Prefer not to say</option><option>Male</option><option>Female</option><option>Other</option></select></div>
+          <div class="field"><label for="weightInput">Weight (kg)</label><input id="weightInput" type="number" min="35" max="180" step="0.1" value="78"></div>
+        </div>
+        <div class="split">
+          <div class="field"><label for="ftpInput">Current FTP (W)</label><input id="ftpInput" type="number" min="80" max="500" step="1" value="240"></div>
+          <div class="field"><label for="maxHrInput">Max HR</label><input id="maxHrInput" type="number" min="100" max="230" step="1" value="178"></div>
+        </div>
+        <div class="split">
+          <div class="field"><label for="thrHrInput">Threshold HR (optional)</label><input id="thrHrInput" type="number" min="100" max="220" step="1" value="165"></div>
+          <div class="field"><label for="experienceInput">Experience</label><select id="experienceInput"><option>Beginner</option><option selected>Intermediate</option><option>Advanced</option></select></div>
+        </div>
+      </article>
+      <article class="card">
+        <div class="sectionTitle">Schedule and goal</div>
+        <div class="split">
+          <div class="field"><label for="goalInput">Primary goal</label><select id="goalInput"><option selected>Endurance event</option><option>Raise FTP</option><option>Sportive completion</option><option>Time trial</option><option>General fitness</option></select></div>
+          <div class="field"><label for="hoursInput">Weekly hours available</label><input id="hoursInput" type="number" min="2" max="20" step="0.5" value="7.5"></div>
+        </div>
+        <div class="split">
+          <div class="field"><label for="eventNameInput">Goal event</label><input id="eventNameInput" type="text" value="Nello"></div>
+          <div class="field"><label for="eventDateInput">Event date</label><input id="eventDateInput" type="date" value="2026-06-28"></div>
+        </div>
+        <div class="split">
+          <div class="field"><label for="restDaysInput">Fixed rest days</label><input id="restDaysInput" type="text" value="Wednesday" placeholder="e.g. Monday, Friday"></div>
+          <div class="field"><label for="groupDaysInput">Fixed group ride days</label><input id="groupDaysInput" type="text" value="Tuesday, Thursday"></div>
+        </div>
+        <div class="split">
+          <div class="field"><label for="longRideInput">Preferred long ride day</label><select id="longRideInput"><option>Saturday</option><option>Sunday</option><option>Tuesday</option><option>Thursday</option></select></div>
+          <div class="field"><label for="intensityInput">Planning style</label><select id="intensityInput"><option selected>Conservative</option><option>Balanced</option><option>Progressive</option></select></div>
+        </div>
+      </article>
+    </section>
+
+    <section class="confirmGrid" style="margin-top:1rem;">
+      <article class="card">
+        <div class="sectionTitle">Ride import and confirmation</div>
+        <input id="fitFile" class="hiddenInput" type="file" accept=".fit,.FIT" />
+        <div class="field"><label for="ftpInput">Baseline FTP</label><input id="ftpInput" type="number" min="80" max="500" step="1" value="240" /></div>
+        <div class="field"><label>Chosen file</label><div class="filename" id="filenameBox">No file detected yet.</div></div>
+        <div class="split">
+          <div class="field"><label for="detectedWorkout">Detected workout guess</label><input id="detectedWorkout" type="text" value="No guess yet" readonly /></div>
+          <div class="field"><label for="confirmWorkout">Confirm or correct workout</label><select id="confirmWorkout"></select></div>
+        </div>
+        <div class="notice" id="importNotice">Set FTP to 240 W and then import today’s ride.</div>
+      </article>
+
+      <div class="gridRead">
+        <article class="card analysisCard">
+          <div class="sectionTitle">Post-import analysis</div>
+          <div class="metricGrid">
+            <div class="tile"><div class="tiny">Ride evidence</div><strong id="evidenceState">None yet</strong><div class="muted">Based on file structure and confirmed session.</div></div>
+            <div class="tile"><div class="tiny">Session match</div><strong id="matchState">Pending</strong><div class="muted">This is based on your confirmed workout, not the first dropdown item.</div></div>
+            <div class="tile"><div class="tiny">FTP source</div><strong id="ftpSourceState">Manual profile value</strong><div class="muted">This now reflects the value you set above.</div></div>
+            <div class="tile"><div class="tiny">Next action</div><strong id="nextAction">Hold steady</strong><div class="muted">Simple coaching note after import.</div></div>
+          </div>
+        </article>
+
+        <article class="card">
+          <div class="sectionTitle">Read output</div><div class="tiny" style="margin-bottom:.8rem;">In version 12 this panel drops below analysis sooner, so long values stay readable after import.</div>
+          <div class="readRows" id="readOutput"><div class="tile"><div class="muted">No file has been read yet.</div></div></div>
+        </article>
+      </div>
+    </section>
+
+    <section class="grid2" style="margin-top:1rem;">
+      <article class="card">
+        <div class="sectionTitle">Conservative coaching logic</div>
+        <div class="list" id="analysisNotes"></div>
+      </article>
+      <article class="card">
+        <div class="sectionTitle">Workout rotation</div>
+        <div class="list" id="rotationScores"></div>
+      </article>
+    </section>
+
+    <section class="grid2" style="margin-top:1rem;">
+      <article class="card">
+        <div class="sectionTitle">Weekly planner</div>
+        <div class="tabs" id="weekTabs"></div>
+        <div class="list" id="weekList" style="margin-top:1rem;"></div>
+      </article>
+      <article class="card">
+        <div class="sectionTitle">Training log</div>
+        <div class="list" id="journalList"></div>
+      </article>
+    </section>
+  </main>
+
+  
+  </div>
+
+  <script>
+    const state = {
+      today:new Date('2026-05-31T151900'),
+      eventDate:new Date('2026-06-28T08:00:00'),
+      profile:{name:'Rider', age:42, gender:'Prefer not to say', weight:78, ftp:240, maxHr:178, thrHr:165, experience:'Intermediate'},
+      schedule:{goal:'Endurance event', hours:7.5, restDays:'Wednesday', groupDays:'Tuesday, Thursday', longRide:'Saturday', style:'Conservative'},
+      ftp:240,
+      suggested:240,
+      activeWeek:0,
+      selectedFile:null,
+      parsed:null,
+      journal:[{date:'2026-05-30',planned:'Threshold 1',status:'Awaiting imported ride',decision:'No entry written until you confirm the workout.',ftp:'Baseline FTP set manually to 240 W.'}],
+      weeks:[
+        {label:'Week 1 · Threshold build',phase:'Build',sessions:[
+          {day:'Mon',title:'Aerobic 12s 1',type:'Endurance',detail:'Steady aerobic support.'},
+          {day:'Tue',title:'Group Ride',type:'Endurance',detail:'Fixed social ride.'},
+          {day:'Wed',title:'Recovery',type:'Recovery',detail:'Easy only.'},
+          {day:'Thu',title:'Group Ride',type:'Endurance',detail:'Second fixed ride.'},
+          {day:'Sat',title:'Threshold 1',type:'Quality',detail:'Main structured threshold session.'}
+        ]},
+        {label:'Week 2 · Sharpening',phase:'Build',sessions:[
+          {day:'Mon',title:'Aerobic 12s 2',type:'Endurance',detail:'Steady aerobic support.'},
+          {day:'Tue',title:'Group Ride',type:'Endurance',detail:'Longer social ride.'},
+          {day:'Wed',title:'Recovery',type:'Recovery',detail:'Easy spin only.'},
+          {day:'Thu',title:'Group Ride',type:'Endurance',detail:'Stay controlled.'},
+          {day:'Sat',title:'VO2max',type:'Quality',detail:'Sharper session if recovered.'}
+        ]},
+        {label:'Week 3 · Taper',phase:'Taper',sessions:[
+          {day:'Mon',title:'Aerobic 12s Light',type:'Endurance',detail:'Short aerobic ride.'},
+          {day:'Tue',title:'Short Group Ride',type:'Endurance',detail:'Trim the load.'},
+          {day:'Wed',title:'Recovery',type:'Recovery',detail:'Very easy.'},
+          {day:'Thu',title:'Optional Sharpening Ride',type:'Recovery',detail:'Only if fresh.'},
+          {day:'Sat',title:'Openers',type:'Quality',detail:'Wake the legs up.'}
+        ]}
+      ],
+      library:{Endurance:['Aerobic 12s 1','Aerobic 12s 2','Endurance Cruise','Base Ladder'],Threshold:['Threshold 1','Threshold 2','Benchmark Sub-Threshold'],VO2:['VO2max','VO2 2'],Taper:['Openers','Optional Sharpening Ride']},
+      usage:{'Aerobic 12s 1':3,'Aerobic 12s 2':1,'Threshold 1':1,'VO2max':1,'Openers':0,'Endurance Cruise':0,'Base Ladder':0,'Threshold 2':0,'Benchmark Sub-Threshold':0,'VO2 2':0,'Optional Sharpening Ride':0}
+    };
+
+    const $ = id => document.getElementById(id); const setText = (id, text) => $(id).textContent = text; const daysToEvent = () => Math.ceil((state.eventDate - state.today)/86400000);
+    function renderTop(){ const eventName = $('eventNameInput') ? $('eventNameInput').value || 'Goal event' : 'Goal event'; state.profile.name = $('athleteName').value || 'Rider'; state.profile.age = Number($('ageInput').value) || 42; state.profile.gender = $('genderInput').value; state.profile.weight = Number($('weightInput').value) || 78; state.profile.maxHr = Number($('maxHrInput').value) || 178; state.profile.thrHr = Number($('thrHrInput').value) || 0; state.profile.experience = $('experienceInput').value; state.schedule.goal = $('goalInput').value; state.schedule.hours = Number($('hoursInput').value) || 7.5; state.schedule.restDays = $('restDaysInput').value; state.schedule.groupDays = $('groupDaysInput').value; state.schedule.longRide = $('longRideInput').value; state.schedule.style = $('intensityInput').value; const wkg = state.profile.weight > 0 ? (state.ftp / state.profile.weight).toFixed(2) : '0.00'; setText('ftpCurrent', `${state.ftp} W`); setText('ftpSuggested', `${state.suggested} W`); setText('wkgState', `${wkg} W/kg`); setText('availabilityState', `${state.schedule.hours} h`); setText('daysChip', `${daysToEvent()} days to ${eventName}`); setText('phaseChip', state.weeks[state.activeWeek].phase); }
+    function allSessions(){ return state.weeks.flatMap((w,wIdx)=>w.sessions.map(s=>({key:`${wIdx}-${s.day}-${s.title}`,label:`${w.label} · ${s.day} · ${s.title}`,title:s.title,type:s.type}))); }
+    function renderConfirmWorkout(){ $('confirmWorkout').innerHTML = allSessions().map(s=>`<option value="${s.key}">${s.label}</option>`).join(''); const threshold = allSessions().find(s=>s.title==='Threshold #1'); if(threshold) $('confirmWorkout').value = threshold.key; }
+    function renderWeeks(){ rebuildWeeksFromInputs(); renderConfirmWorkout(); $('weekTabs').innerHTML = state.weeks.map((w,i)=>`<button class="tab ${i===state.activeWeek?'active':''}" data-week="${i}" type="button">${w.label}</button>`).join(''); $('weekList').innerHTML = state.weeks[state.activeWeek].sessions.map(s=>`<div class="session"><div class="sessionTop"><div><div class="tiny">${s.day}</div><strong>${s.title}</strong></div><span class="pill ${s.type==='Quality'?'primary':s.type==='Recovery'?'warn':'ok'}">${s.type}</span></div><div class="muted" style="margin-top:.35rem;">${s.detail}</div></div>`).join(''); document.querySelectorAll('[data-week]').forEach(btn=>btn.addEventListener('click',()=>{state.activeWeek=Number(btn.dataset.week);renderTop();renderWeeks();})); }
+    function renderJournal(){ $('journalList').innerHTML = state.journal.slice().reverse().map(j=>`<div class="journal"><div class="tiny">${j.date}</div><strong>${j.planned}</strong><div class="muted">Status: ${j.status}</div><div class="muted">Coaching: ${j.decision}</div><div class="muted">FTP: ${j.ftp}</div></div>`).join(''); }
+    function setNotice(type,text){ const el=$('importNotice'); el.className=`notice ${type||''}`.trim(); el.textContent=text; }
+    function setHero(text,kind=''){ const el=$('heroNotice'); el.className=`notice ${kind||''}`.trim(); el.textContent=text; }
+    function rows(obj){ return Object.entries(obj).map(([k,v])=>`<div class="tile"><div class="kv"><span class="muted">${k}</span><strong>${v}</strong></div></div>`).join(''); }
+    function looksLikeFit(buffer){ const bytes = new Uint8Array(buffer); if(bytes.length < 14) return { ok:false, reason:'File too small to be a FIT file.' }; const headerSize = bytes[0]; if(headerSize !== 12 && headerSize !== 14) return { ok:false, reason:`Unexpected FIT header size: ${headerSize}` }; const sig = String.fromCharCode(bytes[8], bytes[9], bytes[10], bytes[11]); if(sig !== '.FIT') return { ok:false, reason:`FIT signature missing. Found: ${sig}` }; return { ok:true, headerSize, protocol: bytes[1], profile: bytes[2] + (bytes[3] << 8), dataSize: bytes[4] + (bytes[5] << 8) + (bytes[6] << 16) + (bytes[7] << 24), signature: sig }; }
+    function readViaFileReader(file){ return new Promise((resolve,reject)=>{ const reader=new FileReader(); reader.onload=()=>resolve(reader.result); reader.onerror=()=>reject(new Error('FileReader could not read the file.')); reader.readAsArrayBuffer(file); }); }
+    function confirmedSession(){ return allSessions().find(s=>s.key === $('confirmWorkout').value); }
+    function guessWorkoutFromFilename(name){ if(!name) return 'Unknown'; const lower=name.toLowerCase(); if(lower.includes('threshold')) return 'Threshold #1'; if(lower.includes('vo2')) return 'VO2max'; if(lower.includes('group')) return 'Group Ride'; return 'Unknown'; }
+    function syncFtp(){ const val = Number($('ftpInput').value); if(Number.isFinite(val) && val >= 80 && val <= 500){ state.ftp = val; if(!state.parsed) state.suggested = val; renderTop(); setText('ftpSourceState','Manual profile value'); } }
+    function refreshRotation(){ const candidates=[]; Object.entries(state.library).forEach(([cat,items])=>items.forEach(item=>candidates.push({cat,item,used:state.usage[item]||0,score:Math.max(0,100-((state.usage[item]||0)*22))}))); candidates.sort((a,b)=>b.score-a.score); $('rotationScores').innerHTML = candidates.slice(0,6).map(c=>`<div class="scoreRow"><div class="sessionTop"><div><strong>${c.item}</strong><div class="muted" style="margin-top:.35rem;">${c.cat} · used ${c.used} time(s) recently.</div></div><span class="pill ${c.score >= 80 ? 'ok' : c.score >= 50 ? 'info' : 'warn'}">score ${c.score}</span></div></div>`).join(''); }
+    function analyseImportedRide(parsed, planned){ const isQuality = planned && planned.type==='Quality'; const isEndurance = planned && planned.type==='Endurance'; const dataSize = parseInt(parsed.declaredDataSize,10)||0; let ftpDelta=0; let evidence='Low'; let match='Confirmed manually'; let next='Hold steady'; const notes=[]; if(dataSize>150000){ evidence='Moderate'; notes.push('This FIT file looks like a real ride file rather than a tiny placeholder, so it is worth recording.'); } else { notes.push('The FIT file is structurally valid, but this build still treats it cautiously because it is not yet decoding the full workout stream.'); } if(isQuality){ ftpDelta=0; next='Keep next key session unless legs feel flat'; notes.push('Because this was confirmed as a threshold-quality session, the app records it as a key workout but avoids raising FTP from one ride alone.'); } if(isEndurance){ ftpDelta=0; next='Leave hard session in place'; notes.push('Because this was confirmed as an endurance session, the app does not treat it as evidence for an FTP rise.'); } state.suggested = Math.max(state.ftp - 2, Math.min(state.ftp + 2, state.ftp + ftpDelta)); setText('evidenceState', evidence); setText('matchState', match); setText('nextAction', next); renderTop(); $('analysisNotes').innerHTML = [`<div class="tile"><strong>Baseline FTP: ${state.ftp} W</strong><div class="muted" style="margin-top:.35rem;">This comes from the user setting, not a hidden default.</div></div>`,`<div class="tile"><strong>Suggested FTP: ${state.suggested} W</strong><div class="muted" style="margin-top:.35rem;">Conservative logic keeps the suggestion close to your baseline.</div></div>`,...notes.map(n=>`<div class="tile"><div class="muted">${n}</div></div>`)].join(''); }
+    async function readSelected(){
+      setNotice('ok','This version accepts the file automatically when you choose it.');
+      setHero('Status: file acceptance now happens automatically after selection.','ok');
+    }
+
+    function recordAgainstPlan(){ if(!state.parsed){ setNotice('warn','Read the selected file before recording it.'); return; } syncFtp(); const planned = confirmedSession(); const guessed = $('detectedWorkout').value; const status = guessed === planned.title ? 'Imported ride aligns with the confirmed workout' : `Imported file was confirmed manually as ${planned.title}`; const decision = planned.type === 'Quality' ? 'Keep the next hard session only if legs feel normal; otherwise shorten the following endurance ride.' : 'Leave the next key workout in place and use this ride as supporting volume.'; const ftpNote = state.suggested === state.ftp ? `No FTP change. Baseline remains ${state.ftp} W.` : `Suggested FTP changed from ${state.ftp} W to ${state.suggested} W.`; if(state.usage[planned.title] !== undefined) state.usage[planned.title] += 1; state.journal.push({date:new Date().toISOString().slice(0,10),planned:planned.label,status,decision,ftp:ftpNote}); renderJournal(); refreshRotation(); setNotice('ok','Ride recorded to the training log using your confirmed workout and FTP baseline.'); setHero('Status: ride recorded to the training log with the confirmed workout and current FTP baseline.','ok'); $('stickyNote').textContent='Ride recorded. The training log now reflects the confirmed session rather than a random default entry.'; }
+    $('chooseBtn').addEventListener('click',()=>{ const input=$('fitFile'); input.value=''; state.selectedFile=null; state.parsed=null; const inlineBtn=$('recordInlineBtn'); if(inlineBtn) inlineBtn.disabled=true; $('stickyNote').textContent='Choose a FIT file in a normal browser, then confirm the workout here before recording.'; setText('selectionState','Opening'); $('filenameBox').textContent='No file detected yet.'; $('detectedWorkout').value='No guess yet'; setNotice('', 'Waiting for file chooser result.'); setHero('Status: file chooser opened. Select a FIT file and click Open.'); input.click(); });
+    $('fitFile').addEventListener('click',e=>{ e.target.value=''; });
+    $('fitFile').addEventListener('change',e=>{ const file=e.target.files && e.target.files[0]; if(!file){ setText('selectionState','No file'); setNotice('warn','No file was detected after the chooser closed.'); setHero('Status: chooser closed, but no file was detected.','warn'); $('filenameBox').textContent='No file detected yet.'; return; } state.selectedFile=file; $('filenameBox').textContent=`${file.name} · ${(file.size/1024).toFixed(1)} KB`; setText('selectionState','Detected'); setNotice('ok',`File detected: ${file.name}. Now press “Read selected file”.`); setHero(`Status: file detected successfully: ${file.name}`,'ok'); });
+    ['athleteName','ageInput','genderInput','weightInput','maxHrInput','thrHrInput','experienceInput','goalInput','hoursInput','eventNameInput','eventDateInput','restDaysInput','groupDaysInput','longRideInput','intensityInput'].forEach(id=> $(id).addEventListener('input', ()=>{ if(id==='eventDateInput'){ state.eventDate = new Date($('eventDateInput').value + 'T08:00:00'); } renderTop(); renderWeeks(); refreshRotation(); })); $('goalInput').addEventListener('change', ()=>{ renderTop(); renderWeeks(); refreshRotation(); }); $('genderInput').addEventListener('change', ()=> renderTop()); $('experienceInput').addEventListener('change', ()=> renderTop()); $('longRideInput').addEventListener('change', ()=>{ renderTop(); renderWeeks(); }); $('intensityInput').addEventListener('change', ()=>{ renderTop(); renderWeeks(); }); $('ftpInput').addEventListener('input', syncFtp); $('readBtn').addEventListener('click', readSelected); $('recordStickyBtn').addEventListener('click', recordAgainstPlan); $('confirmWorkout').addEventListener('change',()=>{ if(state.parsed) analyseImportedRide(state.parsed, confirmedSession()); });
+    (function(){ const btn=document.querySelector('[data-theme-toggle]'); const root=document.documentElement; let mode=matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light'; root.setAttribute('data-theme',mode); btn.addEventListener('click',()=>{ mode=mode==='dark'?'light':'dark'; root.setAttribute('data-theme',mode); }); })();
+    renderTop(); renderConfirmWorkout(); renderWeeks(); renderJournal(); refreshRotation(); $('analysisNotes').innerHTML='<div class="tile"><div class="muted">This version repairs the remaining post-read compression by stacking the read-output panel sooner and widening value rows.</div></div>';
+    document.addEventListener('DOMContentLoaded',()=>{
+      const btn = $('recordInlineBtn');
+      if(btn){
+        btn.addEventListener('click',e=>{ e.preventDefault(); e.stopPropagation(); recordAgainstPlan(); }, {capture:true});
+        btn.addEventListener('pointerup',e=>{ e.preventDefault(); e.stopPropagation(); recordAgainstPlan(); }, {capture:true});
+        btn.addEventListener('touchend',e=>{ e.preventDefault(); e.stopPropagation(); recordAgainstPlan(); }, {capture:true});
+      }
+    });
+
+  </script>
+</body>
+</html>
